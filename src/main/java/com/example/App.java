@@ -89,7 +89,7 @@ public class App extends Application {
         bandsPane.setTop(backButton);
         bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
 
-        // department page
+        // unit page
         BorderPane DepartmentsPane = new BorderPane();
         VBox DepartmentsBox = new VBox();
         Text DepartmentsText = new Text("Departments");
