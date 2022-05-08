@@ -1,10 +1,18 @@
 package Classes;
 
-import java.util.Date;
-import java.util.TimeZone;
-
 public class Interview {
-   int id;
-   Date date;
-   TimeZone time;
+   int ID;
+   String date;
+   Applicant applicant;
+   Interviewer interviewer;
+   public Interview(int ID, String date, Applicant applicant, Interviewer interviewer){
+      this.ID = ID;
+      this.date = date;
+      this.applicant = applicant;
+      this.interviewer = interviewer;
+   }
+
+   public Applicant getApplicant() {
+      return applicant;
+   }
 }

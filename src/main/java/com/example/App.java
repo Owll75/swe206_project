@@ -1,6 +1,8 @@
 package com.example;
 
 import Classes.Applicant;
+import Classes.Interview;
+import Classes.Interviewer;
 import Classes.Job;
 import Classes.jobBands;
 import javafx.application.Application;
@@ -15,6 +17,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -28,14 +31,25 @@ public class App extends Application {
         // Used for test purposes
         ArrayList<Applicant> applicantList = new ArrayList<Applicant>();
         ArrayList<Job> jobList = new ArrayList<Job>();
+        ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
+        ArrayList<Interview> interviewList = new ArrayList<Interview>();
         jobList.add(new Job("Program Manager", 1));
         jobList.add(new Job("Product Manager", 1));
-        // for (int i = 0; i < 15; i++){
-        // applicantList.add(new Applicant(i));
-        // }
+
+        interviewerList.add(new Interviewer("Jonathan"));
+        interviewerList.add(new Interviewer("Joseph"));
+        interviewerList.add(new Interviewer("Jotaro"));
+
+        ArrayList<String> interviewerNameList = new ArrayList<String>();
+        for(int i = 0; i<interviewerList.size(); i++){
+            interviewerNameList.add(interviewerList.get(i).getName());
+        }
+
         jobBands band = new jobBands("project management", 1, jobList);
         applicantList.add(new Applicant(16, 4, band));
-
+        for (int i = 0; i < 15; i++){
+            applicantList.add(new Applicant(i, (int)Math.random()*10, band));
+        }
         // sign in page
         BorderPane mainPane = new BorderPane();
         VBox singBox = new VBox(8);
@@ -267,6 +281,56 @@ public class App extends Application {
         jobOfferPane.setTop(backButton4);
 
         createJobButton.setOnAction(e -> primaryStage.setScene(jobOfferScene));
+
+        //Applicant: Make interview appointment
+        BorderPane makeInterviewPane = new BorderPane();
+        VBox makeInterviewBox = new VBox();
+        ComboBox<Integer> applicantComboBox5 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        Label chooseIDLabel5 = new Label("Choose Applicant ID");
+        DatePicker datePicker = new DatePicker();
+        Label pickDateLabel = new Label("Choose a date");
+        ComboBox<String> interviewerComboBox = new ComboBox<>(FXCollections.observableArrayList(interviewerNameList));
+        Label chooseInterviewer = new Label("Choose interviewer");
+        Button reserveInterviewButton = new Button("reserve") ;
+        Label makeInterviewOutcome = new Label();
+
+
+        makeInterviewBox.getChildren().addAll(chooseIDLabel5, applicantComboBox5, pickDateLabel, datePicker, chooseInterviewer, interviewerComboBox, reserveInterviewButton, makeInterviewOutcome);
+        makeInterviewPane.setCenter(makeInterviewBox);
+        Scene makeInterviewScene = new Scene(makeInterviewPane, 1024, 640);
+
+        reserveInterviewButton.setOnAction(ActionEvent -> {
+
+            int interviewsNumber = 0;
+            for (int i = 0; i < applicantList.size(); i++) {
+                if (applicantComboBox5.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
+
+                    //checks that the applicant does not have more than 3 interviews
+                    for (int j = 0; j < interviewList.size(); j++){
+                        if(applicantList.get(i).equals(interviewList.get(j).getApplicant()))
+                            interviewsNumber = interviewsNumber + 1;
+                    }
+                    if(interviewsNumber >= 3){
+                        makeInterviewOutcome.setText("applicant reached maximum interviews");
+                        break;
+                    }
+
+                    for (int j = 0; j < interviewerList.size(); j++) {
+                        if (interviewerComboBox.getSelectionModel().getSelectedItem().equals(interviewerList.get(j).getName())) {
+
+                            interviewList.add(new Interview(interviewList.size(), datePicker.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")), applicantList.get(i), interviewerList.get(j)));
+                            makeInterviewOutcome.setText("interview added");
+                        }
+                    }
+                }
+            }
+        });
+
+        makeInterviewButton.setOnAction(e -> primaryStage.setScene(makeInterviewScene));
+
+        Button backButton9 = new Button("Back");
+        backButton9.setOnAction(e -> primaryStage.setScene(scene5));
+        makeInterviewPane.setTop(backButton9);
 
         //Applicant: Move applicant to offering page
         BorderPane moveToOfferingPane = new BorderPane();
