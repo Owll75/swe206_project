@@ -253,6 +253,151 @@ public class App extends Application {
 
         createJobButton.setOnAction(e -> primaryStage.setScene(jobOfferScene));
 
+        //Applicant: Move applicant to offering page
+        BorderPane moveToOfferingPane = new BorderPane();
+        VBox moveToOfferingBox = new VBox();
+        ComboBox<Integer> applicantComboBox2 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        Label chooseIDLabel2 = new Label("Choose Applicant ID");
+        Label outcome = new Label();
+        Button moveToOfferingButton = new Button("Move to offering");
+        moveToOfferingBox.getChildren().addAll(applicantComboBox2, chooseIDLabel2, moveToOfferingButton, outcome);
+        moveToOfferingPane.setCenter(moveToOfferingBox);
+        Scene moveToOfferingScene = new Scene(moveToOfferingPane, 1024, 640);
+
+        moveApplicantsButton.setOnAction(e -> primaryStage.setScene(moveToOfferingScene));
+        moveToOfferingButton.setOnAction(ActionEvent -> {
+
+
+            for (int i = 0; i < applicantList.size(); i++) {
+                if (applicantComboBox2.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
+                    if(!applicantList.get(i).passedApplication()) {
+                        applicantList.get(i).setPassed(true);
+                        outcome.setText("Applicant moved to offering");
+                    }
+                    else{
+                        outcome.setText("Applicant already moved");
+                    }
+
+                }
+            }
+        });
+
+        Button backButton5 = new Button("Back");
+        backButton5.setOnAction(e -> primaryStage.setScene(scene5));
+        moveToOfferingPane.setTop(backButton5);
+
+        //Applicant: Report applicant
+        BorderPane reportApplicantPane = new BorderPane();
+        VBox reportApplicantBox = new VBox();
+        ComboBox<Integer> applicantComboBox4 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        Label chooseIDLabel4 = new Label("Choose Applicant ID");
+        Label writeReportLabel = new Label();
+        Label reportOutcome = new Label();
+        TextField reportTF = new TextField();
+        reportTF.setMaxSize(409, 9999);
+        Button reportButton = new Button("Send report");
+        Button removeOfferButton = new Button("Remove offer");
+        Scene reportApplicantScene = new Scene(reportApplicantPane, 1024, 640);
+
+        reportApplicantBox.getChildren().addAll(applicantComboBox4, chooseIDLabel4, writeReportLabel, reportTF,reportButton, removeOfferButton, reportOutcome);
+        reportApplicantPane.setCenter(reportApplicantBox);
+
+        reportButton.setOnAction(ActionEvent -> {
+            for (int i = 0; i < applicantList.size(); i++) {
+                if (applicantComboBox4.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
+                    applicantList.get(i).setReport(reportTF.getText());
+                    reportOutcome.setText("Report added to applicant");
+                }
+            }
+        });
+
+        removeOfferButton.setOnAction(ActionEvent -> {
+            for (int i = 0; i < applicantList.size(); i++) {
+                if (applicantComboBox4.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
+                    if(applicantList.get(i).passedApplication()) {
+                        applicantList.get(i).setPassed(false);
+                        reportOutcome.setText("offer removed");
+                    }
+                    else{
+                        reportOutcome.setText("applicant does not have offer");
+                    }
+
+                }
+            }
+        });
+
+        reportApplicantButton.setOnAction(e -> primaryStage.setScene(reportApplicantScene));
+
+        Button backButton8 = new Button("Back");
+        backButton8.setOnAction(e -> primaryStage.setScene(scene5));
+        reportApplicantPane.setTop(backButton8);
+
+        //Applicant: review applicant page
+        BorderPane reviewApplicantPane = new BorderPane();
+        VBox reviewApplicantBox = new VBox();
+        ComboBox<Integer> applicantComboBox3 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        Label chooseIDLabel3 = new Label("Choose Applicant ID");
+        Label applicantLabel = new Label();
+        Label applicantIDLabel = new Label();
+        Label applicantYearsLabel = new Label();
+        Label applicantJobBandLabel = new Label();
+        Label applicantPassedLabel = new Label();
+        Label applicantReportLabel = new Label();
+        Button showInfoButton = new Button("show applicant information");
+        reviewApplicantBox.getChildren().addAll(applicantComboBox3, chooseIDLabel3, showInfoButton, applicantLabel, applicantIDLabel, applicantYearsLabel, applicantJobBandLabel, applicantPassedLabel, applicantReportLabel);
+
+        reviewApplicantPane.setCenter(reviewApplicantBox);
+        Scene reviewApplicantScene = new Scene(reviewApplicantPane, 1024, 640);
+
+        showInfoButton.setOnAction(ActionEvent ->{
+
+            for (int i = 0; i < applicantList.size(); i++) {
+                if (applicantComboBox3.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
+
+                    applicantLabel.setText("Applicant info: ");
+                    applicantIDLabel.setText("Applicant ID: " + applicantList.get(i).getID());
+                    applicantYearsLabel.setText("Years of experience: " + applicantList.get(i).getYearsOfExperience());
+                    applicantJobBandLabel.setText("JobBand: " + applicantList.get(i).getBandName());
+                    applicantPassedLabel.setText("Passed Job Offering: " + applicantList.get(i).passedApplication());
+                    if(!applicantList.get(i).getReport().equals(""))
+                        applicantReportLabel.setText("Report found: " + applicantList.get(i).getReport());
+                    else
+                        applicantReportLabel.setText("");
+
+                }
+            }
+        });
+
+        reviewApplicantButton.setOnAction(e -> primaryStage.setScene(reviewApplicantScene));
+        Button backButton6 = new Button("Back");
+        backButton6.setOnAction(e -> primaryStage.setScene(scene5));
+        reviewApplicantPane.setTop(backButton6);
+
+        //Applicant: Review who pass
+        BorderPane viewWhoPassPane = new BorderPane();
+        VBox viewWhoPassBox = new VBox();
+        Label passedApplicantsLabel = new Label();
+        Button showWhoPassedButtons = new Button("Show who passed");
+        ListView<Integer> applicantsWhoPassedListView = new ListView();
+        viewWhoPassBox.getChildren().addAll(showWhoPassedButtons, passedApplicantsLabel, applicantsWhoPassedListView);
+        viewWhoPassPane.setCenter(viewWhoPassBox);
+        Scene viewWhoPassScene = new Scene(viewWhoPassPane, 1024, 640);
+
+
+        showWhoPassedButtons.setOnAction(ActionEvent -> {
+            applicantsWhoPassedListView.getItems().clear();
+            passedApplicantsLabel.setText("Applicants who passed: ");
+            for(int i = 0; i<applicantList.size(); i++){
+                if(applicantList.get(i).passedApplication())
+                    applicantsWhoPassedListView.getItems().add(applicantList.get(i).getID());
+            }
+        });
+
+        viewWhoPassButton.setOnAction(e -> primaryStage.setScene(viewWhoPassScene));
+
+        Button backButton7 = new Button("Back");
+        backButton7.setOnAction(e -> primaryStage.setScene(scene5));
+        viewWhoPassPane.setTop(backButton7);
     }
 
     public static void main(String[] args) {

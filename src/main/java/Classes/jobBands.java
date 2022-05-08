@@ -12,6 +12,9 @@ public class jobBands {
       this.bandID = bandID;
       this.listOfJobs = listOfJobs;
    }
+   public String getBandName(){
+      return bandName;
+   }
 
    public void addBand(String bandName, int bandID, ArrayList<Job> listOfJobs) {
       new jobBands(bandName, bandID, listOfJobs);

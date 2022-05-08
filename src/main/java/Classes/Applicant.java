@@ -7,10 +7,11 @@ public class Applicant {
     String position;
     jobBands jobBand;
     boolean passed;
+    String report = "";
 
     public Applicant(int ID, int yearsOfExperience, jobBands jobBand) {
         this.ID = ID;
-        passed = true;
+        passed = false;
         this.yearsOfExperience = yearsOfExperience;
         position = "";
         this.jobBand = jobBand;
@@ -33,8 +34,24 @@ public class Applicant {
         return passed;
     }
 
+    public void setPassed(boolean passed){
+        this.passed = passed;
+    }
+
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public void setReport(String report){
+        this.report = report;
+    }
+
+    public String getBandName(){
+        return jobBand.getBandName();
+    }
+
+    public String getReport(){
+        return report;
     }
 
     public ArrayList<Double> createJobOffer() {
