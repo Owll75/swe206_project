@@ -6,9 +6,12 @@ import Classes.jobBands;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -35,36 +38,44 @@ public class App extends Application {
 
         // sign in page
         BorderPane mainPane = new BorderPane();
-        VBox singBox = new VBox();
+        VBox singBox = new VBox(8);
+        singBox.setAlignment(Pos.CENTER);
         Button singinButton = new Button("Sign in");
         singinButton.setMaxSize(409, 64);
-        VBox.setMargin(singinButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(singinButton, new Insets(15, 15, 15, 15));
         TextField usernamefield = new TextField();
         usernamefield.setMaxSize(409, 64);
-        VBox.setMargin(usernamefield, new Insets(15, 15, 15, 15));
+        usernamefield.setPromptText("Enter your Username");
+        // VBox.setMargin(usernamefield, new Insets(15, 15, 15, 15));
         TextField passwordfield = new TextField();
         passwordfield.setMaxSize(409, 64);
-        VBox.setMargin(passwordfield, new Insets(15, 15, 15, 15));
+        passwordfield.setPromptText("Enter your Password");
+        // VBox.setMargin(passwordfield, new Insets(15, 15, 15, 15));
+        singBox.setPadding(new Insets(15, 15, 15, 15));
         singBox.getChildren().addAll(usernamefield, passwordfield, singinButton);
+        mainPane.setPadding(new Insets(15, 15, 15, 15));
         mainPane.setCenter(singBox);
         primaryStage.setScene(new Scene(mainPane, 1024, 640));
         primaryStage.show();
 
         // employer page
         BorderPane employerPane = new BorderPane();
-        VBox emploerBox = new VBox();
+        VBox emploerBox = new VBox(20);
         Text EmploerText = new Text("Emploer Page");
+        EmploerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         Button bandsButton = new Button("Bands");
         bandsButton.setMaxSize(409, 64);
-        VBox.setMargin(bandsButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(bandsButton, new Insets(15, 15, 15, 15));
         Button ApplicantsButton = new Button("Applicants");
         ApplicantsButton.setMaxSize(409, 64);
-        VBox.setMargin(ApplicantsButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(ApplicantsButton, new Insets(15, 15, 15, 15));
         Button DepartmentsButton = new Button("Unit");
         DepartmentsButton.setMaxSize(409, 64);
-        VBox.setMargin(DepartmentsButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(DepartmentsButton, new Insets(15, 15, 15, 15));
         Scene scene2 = new Scene(employerPane, 1024, 640);
         emploerBox.getChildren().addAll(EmploerText, ApplicantsButton, bandsButton, DepartmentsButton);
+        emploerBox.setAlignment(Pos.CENTER);
+        employerPane.setPadding(new Insets(15, 15, 15, 15));
         employerPane.setCenter(emploerBox);
         singinButton.setOnAction(e -> primaryStage.setScene(scene2));
 
@@ -74,22 +85,25 @@ public class App extends Application {
 
         // bands page
         BorderPane bandsPane = new BorderPane();
-        VBox bandsBox = new VBox();
+        VBox bandsBox = new VBox(20);
         Text bandsText = new Text("Bands");
+        bandsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         Button addBandButton = new Button("Add band");
         addBandButton.setMaxSize(409, 64);
-        VBox.setMargin(addBandButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(addBandButton, new Insets(15, 15, 15, 15));
         Button AssignBandButton = new Button("Assign band");
         AssignBandButton.setMaxSize(409, 64);
-        VBox.setMargin(AssignBandButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(AssignBandButton, new Insets(15, 15, 15, 15));
         Button deleteBandButton = new Button("Delete band");
         deleteBandButton.setMaxSize(409, 64);
-        VBox.setMargin(deleteBandButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(deleteBandButton, new Insets(15, 15, 15, 15));
         Button modifyBandButton = new Button("modify band");
         modifyBandButton.setMaxSize(409, 64);
-        VBox.setMargin(modifyBandButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(modifyBandButton, new Insets(15, 15, 15, 15));
         Scene scene3 = new Scene(bandsPane, 1024, 640);
         bandsBox.getChildren().addAll(bandsText, addBandButton, AssignBandButton, deleteBandButton, modifyBandButton);
+        bandsBox.setAlignment(Pos.CENTER);
+        bandsPane.setPadding(new Insets(15, 15, 15, 15));
         bandsPane.setCenter(bandsBox);
 
         Button backButton = new Button("Back");
@@ -100,23 +114,25 @@ public class App extends Application {
 
         // department page
         BorderPane DepartmentsPane = new BorderPane();
-        VBox DepartmentsBox = new VBox();
+        VBox DepartmentsBox = new VBox(20);
         Text DepartmentsText = new Text("Departments");
+        DepartmentsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         Button addDepartButton = new Button("Add department");
         addDepartButton.setMaxSize(409, 64);
-        VBox.setMargin(addDepartButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(addDepartButton, new Insets(15, 15, 15, 15));
         Button deleteDepartButton = new Button("delete department");
         deleteDepartButton.setMaxSize(409, 64);
-        VBox.setMargin(deleteDepartButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(deleteDepartButton, new Insets(15, 15, 15, 15));
         Button modifyDepartButton = new Button("modify department");
         modifyDepartButton.setMaxSize(409, 64);
-        VBox.setMargin(modifyDepartButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(modifyDepartButton, new Insets(15, 15, 15, 15));
         Button viewDepartButton = new Button("view department details");
         viewDepartButton.setMaxSize(409, 64);
-        VBox.setMargin(viewDepartButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(viewDepartButton, new Insets(15, 15, 15, 15));
         Scene scene4 = new Scene(DepartmentsPane, 1024, 640);
-        DepartmentsBox.getChildren().addAll(DepartmentsText, addDepartButton, deleteDepartButton, modifyDepartButton,
-                viewDepartButton);
+        DepartmentsBox.getChildren().addAll(DepartmentsText, addDepartButton, deleteDepartButton, modifyDepartButton,viewDepartButton);
+        DepartmentsBox.setAlignment(Pos.CENTER);
+        DepartmentsPane.setPadding(new Insets(15, 15, 15, 15));
         DepartmentsPane.setCenter(DepartmentsBox);
 
         Button backButto1 = new Button("Back");
@@ -127,32 +143,34 @@ public class App extends Application {
 
         // Applicants
         BorderPane ApplicantsPane = new BorderPane();
-        VBox ApplicantsBox = new VBox();
+        VBox ApplicantsBox = new VBox(20);
         Text ApplicantsText = new Text("Applicants");
+        ApplicantsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         Button createJobButton = new Button("Create Job offer");
         createJobButton.setMaxSize(409, 64);
-        VBox.setMargin(createJobButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(createJobButton, new Insets(15, 15, 15, 15));
         Button makeInterviewButton = new Button("Make interview appointment");
         makeInterviewButton.setMaxSize(409, 64);
-        VBox.setMargin(makeInterviewButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(makeInterviewButton, new Insets(15, 15, 15, 15));
         Button moveApplicantsButton = new Button("Move applicant to offring");
         moveApplicantsButton.setMaxSize(409, 64);
-        VBox.setMargin(moveApplicantsButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(moveApplicantsButton, new Insets(15, 15, 15, 15));
         Button reportApplicantButton = new Button("Report applicant");
         reportApplicantButton.setMaxSize(409, 64);
-        VBox.setMargin(reportApplicantButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(reportApplicantButton, new Insets(15, 15, 15, 15));
         Button reviewApplicantButton = new Button("review applicant");
         reviewApplicantButton.setMaxSize(409, 64);
-        VBox.setMargin(reviewApplicantButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(reviewApplicantButton, new Insets(15, 15, 15, 15));
         Button viewWhoPassButton = new Button("Review who pass");
         viewWhoPassButton.setMaxSize(409, 64);
-        VBox.setMargin(viewWhoPassButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(viewWhoPassButton, new Insets(15, 15, 15, 15));
         Button ReviewInterviewResultsButton = new Button("Review interview results");
         ReviewInterviewResultsButton.setMaxSize(409, 64);
-        VBox.setMargin(ReviewInterviewResultsButton, new Insets(15, 15, 15, 15));
+        // VBox.setMargin(ReviewInterviewResultsButton, new Insets(15, 15, 15, 15));
         Scene scene5 = new Scene(ApplicantsPane, 1024, 640);
-        ApplicantsBox.getChildren().addAll(ApplicantsText, createJobButton, makeInterviewButton, moveApplicantsButton,
-                reportApplicantButton, reviewApplicantButton, viewWhoPassButton, ReviewInterviewResultsButton);
+        ApplicantsBox.getChildren().addAll(ApplicantsText, createJobButton, makeInterviewButton, moveApplicantsButton,reportApplicantButton, reviewApplicantButton, viewWhoPassButton, ReviewInterviewResultsButton);
+        ApplicantsBox.setAlignment(Pos.CENTER);
+        ApplicantsPane.setPadding(new Insets(15, 15, 15, 15));
         ApplicantsPane.setCenter(ApplicantsBox);
 
         Button backButto2 = new Button("Back");
@@ -163,7 +181,7 @@ public class App extends Application {
 
         // Applicant: Create Job Offer
         BorderPane jobOfferPane = new BorderPane();
-        VBox jobOfferBox = new VBox();
+        VBox jobOfferBox = new VBox(20);
 
         ArrayList<Integer> IDList = new ArrayList<>();
         for (int i = 0; i < applicantList.size(); i++) {
