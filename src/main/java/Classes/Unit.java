@@ -7,21 +7,4 @@ public abstract class Unit {
 
         name = _name;
     }
-
-    public void View() {
-
-    }
-
-    public void modify() {
-
-    }
-
-    public void delete() {
-
-    }
-
-    public void add() {
-
-    }
-
 }
