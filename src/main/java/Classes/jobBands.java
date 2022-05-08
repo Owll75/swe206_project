@@ -1,9 +1,18 @@
 package Classes;
 
-import java.util.ArrayList;
+public class Job {
+   String jobName;
+   double baseSalary;
 
-public class jobBands {
-   String bandName;
-   int bandID;
-   ArrayList<Job>listOfJobs;
+   public Job(String jobName, double baseSalary) {
+      this.jobName = jobName;
+      this.baseSalary = baseSalary;
+   }
+
+   public double calculateExpectedSalary(Applicant applicant) {
+      double salary = 0;
+      salary = baseSalary + (500 * applicant.getYearsOfExperience());
+
+      return salary;
+   }
 }

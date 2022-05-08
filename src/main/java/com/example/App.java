@@ -1,28 +1,40 @@
 package com.example;
 
+import Classes.Applicant;
+import Classes.Job;
+import Classes.jobBands;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 /**
  * JavaFX App
- * FD
  */
-
 public class App extends Application {
+    int applicantSelection;
 
     public void start(Stage primaryStage) {
+
+        // Used for test purposes
+        ArrayList<Applicant> applicantList = new ArrayList<Applicant>();
+        ArrayList<Job> jobList = new ArrayList<Job>();
+        jobList.add(new Job("Program Manager", 1));
+        jobList.add(new Job("Product Manager", 1));
+        // for (int i = 0; i < 15; i++){
+        // applicantList.add(new Applicant(i));
+        // }
+        jobBands band = new jobBands("project management", 1, jobList);
+        applicantList.add(new Applicant(16, 4, band));
 
         // sign in page
         BorderPane mainPane = new BorderPane();
@@ -89,7 +101,7 @@ public class App extends Application {
         bandsPane.setTop(backButton);
         bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
 
-        // unit page
+        // department page
         BorderPane DepartmentsPane = new BorderPane();
         VBox DepartmentsBox = new VBox();
         Text DepartmentsText = new Text("Departments");
@@ -151,6 +163,95 @@ public class App extends Application {
 
         ApplicantsPane.setTop(backButto2);
         ApplicantsButton.setOnAction(e -> primaryStage.setScene(scene5));
+
+        // Applicant: Create Job Offer
+        BorderPane jobOfferPane = new BorderPane();
+        VBox jobOfferBox = new VBox();
+
+        ArrayList<Integer> IDList = new ArrayList<>();
+        for (int i = 0; i < applicantList.size(); i++) {
+            IDList.add(applicantList.get(i).getID());
+        }
+
+        // intialize variables
+        ComboBox<Integer> applicantComboBox = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        Button showJobOfferButton = new Button("Show job offer");
+        Label chooseIDLabel = new Label("Choose Applicant ID");
+        HBox viewSalaries = new HBox();
+        VBox result = new VBox();
+        Label validLabel = new Label();
+        Label minSalary = new Label();
+        Label expectedSalary = new Label();
+        Label maxSalary = new Label();
+        ToggleGroup tg = new ToggleGroup();
+
+        RadioButton divisionRadioButton = new RadioButton("Divison Level");
+        RadioButton directorateRadioButton = new RadioButton("Directorate Level");
+        RadioButton noneRadioButton = new RadioButton("none");
+
+        TilePane r = new TilePane();
+        divisionRadioButton.setToggleGroup(tg);
+        directorateRadioButton.setToggleGroup(tg);
+        noneRadioButton.setToggleGroup(tg);
+
+        r.getChildren().addAll(divisionRadioButton, directorateRadioButton, noneRadioButton);
+        viewSalaries.getChildren().addAll(result);
+        result.getChildren().add(validLabel);
+        jobOfferBox.getChildren().addAll(applicantComboBox, chooseIDLabel, showJobOfferButton, viewSalaries);
+        jobOfferPane.setCenter(jobOfferBox);
+        Scene jobOfferScene = new Scene(jobOfferPane, 1024, 640);
+
+        showJobOfferButton.setOnAction(ActionEvent -> {
+            boolean valid = false;
+
+            for (int i = 0; i < applicantList.size(); i++) {
+                if (applicantComboBox.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
+
+                    validLabel.setText("");
+                    if (applicantList.get(i).passedApplication()) {
+                        valid = true;
+                        applicantSelection = i;
+
+                        result.getChildren().clear();
+                        // checks if a radio button is chosen
+                        if (divisionRadioButton.isSelected())
+                            applicantList.get(i).setPosition(divisionRadioButton.getText());
+
+                        if (directorateRadioButton.isSelected())
+                            applicantList.get(i).setPosition(directorateRadioButton.getText());
+
+                        if (noneRadioButton.isSelected())
+                            applicantList.get(i).setPosition(noneRadioButton.getText());
+
+                        ArrayList<Double> salaries = applicantList.get(i).createJobOffer();
+                        validLabel.setText("Salaries: ");
+                        minSalary.setText("Minimum salary is " + salaries.get(1));
+                        expectedSalary.setText("Expected salary is " + salaries.get(0));
+                        maxSalary.setText("maximum salary is " + salaries.get(2));
+                        result.getChildren().addAll(validLabel, minSalary, maxSalary, expectedSalary);
+                        viewSalaries.getChildren().clear();
+                        viewSalaries.getChildren().addAll(result, r);
+
+                    }
+
+                }
+
+            }
+            if (!valid) {
+                result.getChildren().clear();
+                validLabel.setText("Is not valid for a job offer");
+                result.getChildren().add(validLabel);
+
+            }
+
+        });
+
+        Button backButton4 = new Button("Back");
+        backButton4.setOnAction(e -> primaryStage.setScene(scene5));
+
+        jobOfferPane.setTop(backButton4);
+
+        createJobButton.setOnAction(e -> primaryStage.setScene(jobOfferScene));
 
     }
 
