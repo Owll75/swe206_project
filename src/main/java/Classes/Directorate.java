@@ -28,4 +28,12 @@ public class Directorate extends Unit {
         super.name = _Name;
     }
 
+    public void removeDepartment(int _ID) {
+        for (int i = 0; i >= listoFDepratments.size(); i++) {
+            if (_ID == listoFDepratments.get(i).getID()) {
+                listoFDepratments.remove(i);
+            }
+        }
+    }
+
 }
