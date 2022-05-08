@@ -51,7 +51,7 @@ public class App extends Application {
         Button ApplicantsButton = new Button("Applicants");
         ApplicantsButton.setMaxSize(409, 64);
         VBox.setMargin(ApplicantsButton, new Insets(15, 15, 15, 15));
-        Button DepartmentsButton = new Button("Departments");
+        Button DepartmentsButton = new Button("Unit");
         DepartmentsButton.setMaxSize(409, 64);
         VBox.setMargin(DepartmentsButton, new Insets(15, 15, 15, 15));
         Scene scene2 = new Scene(employerPane, 1024, 640);
