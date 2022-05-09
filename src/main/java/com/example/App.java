@@ -128,12 +128,95 @@ public class App extends Application {
         bandsBox.setAlignment(Pos.CENTER);
         bandsPane.setPadding(new Insets(15, 15, 15, 15));
         bandsPane.setCenter(bandsBox);
-
         Button backButton = new Button("Back");
         backButton.setOnAction(e -> primaryStage.setScene(scene2));
-
         bandsPane.setTop(backButton);
         bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
+
+        //Add band
+        BorderPane addBandPane = new BorderPane();
+        VBox addBandBox = new VBox(20);
+        Text addBandText = new Text("Add Band");
+        addBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button bandAddButton = new Button("confirm");
+        bandAddButton.setMaxSize(409, 64);
+        TextField bandNamefield1 = new TextField();
+        bandNamefield1.setMaxSize(409, 64);
+        bandNamefield1.setPromptText("Enter Band Name");
+        TextField bandIDfield1 = new TextField();
+        bandIDfield1.setMaxSize(409, 64);
+        bandIDfield1.setPromptText("Enter Band ID");
+        Scene scene8 = new Scene(addBandPane, 1024, 640);
+        addBandBox.setAlignment(Pos.CENTER);
+        addBandPane.setPadding(new Insets(15, 15, 15, 15));
+        addBandPane.setCenter(addBandBox);
+        Button backButto7 = new Button("Back");
+        addBandBox.getChildren().addAll(addBandText,bandIDfield1,bandNamefield1,bandAddButton);
+        backButto7.setOnAction(e -> primaryStage.setScene(scene3));
+        addBandPane.setTop(backButto7);
+        addBandButton.setOnAction(e -> primaryStage.setScene(scene8));
+
+        //delete band
+        BorderPane deleteBandPane = new BorderPane();
+        VBox deleteBandBox = new VBox(20);
+        Text deleteBandText = new Text("Delete Band");
+        deleteBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        ComboBox<jobBands> bandsComboBox = new ComboBox<>();
+        Button bandDeleteButton = new Button("Delete");
+        deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton);
+        bandDeleteButton.setMaxSize(409, 64);
+        bandsComboBox.setMaxSize(409, 64);
+        Scene scene6 = new Scene(deleteBandPane, 1024, 640);
+        deleteBandBox.setAlignment(Pos.CENTER);
+        deleteBandPane.setPadding(new Insets(15, 15, 15, 15));
+        deleteBandPane.setCenter(deleteBandBox);
+        Button backButto5 = new Button("Back");
+        backButto5.setOnAction(e -> primaryStage.setScene(scene3));
+        deleteBandPane.setTop(backButto5);
+        deleteBandButton.setOnAction(e -> primaryStage.setScene(scene6));
+        //modify band
+        BorderPane modifyBandPane = new BorderPane();
+        VBox modifyBandBox = new VBox(20);
+        Text modifyBandText = new Text("Modify Band");
+        modifyBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button bandModifyButton = new Button("confirm");
+        bandDeleteButton.setMaxSize(409, 64);
+        TextField bandNamefield = new TextField();
+        bandNamefield.setMaxSize(409, 64);
+        ComboBox<jobBands> bandsComboBox2 = new ComboBox<>();
+        bandsComboBox2.setMaxSize(409, 64);
+        TextField bandIDfield = new TextField();
+        bandIDfield.setMaxSize(409, 64);
+        Scene scene7 = new Scene(modifyBandPane, 1024, 640);
+        modifyBandBox.setAlignment(Pos.CENTER);
+        modifyBandPane.setPadding(new Insets(15, 15, 15, 15));
+        modifyBandPane.setCenter(modifyBandBox);
+        Button backButto6 = new Button("Back");
+        modifyBandBox.getChildren().addAll(modifyBandText,bandsComboBox2,bandIDfield,bandNamefield,bandModifyButton);
+        backButto6.setOnAction(e -> primaryStage.setScene(scene3));
+        modifyBandPane.setTop(backButto6);
+        modifyBandButton.setOnAction(e -> primaryStage.setScene(scene7));
+        //assign band
+        BorderPane assignBandPane = new BorderPane();
+        VBox assignBandBox = new VBox(20);
+        Text assignBandText = new Text("Assign Band");
+        assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        ComboBox<jobBands> bandsComboBox3 = new ComboBox<>();
+        ComboBox<Job>jobComboBox = new ComboBox<>();
+        Button bandAssignButton = new Button("Assign");
+        bandAssignButton.setMaxSize(409, 64);
+        bandsComboBox3.setMaxSize(409, 64);
+        jobComboBox.setMaxSize(409, 64);
+        assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton);
+        Scene scene9 = new Scene(assignBandPane, 1024, 640);
+        assignBandBox.setAlignment(Pos.CENTER);
+        assignBandPane.setPadding(new Insets(15, 15, 15, 15));
+        assignBandPane.setCenter(assignBandBox);
+        Button backButto8 = new Button("Back");
+        backButto8.setOnAction(e -> primaryStage.setScene(scene3));
+        assignBandPane.setTop(backButto8);
+        AssignBandButton.setOnAction(e -> primaryStage.setScene(scene9));
+
 
         // department page
         BorderPane DepartmentsPane = new BorderPane();
