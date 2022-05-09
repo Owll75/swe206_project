@@ -1,12 +1,8 @@
 package com.example;
-
-import Classes.Applicant;
-import Classes.Interview;
-import Classes.Interviewer;
-import Classes.Job;
-import Classes.jobBands;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,9 +12,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import Classes.Applicant;
+import Classes.Interview;
+import Classes.Interviewer;
+import Classes.Job;
+import Classes.jobBands;
 
 /**
  * JavaFX App
@@ -51,6 +52,8 @@ public class App extends Application {
             applicantList.add(new Applicant(i, (int)Math.random()*10, band));
         }
         // sign in page
+        Text eror = new Text("Enter your username and your password");
+        eror.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         BorderPane mainPane = new BorderPane();
         VBox singBox = new VBox(8);
         singBox.setAlignment(Pos.CENTER);
@@ -66,7 +69,7 @@ public class App extends Application {
         passwordfield.setPromptText("Enter your Password");
         // VBox.setMargin(passwordfield, new Insets(15, 15, 15, 15));
         singBox.setPadding(new Insets(15, 15, 15, 15));
-        singBox.getChildren().addAll(usernamefield, passwordfield, singinButton);
+        singBox.getChildren().addAll(eror, usernamefield, passwordfield, singinButton);
         mainPane.setPadding(new Insets(15, 15, 15, 15));
         mainPane.setCenter(singBox);
         primaryStage.setScene(new Scene(mainPane, 1024, 640));
@@ -91,7 +94,13 @@ public class App extends Application {
         emploerBox.setAlignment(Pos.CENTER);
         employerPane.setPadding(new Insets(15, 15, 15, 15));
         employerPane.setCenter(emploerBox);
-        singinButton.setOnAction(e -> primaryStage.setScene(scene2));
+        singinButton.setOnAction(new EventHandler<ActionEvent>() {		// this button link you to viewCourse screen
+        @Override
+        public void handle(ActionEvent g) {
+            if(usernamefield.getText().equals(passwordfield.getText())) {primaryStage.setScene(scene2);}
+            else {eror.setText("Wrong user name or password");}
+        }
+    });
 
         // back to employer page button
         // Button backButton = new Button("Back");
