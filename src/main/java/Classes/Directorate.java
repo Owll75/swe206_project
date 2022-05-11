@@ -3,15 +3,15 @@ package Classes;
 import java.util.ArrayList;
 
 public class Directorate extends Unit {
-    int direID;
+    String direID;
     ArrayList<Department> listoFDepratments = new ArrayList<Department>();
 
-    public Directorate(String _name, int _direInt) {
+    public Directorate(String _name, String _direInt) {
         super(_name);
         direID = _direInt;
     }
 
-    public int getID() {
+    public String getID() {
         return direID;
     }
 
@@ -19,7 +19,7 @@ public class Directorate extends Unit {
         return super.name;
     }
 
-    public void setID(int _ID) {
+    public void setID(String _ID) {
         direID = _ID;
 
     }
@@ -28,7 +28,7 @@ public class Directorate extends Unit {
         super.name = _Name;
     }
 
-    public void removeDepartment(int _ID) {
+    public void removeDepartment(String _ID) {
         for (int i = 0; i >= listoFDepratments.size(); i++) {
             if (_ID == listoFDepratments.get(i).getID()) {
                 listoFDepratments.remove(i);
