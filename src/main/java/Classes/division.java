@@ -29,4 +29,12 @@ public class division extends Unit {
         super.name = _Name;
     }
 
+    public void removeDirectorate(int _ID) {
+        for (int i = 0; i >= listOfDirectorate.size(); i++) {
+            if (_ID == listOfDirectorate.get(i).getID()) {
+                listOfDirectorate.remove(i);
+            }
+        }
+    }
+
 }
