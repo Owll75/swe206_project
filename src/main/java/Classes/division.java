@@ -6,9 +6,9 @@ public class division extends Unit {
     String divID;
     ArrayList<Directorate> listOfDirectorate = new ArrayList<Directorate>();
 
-    public division(String _name, String _ID) {
+    public division(String _name, String _divID) {
         super(_name);
-        divID = _ID;
+        divID = _divID;
 
     }
 
