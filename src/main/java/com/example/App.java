@@ -391,10 +391,12 @@ public class App extends Application {
         modifyDivButton.setMaxSize(409, 64);
         modifyDivButton.setVisible(false);
         Button modifyDivReturn = new Button("Return");
+        Text modifyDivCheck = new Text();
+        modifyDivCheck.setFont(Font.font("Inter", FontWeight.BOLD, 38));
 
         Scene modifydivScene = new Scene(modifyDivPane, 1024, 640);
         modifyDivBox.getChildren().addAll(modifyDivText, modifyDivNameSer, modifySerButton, modifyDivFi, modifyDivIDFi,
-                modifyDivButton);
+                modifyDivButton, modifyDivCheck);
         modifyDivBox.setAlignment(Pos.CENTER);
         modifyDivPane.setPadding(new Insets(15, 15, 15, 15));
         modifyDivPane.setCenter(modifyDivBox);
@@ -402,6 +404,41 @@ public class App extends Application {
 
         modifyDivPane.setBottom(modifyDivReturn);
         modifyDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
+
+        modifySerButton.setOnAction(e -> {
+            for (int i = 0; i < divisionsList.size(); i++) {
+                if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                    modifyDivFi.setVisible(true);
+                    modifyDivFi.setText(divisionsList.get(i).getName());
+                    modifyDivIDFi.setVisible(true);
+                    modifyDivIDFi.setText(divisionsList.get(i).getID());
+                    modifyDivButton.setVisible(true);
+                }
+            }
+        });
+        modifyDivButton.setOnAction(e -> {
+            if (modifyDivFi.getText().equals("")) {
+                modifyDivCheck.setText("Division name missing, please enter a name");
+
+            } else if (modifyDivIDFi.getText().equals("")) {
+                modifyDivCheck.setText("Division ID missing, Please enter an ID");
+
+            } else {
+                for (int i = 0; i < divisionsList.size(); i++) {
+                    if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        divisionsList.get(i).setName(modifyDivFi.getText());
+                        divisionsList.get(i).setID(modifyDivIDFi.getText());
+
+                    }
+                    modifyDivIDFi.clear();
+                    modifyDivFi.clear();
+                    modifyDivIDFi.setVisible(false);
+                    modifyDivFi.setVisible(false);
+                    modifyDivButton.setVisible(false);
+                    primaryStage.setScene(unitScene);
+                }
+            }
+        });
 
         // Delete Division scene
         BorderPane delDivPane = new BorderPane();
@@ -414,8 +451,8 @@ public class App extends Application {
         Button delSerButton = new Button("Search");
         delSerButton.setMaxSize(409, 64);
         Text delDivResult = new Text();
-        delDivResult.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button delDivButton = new Button("Save");
+        delDivResult.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+        Button delDivButton = new Button("Delete and Save");
         delDivButton.setVisible(false);
         delDivButton.setMaxSize(409, 64);
         Button delDivReturn = new Button("Return");
@@ -429,6 +466,29 @@ public class App extends Application {
 
         delDivPane.setBottom(delDivReturn);
         delDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
+
+        delSerButton.setOnAction(e -> {
+            for (int i = 0; i < divisionsList.size(); i++) {
+                if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                    delDivResult.setVisible(true);
+                    delDivResult.setText(
+                            "Name: " + divisionsList.get(i).getName() + "     ID: " + divisionsList.get(i).getID());
+                    delDivButton.setVisible(true);
+                }
+            }
+        });
+        delDivButton.setOnAction(e -> {
+            for (int i = 0; i < divisionsList.size(); i++) {
+                if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                    divisionsList.remove(i);
+                    delDivResult.setText("");
+                    delDivResult.setVisible(false);
+                    delDivButton.setVisible(false);
+                    primaryStage.setScene(unitScene);
+
+                }
+            }
+        });
 
         // List of divisions scene
         BorderPane listDivPane = new BorderPane();
@@ -447,14 +507,12 @@ public class App extends Application {
         listOfDivisions.setOnAction(e -> {
             primaryStage.setScene(listdivScene);
 
-            System.out.println(divisionsList.get(0).getID() + "before");
             for (int i = 0; i < divisionsList.size(); i++) {
                 String list = "\nName:" + divisionsList.get(i).getName() + "                  ID:   "
                         + divisionsList.get(i).getID();
                 // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
                 listDivBox.getChildren().add(new Text(list));
-                System.out.println(divisionsList.get(0).getID() + "after");
 
             }
 
