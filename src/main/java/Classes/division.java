@@ -3,16 +3,16 @@ package Classes;
 import java.util.ArrayList;
 
 public class division extends Unit {
-    int divID;
+    String divID;
     ArrayList<Directorate> listOfDirectorate = new ArrayList<Directorate>();
 
-    public division(String _name, int _divID) {
+    public division(String _name, String _ID) {
         super(_name);
-        divID = _divID;
+        divID = _ID;
 
     }
 
-    public int getID() {
+    public String getID() {
         return divID;
     }
 
@@ -20,7 +20,7 @@ public class division extends Unit {
         return super.name;
     }
 
-    public void setID(int _ID) {
+    public void setID(String _ID) {
         divID = _ID;
 
     }
