@@ -69,13 +69,14 @@ public class App extends Application {
         singBox.getChildren().addAll(usernamefield, passwordfield,eror, singinButton);
         mainPane.setPadding(new Insets(15, 15, 15, 15));
         mainPane.setCenter(singBox);
-        primaryStage.setScene(new Scene(mainPane, 1024, 640));
+        Scene scene1 = new Scene(mainPane, 1024, 640);
+        primaryStage.setScene(scene1);
         primaryStage.show();
 
         // employer page
         BorderPane employerPane = new BorderPane();
         VBox emploerBox = new VBox(20);
-        Text EmploerText = new Text("Emploer Page");
+        Text EmploerText = new Text("Employer Page");
         EmploerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         Button bandsButton = new Button("Bands");
         bandsButton.setMaxSize(409, 64);
@@ -83,22 +84,14 @@ public class App extends Application {
         ApplicantsButton.setMaxSize(409, 64);
         Button DepartmentsButton = new Button("Unit");
         DepartmentsButton.setMaxSize(409, 64);
+        Button logOutButton = new Button("Log out");
         Scene scene2 = new Scene(employerPane, 1024, 640);
         emploerBox.getChildren().addAll(EmploerText, ApplicantsButton, bandsButton, DepartmentsButton);
         emploerBox.setAlignment(Pos.CENTER);
         employerPane.setPadding(new Insets(15, 15, 15, 15));
         employerPane.setCenter(emploerBox);
-        singinButton.setOnAction(new EventHandler<ActionEvent>() {		// this button link you to viewCourse screen
-        @Override
-        public void handle(ActionEvent g) {
-            if(usernamefield.getText().equals(passwordfield.getText())) {primaryStage.setScene(scene2);}
-            else {eror.setText("Wrong user name or password");}
-        }
-    });
-
-        // back to employer page button
-        // Button backButton = new Button("Back");
-        // backButton.setOnAction(e -> primaryStage.setScene(scene2));
+        employerPane.setTop(logOutButton);
+        logOutButton.setOnAction(e -> primaryStage.setScene(scene1));
 
         // bands page
         BorderPane bandsPane = new BorderPane();
@@ -602,6 +595,42 @@ public class App extends Application {
         Button backButton7 = new Button("Back");
         backButton7.setOnAction(e -> primaryStage.setScene(scene5));
         viewWhoPassPane.setTop(backButton7);
+
+
+        //Interviewer page
+        BorderPane interviewerPane = new BorderPane();
+        VBox interviewerBox = new VBox(20);
+        Text interviewerText = new Text("Interviewer page");
+        interviewerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button viewInterviewResultsButton = new Button("View Interview Results");
+        viewInterviewResultsButton.setMaxSize(409, 64);
+        Button logInterviewResultsButton = new Button("Log Interview Results");
+        logInterviewResultsButton.setMaxSize(409, 64);
+        Scene scene10 = new Scene(interviewerPane, 1024, 640);
+        interviewerBox.getChildren().addAll(interviewerText, viewInterviewResultsButton, logInterviewResultsButton);
+        interviewerBox.setAlignment(Pos.CENTER);
+        interviewerPane.setPadding(new Insets(15, 15, 15, 15));
+        interviewerPane.setCenter(interviewerBox);
+        Button logOutButton10 = new Button("Log out");
+        logOutButton10.setOnAction(e -> primaryStage.setScene(scene1));
+        interviewerPane.setTop(logOutButton10);
+
+        //View Interview Results
+
+
+        //Log Interview Results
+
+
+        //sign in button
+        singinButton.setOnAction(new EventHandler<ActionEvent>() {		// this button link you to viewCourse screen
+            @Override
+            public void handle(ActionEvent g) {
+                if(usernamefield.getText().equals(passwordfield.getText())) {primaryStage.setScene(scene2);}
+                else {
+                    eror.setText("Wrong user name or password");
+                    primaryStage.setScene(scene10);
+                }
+            }});
     }
 
     public static void main(String[] args) {
