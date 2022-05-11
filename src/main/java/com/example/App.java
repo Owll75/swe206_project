@@ -1,5 +1,4 @@
 package com.example;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -17,12 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Classes.Applicant;
-import Classes.Department;
-import Classes.Directorate;
 import Classes.Interview;
 import Classes.Interviewer;
 import Classes.Job;
-import Classes.division;
 import Classes.jobBands;
 
 /**
@@ -46,72 +42,56 @@ public class App extends Application {
         interviewerList.add(new Interviewer("Jotaro"));
 
         ArrayList<String> interviewerNameList = new ArrayList<String>();
-        for (int i = 0; i < interviewerList.size(); i++) {
+        for(int i = 0; i<interviewerList.size(); i++){
             interviewerNameList.add(interviewerList.get(i).getName());
         }
 
         jobBands band = new jobBands("project management", 1, jobList);
         applicantList.add(new Applicant(16, 4, band));
-        for (int i = 0; i < 15; i++) {
-            applicantList.add(new Applicant(i, (int) Math.random() * 10, band));
+        for (int i = 0; i < 15; i++){
+            applicantList.add(new Applicant(i, (int)(Math.random()*10), band));
         }
         // sign in page
-        Text eror = new Text("Enter your username and your password");
-        eror.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         BorderPane mainPane = new BorderPane();
         VBox singBox = new VBox(8);
         singBox.setAlignment(Pos.CENTER);
         Button singinButton = new Button("Sign in");
         singinButton.setMaxSize(409, 64);
-        // VBox.setMargin(singinButton, new Insets(15, 15, 15, 15));
         TextField usernamefield = new TextField();
         usernamefield.setMaxSize(409, 64);
         usernamefield.setPromptText("Enter your Username");
-        // VBox.setMargin(usernamefield, new Insets(15, 15, 15, 15));
         TextField passwordfield = new TextField();
         passwordfield.setMaxSize(409, 64);
         passwordfield.setPromptText("Enter your Password");
-        // VBox.setMargin(passwordfield, new Insets(15, 15, 15, 15));
+        Text eror = new Text("");
+        eror.setFont(Font.font("Arial",14));
         singBox.setPadding(new Insets(15, 15, 15, 15));
-        singBox.getChildren().addAll(eror, usernamefield, passwordfield, singinButton);
+        singBox.getChildren().addAll(usernamefield, passwordfield,eror, singinButton);
         mainPane.setPadding(new Insets(15, 15, 15, 15));
         mainPane.setCenter(singBox);
-        primaryStage.setScene(new Scene(mainPane, 1024, 640));
+        Scene scene1 = new Scene(mainPane, 1024, 640);
+        primaryStage.setScene(scene1);
         primaryStage.show();
 
         // employer page
         BorderPane employerPane = new BorderPane();
         VBox emploerBox = new VBox(20);
-        Text EmploerText = new Text("Emploer Page");
+        Text EmploerText = new Text("Employer Page");
         EmploerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         Button bandsButton = new Button("Bands");
         bandsButton.setMaxSize(409, 64);
-        // VBox.setMargin(bandsButton, new Insets(15, 15, 15, 15));
         Button ApplicantsButton = new Button("Applicants");
         ApplicantsButton.setMaxSize(409, 64);
-        // VBox.setMargin(ApplicantsButton, new Insets(15, 15, 15, 15));
-        Button DepartmentsButton = new Button("Units");
+        Button DepartmentsButton = new Button("Unit");
         DepartmentsButton.setMaxSize(409, 64);
-        // VBox.setMargin(DepartmentsButton, new Insets(15, 15, 15, 15));
+        Button logOutButton = new Button("Log out");
         Scene scene2 = new Scene(employerPane, 1024, 640);
         emploerBox.getChildren().addAll(EmploerText, ApplicantsButton, bandsButton, DepartmentsButton);
         emploerBox.setAlignment(Pos.CENTER);
         employerPane.setPadding(new Insets(15, 15, 15, 15));
         employerPane.setCenter(emploerBox);
-        singinButton.setOnAction(new EventHandler<ActionEvent>() { // this button link you to viewCourse screen
-            @Override
-            public void handle(ActionEvent g) {
-                if (usernamefield.getText().equals(passwordfield.getText())) {
-                    primaryStage.setScene(scene2);
-                } else {
-                    eror.setText("Wrong user name or password");
-                }
-            }
-        });
-
-        // back to employer page button
-        // Button backButton = new Button("Back");
-        // backButton.setOnAction(e -> primaryStage.setScene(scene2));
+        employerPane.setTop(logOutButton);
+        logOutButton.setOnAction(e -> primaryStage.setScene(scene1));
 
         // bands page
         BorderPane bandsPane = new BorderPane();
@@ -135,130 +115,124 @@ public class App extends Application {
         bandsBox.setAlignment(Pos.CENTER);
         bandsPane.setPadding(new Insets(15, 15, 15, 15));
         bandsPane.setCenter(bandsBox);
-
         Button backButton = new Button("Back");
         backButton.setOnAction(e -> primaryStage.setScene(scene2));
-
-        bandsPane.setBottom(backButton);
+        bandsPane.setTop(backButton);
         bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
 
-        // used for unit
+        //Add band
+        BorderPane addBandPane = new BorderPane();
+        VBox addBandBox = new VBox(20);
+        Text addBandText = new Text("Add Band");
+        addBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button bandAddButton = new Button("confirm");
+        bandAddButton.setMaxSize(409, 64);
+        TextField bandNamefield1 = new TextField();
+        bandNamefield1.setMaxSize(409, 64);
+        bandNamefield1.setPromptText("Enter Band Name");
+        TextField bandIDfield1 = new TextField();
+        bandIDfield1.setMaxSize(409, 64);
+        bandIDfield1.setPromptText("Enter Band ID");
+        Scene scene8 = new Scene(addBandPane, 1024, 640);
+        addBandBox.setAlignment(Pos.CENTER);
+        addBandPane.setPadding(new Insets(15, 15, 15, 15));
+        addBandPane.setCenter(addBandBox);
+        Button backButto7 = new Button("Back");
+        addBandBox.getChildren().addAll(addBandText,bandIDfield1,bandNamefield1,bandAddButton);
+        backButto7.setOnAction(e -> primaryStage.setScene(scene3));
+        addBandPane.setTop(backButto7);
+        addBandButton.setOnAction(e -> primaryStage.setScene(scene8));
 
-        ArrayList<division> divisionsList = new ArrayList<division>();
-        ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
-        ArrayList<Department> departmentsList = new ArrayList<Department>();
+        //delete band
+        BorderPane deleteBandPane = new BorderPane();
+        VBox deleteBandBox = new VBox(20);
+        Text deleteBandText = new Text("Delete Band");
+        deleteBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        ComboBox<jobBands> bandsComboBox = new ComboBox<>();
+        Button bandDeleteButton = new Button("Delete");
+        deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton);
+        bandDeleteButton.setMaxSize(409, 64);
+        bandsComboBox.setMaxSize(409, 64);
+        Scene scene6 = new Scene(deleteBandPane, 1024, 640);
+        deleteBandBox.setAlignment(Pos.CENTER);
+        deleteBandPane.setPadding(new Insets(15, 15, 15, 15));
+        deleteBandPane.setCenter(deleteBandBox);
+        Button backButto5 = new Button("Back");
+        backButto5.setOnAction(e -> primaryStage.setScene(scene3));
+        deleteBandPane.setTop(backButto5);
+        deleteBandButton.setOnAction(e -> primaryStage.setScene(scene6));
+        //modify band
+        BorderPane modifyBandPane = new BorderPane();
+        VBox modifyBandBox = new VBox(20);
+        Text modifyBandText = new Text("Modify Band");
+        modifyBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button bandModifyButton = new Button("confirm");
+        bandDeleteButton.setMaxSize(409, 64);
+        TextField bandNamefield = new TextField();
+        bandNamefield.setMaxSize(409, 64);
+        ComboBox<jobBands> bandsComboBox2 = new ComboBox<>();
+        bandsComboBox2.setMaxSize(409, 64);
+        TextField bandIDfield = new TextField();
+        bandIDfield.setMaxSize(409, 64);
+        Scene scene7 = new Scene(modifyBandPane, 1024, 640);
+        modifyBandBox.setAlignment(Pos.CENTER);
+        modifyBandPane.setPadding(new Insets(15, 15, 15, 15));
+        modifyBandPane.setCenter(modifyBandBox);
+        Button backButto6 = new Button("Back");
+        modifyBandBox.getChildren().addAll(modifyBandText,bandsComboBox2,bandIDfield,bandNamefield,bandModifyButton);
+        backButto6.setOnAction(e -> primaryStage.setScene(scene3));
+        modifyBandPane.setTop(backButto6);
+        modifyBandButton.setOnAction(e -> primaryStage.setScene(scene7));
+        //assign band
+        BorderPane assignBandPane = new BorderPane();
+        VBox assignBandBox = new VBox(20);
+        Text assignBandText = new Text("Assign Band");
+        assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        ComboBox<jobBands> bandsComboBox3 = new ComboBox<>();
+        ComboBox<Job>jobComboBox = new ComboBox<>();
+        Button bandAssignButton = new Button("Assign");
+        bandAssignButton.setMaxSize(409, 64);
+        bandsComboBox3.setMaxSize(409, 64);
+        jobComboBox.setMaxSize(409, 64);
+        assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton);
+        Scene scene9 = new Scene(assignBandPane, 1024, 640);
+        assignBandBox.setAlignment(Pos.CENTER);
+        assignBandPane.setPadding(new Insets(15, 15, 15, 15));
+        assignBandPane.setCenter(assignBandBox);
+        Button backButto8 = new Button("Back");
+        backButto8.setOnAction(e -> primaryStage.setScene(scene3));
+        assignBandPane.setTop(backButto8);
+        AssignBandButton.setOnAction(e -> primaryStage.setScene(scene9));
 
-        // units page
+
+        // department page
         BorderPane DepartmentsPane = new BorderPane();
         VBox DepartmentsBox = new VBox(20);
-        Text DepartmentsText = new Text("Units");
+        Text DepartmentsText = new Text("Departments");
         DepartmentsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button divsButton = new Button("Division");
-
-        divsButton.setMaxSize(409, 64);
+        Button addDepartButton = new Button("Add department");
+        addDepartButton.setMaxSize(409, 64);
         // VBox.setMargin(addDepartButton, new Insets(15, 15, 15, 15));
-        Button direcButton = new Button("Directorate");
-        direcButton.setMaxSize(409, 64);
-        Button addDivision = new Button("Add Division");
-        addDivision.setMaxSize(409, 64);
-        Button modifyDivision = new Button("Modify Division");
-        modifyDivision.setMaxSize(409, 64);
-        Button deleteDivision = new Button("Delete Division");
-        deleteDivision.setMaxSize(409, 64);
-        Button listOfDivisions = new Button("List of Divisions");
-        listOfDivisions.setMaxSize(409, 64);
-
-        Scene unitScene = new Scene(DepartmentsPane, 1024, 640);
-        DepartmentsBox.getChildren().addAll(DepartmentsText, divsButton, direcButton, addDivision, modifyDivision,
-                deleteDivision, listOfDivisions);
+        Button deleteDepartButton = new Button("delete department");
+        deleteDepartButton.setMaxSize(409, 64);
+        // VBox.setMargin(deleteDepartButton, new Insets(15, 15, 15, 15));
+        Button modifyDepartButton = new Button("modify department");
+        modifyDepartButton.setMaxSize(409, 64);
+        // VBox.setMargin(modifyDepartButton, new Insets(15, 15, 15, 15));
+        Button viewDepartButton = new Button("view department details");
+        viewDepartButton.setMaxSize(409, 64);
+        // VBox.setMargin(viewDepartButton, new Insets(15, 15, 15, 15));
+        Scene scene4 = new Scene(DepartmentsPane, 1024, 640);
+        DepartmentsBox.getChildren().addAll(DepartmentsText, addDepartButton, deleteDepartButton, modifyDepartButton,viewDepartButton);
         DepartmentsBox.setAlignment(Pos.CENTER);
         DepartmentsPane.setPadding(new Insets(15, 15, 15, 15));
         DepartmentsPane.setCenter(DepartmentsBox);
 
-        Button unitBackButton = new Button("Back");
-        unitBackButton.setOnAction(e -> primaryStage.setScene(scene2));
+        Button backButto1 = new Button("Back");
+        backButto1.setOnAction(e -> primaryStage.setScene(scene2));
 
-        DepartmentsPane.setBottom(unitBackButton);
-        DepartmentsButton.setOnAction(e -> primaryStage.setScene(unitScene));
-
-        // Division page
-
-        BorderPane DivisionPane = new BorderPane();
-        VBox DivisionBox = new VBox(20);
-        Text divisionText = new Text("Division");
-        divisionText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button addDirectorate = new Button("Add Directorate");
-        addDirectorate.setMaxSize(409, 64);
-        Button modifyDirectorate = new Button("Modify Directorate");
-        modifyDirectorate.setMaxSize(409, 64);
-        Button deleteDirectorate = new Button("Delete Directorate");
-        deleteDirectorate.setMaxSize(409, 64);
-        Button viewListOfDirectorate = new Button("View List of Directorates");
-        viewListOfDirectorate.setMaxSize(409, 64);
-
-        Scene divisionScene = new Scene(DivisionPane, 1024, 640);
-        DivisionBox.getChildren().addAll(divisionText, addDirectorate, modifyDirectorate, deleteDirectorate,
-                viewListOfDirectorate);
-        DivisionBox.setAlignment(Pos.CENTER);
-        DivisionPane.setPadding(new Insets(15, 15, 15, 15));
-        DivisionPane.setCenter(DivisionBox);
-
-        Button divisionBackButon = new Button("Back");
-        DivisionPane.setBottom(divisionBackButon);
-        divsButton.setOnAction(e -> primaryStage.setScene(divisionScene));
-        divisionBackButon.setOnAction(e -> primaryStage.setScene(unitScene));
-
-        // Directorate page
-
-        BorderPane DirectoratePane = new BorderPane();
-        VBox DirectorateBox = new VBox(20);
-        Text directorateText = new Text("Directorate");
-        directorateText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button addDepartment = new Button("Add Department");
-        addDepartment.setMaxSize(409, 64);
-        Button modifyDepartment = new Button("Modify Department");
-        modifyDirectorate.setMaxSize(409, 64);
-        Button deleteDepartment = new Button("Delete Department");
-        deleteDirectorate.setMaxSize(409, 64);
-        Button viewListOfDepartment = new Button("View List of Directorate");
-        viewListOfDirectorate.setMaxSize(409, 64);
-
-        Scene directorateScene = new Scene(DirectoratePane, 1024, 640);
-        DirectorateBox.getChildren().addAll(directorateText, addDepartment, modifyDepartment, deleteDepartment,
-                viewListOfDepartment);
-        DirectorateBox.setAlignment(Pos.CENTER);
-        DirectoratePane.setPadding(new Insets(15, 15, 15, 15));
-        DirectoratePane.setCenter(DirectorateBox);
-
-        direcButton.setOnAction(e -> primaryStage.setScene(directorateScene));
-        Button direBackButton = new Button("Back");
-        DirectoratePane.setBottom(direBackButton);
-        direBackButton.setOnAction(e -> primaryStage.setScene(unitScene));
-
-        // Add division scene
-
-        BorderPane AddDivPane = new BorderPane();
-        VBox AddDivBox = new VBox(20);
-        Text divName = new Text("Enter Name and ID to add new division");
-        directorateText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
-        TextField divNameField = new TextField();
-        divNameField.setMaxSize(409, 64);
-        divNameField.setPromptText("Enter Division Name");
-        TextField divIDField = new TextField();
-        divIDField.setPromptText("Enter ID");
-        divIDField.setMaxSize(409, 64);
-        Button addDivSave = new Button("Save and Return");
-        addDivSave.setMaxSize(409, 64);
-
-        Scene diVAddScene = new Scene(AddDivPane, 1024, 640);
-        AddDivBox.getChildren().addAll(divName, divNameField, divIDField, addDivSave);
-        AddDivBox.setAlignment(Pos.CENTER);
-        AddDivPane.setPadding(new Insets(15, 15, 15, 15));
-        AddDivPane.setCenter(AddDivBox);
-        addDivision.setOnAction(e -> primaryStage.setScene(diVAddScene));
-        Button addDivBack = new Button("Back");
-        AddDivPane.setBottom(addDivBack);
-        addDivBack.setOnAction(e -> primaryStage.setScene(unitScene));
+        DepartmentsPane.setTop(backButto1);
+        DepartmentsButton.setOnAction(e -> primaryStage.setScene(scene4));
 
         // Applicants
         BorderPane ApplicantsPane = new BorderPane();
@@ -267,28 +241,20 @@ public class App extends Application {
         ApplicantsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         Button createJobButton = new Button("Create Job offer");
         createJobButton.setMaxSize(409, 64);
-        // VBox.setMargin(createJobButton, new Insets(15, 15, 15, 15));
         Button makeInterviewButton = new Button("Make interview appointment");
         makeInterviewButton.setMaxSize(409, 64);
-        // VBox.setMargin(makeInterviewButton, new Insets(15, 15, 15, 15));
         Button moveApplicantsButton = new Button("Move applicant to offring");
         moveApplicantsButton.setMaxSize(409, 64);
-        // VBox.setMargin(moveApplicantsButton, new Insets(15, 15, 15, 15));
         Button reportApplicantButton = new Button("Report applicant");
         reportApplicantButton.setMaxSize(409, 64);
-        // VBox.setMargin(reportApplicantButton, new Insets(15, 15, 15, 15));
         Button reviewApplicantButton = new Button("review applicant");
         reviewApplicantButton.setMaxSize(409, 64);
-        // VBox.setMargin(reviewApplicantButton, new Insets(15, 15, 15, 15));
         Button viewWhoPassButton = new Button("Review who pass");
         viewWhoPassButton.setMaxSize(409, 64);
-        // VBox.setMargin(viewWhoPassButton, new Insets(15, 15, 15, 15));
         Button ReviewInterviewResultsButton = new Button("Review interview results");
         ReviewInterviewResultsButton.setMaxSize(409, 64);
-        // VBox.setMargin(ReviewInterviewResultsButton, new Insets(15, 15, 15, 15));
         Scene scene5 = new Scene(ApplicantsPane, 1024, 640);
-        ApplicantsBox.getChildren().addAll(ApplicantsText, createJobButton, makeInterviewButton, moveApplicantsButton,
-                reportApplicantButton, reviewApplicantButton, viewWhoPassButton, ReviewInterviewResultsButton);
+        ApplicantsBox.getChildren().addAll(ApplicantsText, createJobButton, makeInterviewButton, moveApplicantsButton,reportApplicantButton, reviewApplicantButton, viewWhoPassButton, ReviewInterviewResultsButton);
         ApplicantsBox.setAlignment(Pos.CENTER);
         ApplicantsPane.setPadding(new Insets(15, 15, 15, 15));
         ApplicantsPane.setCenter(ApplicantsBox);
@@ -300,8 +266,14 @@ public class App extends Application {
         ApplicantsButton.setOnAction(e -> primaryStage.setScene(scene5));
 
         // Applicant: Create Job Offer
+        Text createJobOfferText = new Text("Create Job Offer");
+        createJobOfferText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         BorderPane jobOfferPane = new BorderPane();
         VBox jobOfferBox = new VBox(20);
+        viewDepartButton.setMaxSize(409, 64);
+        jobOfferBox.setAlignment(Pos.CENTER);
+        jobOfferPane.setPadding(new Insets(15, 15, 15, 15));
+        jobOfferPane.setCenter(jobOfferBox);
 
         ArrayList<Integer> IDList = new ArrayList<>();
         for (int i = 0; i < applicantList.size(); i++) {
@@ -310,10 +282,15 @@ public class App extends Application {
 
         // intialize variables
         ComboBox<Integer> applicantComboBox = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        applicantComboBox.setMaxSize(409, 64);
         Button showJobOfferButton = new Button("Show job offer");
-        Label chooseIDLabel = new Label("Choose Applicant ID");
+        showJobOfferButton.setMaxSize(409, 64);
+        Label chooseIDLabel = new Label("Choose Applicant ID: ");
         HBox viewSalaries = new HBox();
-        VBox result = new VBox();
+        viewSalaries.setAlignment(Pos.CENTER);
+        Text createMassage= new Text("");
+        createMassage.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        VBox result = new VBox(10);
         Label validLabel = new Label();
         Label minSalary = new Label();
         Label expectedSalary = new Label();
@@ -332,13 +309,12 @@ public class App extends Application {
         r.getChildren().addAll(divisionRadioButton, directorateRadioButton, noneRadioButton);
         viewSalaries.getChildren().addAll(result);
         result.getChildren().add(validLabel);
-        jobOfferBox.getChildren().addAll(applicantComboBox, chooseIDLabel, showJobOfferButton, viewSalaries);
+        jobOfferBox.getChildren().addAll(createJobOfferText,chooseIDLabel,applicantComboBox,  showJobOfferButton, viewSalaries);
         jobOfferPane.setCenter(jobOfferBox);
         Scene jobOfferScene = new Scene(jobOfferPane, 1024, 640);
 
         showJobOfferButton.setOnAction(ActionEvent -> {
             boolean valid = false;
-
             for (int i = 0; i < applicantList.size(); i++) {
                 if (applicantComboBox.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
 
@@ -346,27 +322,29 @@ public class App extends Application {
                     if (applicantList.get(i).passedApplication()) {
                         valid = true;
                         applicantSelection = i;
-
                         result.getChildren().clear();
                         // checks if a radio button is chosen
-                        if (divisionRadioButton.isSelected())
+                        if (divisionRadioButton.isSelected()){
                             applicantList.get(i).setPosition(divisionRadioButton.getText());
-
-                        if (directorateRadioButton.isSelected())
+                            createMassage.setText("Job offer has been done successfully");
+                        }
+                        if (directorateRadioButton.isSelected()){
                             applicantList.get(i).setPosition(directorateRadioButton.getText());
-
-                        if (noneRadioButton.isSelected())
+                            createMassage.setText("Job offer has been done successfully");
+                        }
+                        if (noneRadioButton.isSelected()){
                             applicantList.get(i).setPosition(noneRadioButton.getText());
+                            createMassage.setText("Job offer has been done successfully");
+                        }
 
                         ArrayList<Double> salaries = applicantList.get(i).createJobOffer();
                         validLabel.setText("Salaries: ");
                         minSalary.setText("Minimum salary is " + salaries.get(1));
                         expectedSalary.setText("Expected salary is " + salaries.get(0));
                         maxSalary.setText("maximum salary is " + salaries.get(2));
-                        result.getChildren().addAll(validLabel, minSalary, maxSalary, expectedSalary);
+                        result.getChildren().addAll(validLabel, minSalary, maxSalary, expectedSalary,createMassage);
                         viewSalaries.getChildren().clear();
                         viewSalaries.getChildren().addAll(result, r);
-
                     }
 
                 }
@@ -376,8 +354,9 @@ public class App extends Application {
                 result.getChildren().clear();
                 validLabel.setText("Is not valid for a job offer");
                 result.getChildren().add(validLabel);
-
             }
+            else
+            showJobOfferButton.setText("Confirm");
 
         });
 
@@ -388,21 +367,28 @@ public class App extends Application {
 
         createJobButton.setOnAction(e -> primaryStage.setScene(jobOfferScene));
 
-        // Applicant: Make interview appointment
+        //Applicant: Make interview appointment
+        Text makeInterviewAppointment = new Text("Make Interview Appointment");
+        makeInterviewAppointment.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         BorderPane makeInterviewPane = new BorderPane();
-        VBox makeInterviewBox = new VBox();
+        VBox makeInterviewBox = new VBox(20);
         ComboBox<Integer> applicantComboBox5 = new ComboBox<>(FXCollections.observableArrayList(IDList));
-        Label chooseIDLabel5 = new Label("Choose Applicant ID");
+        applicantComboBox5.setMaxSize(409, 64);
+        Label chooseIDLabel5 = new Label("Choose Applicant ID:");
         DatePicker datePicker = new DatePicker();
-        Label pickDateLabel = new Label("Choose a date");
+        datePicker.setMaxSize(409, 64);
+        Label pickDateLabel = new Label("Choose a date:");
         ComboBox<String> interviewerComboBox = new ComboBox<>(FXCollections.observableArrayList(interviewerNameList));
-        Label chooseInterviewer = new Label("Choose interviewer");
-        Button reserveInterviewButton = new Button("reserve");
+        interviewerComboBox.setMaxSize(409, 64);
+        Label chooseInterviewer = new Label("Choose interviewer:");
+        Button reserveInterviewButton = new Button("reserve") ;
         Label makeInterviewOutcome = new Label();
 
-        makeInterviewBox.getChildren().addAll(chooseIDLabel5, applicantComboBox5, pickDateLabel, datePicker,
-                chooseInterviewer, interviewerComboBox, reserveInterviewButton, makeInterviewOutcome);
+        makeInterviewBox.getChildren().addAll(makeInterviewAppointment,chooseIDLabel5, applicantComboBox5, pickDateLabel, datePicker, chooseInterviewer, interviewerComboBox, reserveInterviewButton, makeInterviewOutcome);
         makeInterviewPane.setCenter(makeInterviewBox);
+        reserveInterviewButton.setMaxSize(409, 64);
+        makeInterviewBox.setAlignment(Pos.CENTER);
+        makeInterviewPane.setPadding(new Insets(15, 15, 15, 15));
         Scene makeInterviewScene = new Scene(makeInterviewPane, 1024, 640);
 
         reserveInterviewButton.setOnAction(ActionEvent -> {
@@ -411,23 +397,20 @@ public class App extends Application {
             for (int i = 0; i < applicantList.size(); i++) {
                 if (applicantComboBox5.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
 
-                    // checks that the applicant does not have more than 3 interviews
-                    for (int j = 0; j < interviewList.size(); j++) {
-                        if (applicantList.get(i).equals(interviewList.get(j).getApplicant()))
+                    //checks that the applicant does not have more than 3 interviews
+                    for (int j = 0; j < interviewList.size(); j++){
+                        if(applicantList.get(i).equals(interviewList.get(j).getApplicant()))
                             interviewsNumber = interviewsNumber + 1;
                     }
-                    if (interviewsNumber >= 3) {
+                    if(interviewsNumber >= 3){
                         makeInterviewOutcome.setText("applicant reached maximum interviews");
                         break;
                     }
 
                     for (int j = 0; j < interviewerList.size(); j++) {
-                        if (interviewerComboBox.getSelectionModel().getSelectedItem()
-                                .equals(interviewerList.get(j).getName())) {
+                        if (interviewerComboBox.getSelectionModel().getSelectedItem().equals(interviewerList.get(j).getName())) {
 
-                            interviewList.add(new Interview(interviewList.size(),
-                                    datePicker.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")),
-                                    applicantList.get(i), interviewerList.get(j)));
+                            interviewList.add(new Interview(interviewList.size(), datePicker.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")), applicantList.get(i), interviewerList.get(j)));
                             makeInterviewOutcome.setText("interview added");
                         }
                     }
@@ -441,26 +424,34 @@ public class App extends Application {
         backButton9.setOnAction(e -> primaryStage.setScene(scene5));
         makeInterviewPane.setTop(backButton9);
 
-        // Applicant: Move applicant to offering page
+        //Applicant: Move applicant to offering page
+        Text moveApplicantToOfferingPage = new Text("Move Applicant to Offering Page");
+        moveApplicantToOfferingPage.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         BorderPane moveToOfferingPane = new BorderPane();
-        VBox moveToOfferingBox = new VBox();
+        VBox moveToOfferingBox = new VBox(20);
         ComboBox<Integer> applicantComboBox2 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        applicantComboBox2.setMaxSize(409, 64);
         Label chooseIDLabel2 = new Label("Choose Applicant ID");
         Label outcome = new Label();
         Button moveToOfferingButton = new Button("Move to offering");
-        moveToOfferingBox.getChildren().addAll(applicantComboBox2, chooseIDLabel2, moveToOfferingButton, outcome);
+        moveToOfferingBox.getChildren().addAll(moveApplicantToOfferingPage,chooseIDLabel2,applicantComboBox2, moveToOfferingButton, outcome);
         moveToOfferingPane.setCenter(moveToOfferingBox);
+        moveToOfferingButton.setMaxSize(409, 64);
+        moveToOfferingBox.setAlignment(Pos.CENTER);
+        moveToOfferingPane.setPadding(new Insets(15, 15, 15, 15));
         Scene moveToOfferingScene = new Scene(moveToOfferingPane, 1024, 640);
 
         moveApplicantsButton.setOnAction(e -> primaryStage.setScene(moveToOfferingScene));
         moveToOfferingButton.setOnAction(ActionEvent -> {
 
+
             for (int i = 0; i < applicantList.size(); i++) {
                 if (applicantComboBox2.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
-                    if (!applicantList.get(i).passedApplication()) {
+                    if(!applicantList.get(i).passedApplication()) {
                         applicantList.get(i).setPassed(true);
                         outcome.setText("Applicant moved to offering");
-                    } else {
+                    }
+                    else{
                         outcome.setText("Applicant already moved");
                     }
 
@@ -472,21 +463,27 @@ public class App extends Application {
         backButton5.setOnAction(e -> primaryStage.setScene(scene5));
         moveToOfferingPane.setTop(backButton5);
 
-        // Applicant: Report applicant
+        //Applicant: Report applicant
+        Text reportApplicant = new Text("Report Applicant");
+        reportApplicant.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         BorderPane reportApplicantPane = new BorderPane();
-        VBox reportApplicantBox = new VBox();
+        VBox reportApplicantBox = new VBox(20);
         ComboBox<Integer> applicantComboBox4 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        applicantComboBox4.setMaxSize(409, 64);
         Label chooseIDLabel4 = new Label("Choose Applicant ID");
-        Label writeReportLabel = new Label();
         Label reportOutcome = new Label();
         TextField reportTF = new TextField();
-        reportTF.setMaxSize(409, 9999);
+        reportTF.setMaxSize(409, 64);
+        reportTF.setMinWidth(64);
+        reportTF.setMinHeight(100);
         Button reportButton = new Button("Send report");
+        reportButton.setMaxSize(409, 64);
         Button removeOfferButton = new Button("Remove offer");
         Scene reportApplicantScene = new Scene(reportApplicantPane, 1024, 640);
-
-        reportApplicantBox.getChildren().addAll(applicantComboBox4, chooseIDLabel4, writeReportLabel, reportTF,
-                reportButton, removeOfferButton, reportOutcome);
+        removeOfferButton.setMaxSize(409, 64);
+        reportApplicantBox.setAlignment(Pos.CENTER);
+        reportApplicantPane.setPadding(new Insets(15, 15, 15, 15));
+        reportApplicantBox.getChildren().addAll(reportApplicant,chooseIDLabel4,applicantComboBox4, reportTF,reportButton, removeOfferButton, reportOutcome);
         reportApplicantPane.setCenter(reportApplicantBox);
 
         reportButton.setOnAction(ActionEvent -> {
@@ -501,10 +498,11 @@ public class App extends Application {
         removeOfferButton.setOnAction(ActionEvent -> {
             for (int i = 0; i < applicantList.size(); i++) {
                 if (applicantComboBox4.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
-                    if (applicantList.get(i).passedApplication()) {
+                    if(applicantList.get(i).passedApplication()) {
                         applicantList.get(i).setPassed(false);
                         reportOutcome.setText("offer removed");
-                    } else {
+                    }
+                    else{
                         reportOutcome.setText("applicant does not have offer");
                     }
 
@@ -518,10 +516,13 @@ public class App extends Application {
         backButton8.setOnAction(e -> primaryStage.setScene(scene5));
         reportApplicantPane.setTop(backButton8);
 
-        // Applicant: review applicant page
+        //Applicant: review applicant page
+        Text reviewApplicant = new Text("Review Applicant");
+        reviewApplicant.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         BorderPane reviewApplicantPane = new BorderPane();
-        VBox reviewApplicantBox = new VBox();
+        VBox reviewApplicantBox = new VBox(20);
         ComboBox<Integer> applicantComboBox3 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        applicantComboBox3.setMaxSize(409, 64);
         Label chooseIDLabel3 = new Label("Choose Applicant ID");
         Label applicantLabel = new Label();
         Label applicantIDLabel = new Label();
@@ -530,14 +531,14 @@ public class App extends Application {
         Label applicantPassedLabel = new Label();
         Label applicantReportLabel = new Label();
         Button showInfoButton = new Button("show applicant information");
-        reviewApplicantBox.getChildren().addAll(applicantComboBox3, chooseIDLabel3, showInfoButton, applicantLabel,
-                applicantIDLabel, applicantYearsLabel, applicantJobBandLabel, applicantPassedLabel,
-                applicantReportLabel);
-
+        showInfoButton.setMaxSize(409, 64);
+        reviewApplicantBox.getChildren().addAll(reviewApplicant,chooseIDLabel3,applicantComboBox3, showInfoButton, applicantLabel, applicantIDLabel, applicantYearsLabel, applicantJobBandLabel, applicantPassedLabel, applicantReportLabel);
+        reviewApplicantBox.setAlignment(Pos.CENTER);
+        reviewApplicantPane.setPadding(new Insets(15, 15, 15, 15));
         reviewApplicantPane.setCenter(reviewApplicantBox);
         Scene reviewApplicantScene = new Scene(reviewApplicantPane, 1024, 640);
 
-        showInfoButton.setOnAction(ActionEvent -> {
+        showInfoButton.setOnAction(ActionEvent ->{
 
             for (int i = 0; i < applicantList.size(); i++) {
                 if (applicantComboBox3.getSelectionModel().getSelectedItem() == applicantList.get(i).getID()) {
@@ -547,7 +548,7 @@ public class App extends Application {
                     applicantYearsLabel.setText("Years of experience: " + applicantList.get(i).getYearsOfExperience());
                     applicantJobBandLabel.setText("JobBand: " + applicantList.get(i).getBandName());
                     applicantPassedLabel.setText("Passed Job Offering: " + applicantList.get(i).passedApplication());
-                    if (!applicantList.get(i).getReport().equals(""))
+                    if(!applicantList.get(i).getReport().equals(""))
                         applicantReportLabel.setText("Report found: " + applicantList.get(i).getReport());
                     else
                         applicantReportLabel.setText("");
@@ -561,21 +562,30 @@ public class App extends Application {
         backButton6.setOnAction(e -> primaryStage.setScene(scene5));
         reviewApplicantPane.setTop(backButton6);
 
-        // Applicant: Review who pass
+        //Applicant: Review who pass
+        Text ReviewWhoPass = new Text("Review Who Pass");
+        ReviewWhoPass.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         BorderPane viewWhoPassPane = new BorderPane();
         VBox viewWhoPassBox = new VBox();
         Label passedApplicantsLabel = new Label();
         Button showWhoPassedButtons = new Button("Show who passed");
         ListView<Integer> applicantsWhoPassedListView = new ListView();
-        viewWhoPassBox.getChildren().addAll(showWhoPassedButtons, passedApplicantsLabel, applicantsWhoPassedListView);
+        applicantsWhoPassedListView.setMaxSize(409, 64);
+        applicantsWhoPassedListView.setMinWidth(64);
+        applicantsWhoPassedListView.setMinHeight(300);
+        viewWhoPassBox.getChildren().addAll(ReviewWhoPass,showWhoPassedButtons, passedApplicantsLabel, applicantsWhoPassedListView);
         viewWhoPassPane.setCenter(viewWhoPassBox);
         Scene viewWhoPassScene = new Scene(viewWhoPassPane, 1024, 640);
+        showWhoPassedButtons.setMaxSize(409, 64);
+        viewWhoPassBox.setAlignment(Pos.CENTER);
+        viewWhoPassPane.setPadding(new Insets(15, 15, 15, 15));
+
 
         showWhoPassedButtons.setOnAction(ActionEvent -> {
             applicantsWhoPassedListView.getItems().clear();
             passedApplicantsLabel.setText("Applicants who passed: ");
-            for (int i = 0; i < applicantList.size(); i++) {
-                if (applicantList.get(i).passedApplication())
+            for(int i = 0; i<applicantList.size(); i++){
+                if(applicantList.get(i).passedApplication())
                     applicantsWhoPassedListView.getItems().add(applicantList.get(i).getID());
             }
         });
@@ -585,6 +595,42 @@ public class App extends Application {
         Button backButton7 = new Button("Back");
         backButton7.setOnAction(e -> primaryStage.setScene(scene5));
         viewWhoPassPane.setTop(backButton7);
+
+
+        //Interviewer page
+        BorderPane interviewerPane = new BorderPane();
+        VBox interviewerBox = new VBox(20);
+        Text interviewerText = new Text("Interviewer page");
+        interviewerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button viewInterviewResultsButton = new Button("View Interview Results");
+        viewInterviewResultsButton.setMaxSize(409, 64);
+        Button logInterviewResultsButton = new Button("Log Interview Results");
+        logInterviewResultsButton.setMaxSize(409, 64);
+        Scene scene10 = new Scene(interviewerPane, 1024, 640);
+        interviewerBox.getChildren().addAll(interviewerText, viewInterviewResultsButton, logInterviewResultsButton);
+        interviewerBox.setAlignment(Pos.CENTER);
+        interviewerPane.setPadding(new Insets(15, 15, 15, 15));
+        interviewerPane.setCenter(interviewerBox);
+        Button logOutButton10 = new Button("Log out");
+        logOutButton10.setOnAction(e -> primaryStage.setScene(scene1));
+        interviewerPane.setTop(logOutButton10);
+
+        //View Interview Results
+
+
+        //Log Interview Results
+
+
+        //sign in button
+        singinButton.setOnAction(new EventHandler<ActionEvent>() {		// this button link you to viewCourse screen
+            @Override
+            public void handle(ActionEvent g) {
+                if(usernamefield.getText().equals(passwordfield.getText())) {primaryStage.setScene(scene2);}
+                else {
+                    eror.setText("Wrong user name or password");
+                    primaryStage.setScene(scene10);
+                }
+            }});
     }
 
     public static void main(String[] args) {
