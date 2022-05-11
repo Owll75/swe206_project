@@ -1,8 +1,9 @@
 package Classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class jobBands {
+public class jobBands implements Serializable {
    String bandName;
    int bandID;
    ArrayList<Job> listOfJobs;

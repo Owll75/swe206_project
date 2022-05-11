@@ -13,6 +13,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -31,10 +38,12 @@ import Classes.jobBands;
 public class App extends Application {
     int applicantSelection;
 
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
 
         // Used for test purposes
-        ArrayList<Applicant> applicantList = new ArrayList<Applicant>();
+        ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"));
+        ArrayList<Applicant> applicantList = (ArrayList<Applicant>) input.readObject();
+        // ArrayList<Applicant> applicantList = new ArrayList<>();
         ArrayList<Job> jobList = new ArrayList<Job>();
         ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
         ArrayList<Interview> interviewList = new ArrayList<Interview>();
@@ -96,7 +105,24 @@ public class App extends Application {
         employerPane.setPadding(new Insets(15, 15, 15, 15));
         employerPane.setCenter(emploerBox);
         employerPane.setTop(logOutButton);
-        logOutButton.setOnAction(e -> primaryStage.setScene(scene1));
+        logOutButton.setOnAction(ActionEvent -> {
+            primaryStage.setScene(scene1);
+        //Save feature test
+            FileOutputStream fileOut = null;
+            try {
+                fileOut = new FileOutputStream("data.dat");
+                ObjectOutputStream output = new ObjectOutputStream(fileOut);
+                output.writeObject(applicantList);
+                output.close();
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
 
         // bands page
         BorderPane bandsPane = new BorderPane();
@@ -125,7 +151,14 @@ public class App extends Application {
         bandsPane.setTop(backButton);
         bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
 
-        // Add band
+
+        ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
+        bandsList.add(new jobBands("dd", 3444, new ArrayList<>()));
+        ArrayList<String> bandsNamesList = new ArrayList<>();
+            for (int i = 0; i < bandsList.size(); i++) {
+                bandsNamesList.add(bandsList.get(i).getBandName());
+            }
+        //Add band
         BorderPane addBandPane = new BorderPane();
         VBox addBandBox = new VBox(20);
         Text addBandText = new Text("Add Band");
@@ -136,6 +169,7 @@ public class App extends Application {
         bandNamefield1.setMaxSize(409, 64);
         bandNamefield1.setPromptText("Enter Band Name");
         TextField bandIDfield1 = new TextField();
+        Text massage3 = new Text("");
         bandIDfield1.setMaxSize(409, 64);
         bandIDfield1.setPromptText("Enter Band ID");
         Scene scene8 = new Scene(addBandPane, 1024, 640);
@@ -143,19 +177,23 @@ public class App extends Application {
         addBandPane.setPadding(new Insets(15, 15, 15, 15));
         addBandPane.setCenter(addBandBox);
         Button backButto7 = new Button("Back");
-        addBandBox.getChildren().addAll(addBandText, bandIDfield1, bandNamefield1, bandAddButton);
+        addBandBox.getChildren().addAll(addBandText,bandIDfield1,bandNamefield1,bandAddButton,massage3);
         backButto7.setOnAction(e -> primaryStage.setScene(scene3));
         addBandPane.setTop(backButto7);
         addBandButton.setOnAction(e -> primaryStage.setScene(scene8));
-
-        // delete band
+        bandAddButton.setOnAction(ActionEvent -> {
+            bandsList.add(new jobBands(bandNamefield1.getText(),Integer.valueOf(bandIDfield1.getText()), new ArrayList<Job>()));
+            bandsNamesList.add(bandNamefield1.getText());
+            massage3.setText("Bnad added secssfuly");
+        });
+        //delete band
         BorderPane deleteBandPane = new BorderPane();
         VBox deleteBandBox = new VBox(20);
         Text deleteBandText = new Text("Delete Band");
         deleteBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        ComboBox<jobBands> bandsComboBox = new ComboBox<>();
+        ComboBox<String> bandsComboBox = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
         Button bandDeleteButton = new Button("Delete");
-        deleteBandBox.getChildren().addAll(deleteBandText, bandsComboBox, bandDeleteButton);
+        deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton);
         bandDeleteButton.setMaxSize(409, 64);
         bandsComboBox.setMaxSize(409, 64);
         Scene scene6 = new Scene(deleteBandPane, 1024, 640);
@@ -165,8 +203,8 @@ public class App extends Application {
         Button backButto5 = new Button("Back");
         backButto5.setOnAction(e -> primaryStage.setScene(scene3));
         deleteBandPane.setTop(backButto5);
-        deleteBandButton.setOnAction(e -> primaryStage.setScene(scene6));
-        // modify band
+        deleteBandButton.setOnAction(ActionEvent ->{primaryStage.setScene(scene6);});
+        //modify band
         BorderPane modifyBandPane = new BorderPane();
         VBox modifyBandBox = new VBox(20);
         Text modifyBandText = new Text("Modify Band");
@@ -175,7 +213,7 @@ public class App extends Application {
         bandDeleteButton.setMaxSize(409, 64);
         TextField bandNamefield = new TextField();
         bandNamefield.setMaxSize(409, 64);
-        ComboBox<jobBands> bandsComboBox2 = new ComboBox<>();
+        ComboBox<String> bandsComboBox2 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
         bandsComboBox2.setMaxSize(409, 64);
         TextField bandIDfield = new TextField();
         bandIDfield.setMaxSize(409, 64);
@@ -184,23 +222,24 @@ public class App extends Application {
         modifyBandPane.setPadding(new Insets(15, 15, 15, 15));
         modifyBandPane.setCenter(modifyBandBox);
         Button backButto6 = new Button("Back");
-        modifyBandBox.getChildren().addAll(modifyBandText, bandsComboBox2, bandIDfield, bandNamefield,
-                bandModifyButton);
+        modifyBandBox.getChildren().addAll(modifyBandText,bandsComboBox2,bandIDfield,bandNamefield,bandModifyButton);
         backButto6.setOnAction(e -> primaryStage.setScene(scene3));
         modifyBandPane.setTop(backButto6);
         modifyBandButton.setOnAction(e -> primaryStage.setScene(scene7));
-        // assign band
+
+        //
+        //assign band
         BorderPane assignBandPane = new BorderPane();
         VBox assignBandBox = new VBox(20);
         Text assignBandText = new Text("Assign Band");
         assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        ComboBox<jobBands> bandsComboBox3 = new ComboBox<>();
-        ComboBox<Job> jobComboBox = new ComboBox<>();
+        ComboBox<String> bandsComboBox3 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
+        ComboBox<String>jobComboBox = new ComboBox<>();
         Button bandAssignButton = new Button("Assign");
         bandAssignButton.setMaxSize(409, 64);
         bandsComboBox3.setMaxSize(409, 64);
         jobComboBox.setMaxSize(409, 64);
-        assignBandBox.getChildren().addAll(assignBandText, bandsComboBox3, jobComboBox, bandAssignButton);
+        assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton);
         Scene scene9 = new Scene(assignBandPane, 1024, 640);
         assignBandBox.setAlignment(Pos.CENTER);
         assignBandPane.setPadding(new Insets(15, 15, 15, 15));
@@ -808,46 +847,106 @@ public class App extends Application {
         backButton7.setOnAction(e -> primaryStage.setScene(scene5));
         viewWhoPassPane.setTop(backButton7);
 
-        // Interviewer page
-        BorderPane interviewerPane = new BorderPane();
-        VBox interviewerBox = new VBox(20);
-        Text interviewerText = new Text("Interviewer page");
-        interviewerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button viewInterviewResultsButton = new Button("View Interview Results");
-        viewInterviewResultsButton.setMaxSize(409, 64);
-        Button logInterviewResultsButton = new Button("Log Interview Results");
-        logInterviewResultsButton.setMaxSize(409, 64);
-        Scene scene10 = new Scene(interviewerPane, 1024, 640);
-        interviewerBox.getChildren().addAll(interviewerText, viewInterviewResultsButton, logInterviewResultsButton);
-        interviewerBox.setAlignment(Pos.CENTER);
-        interviewerPane.setPadding(new Insets(15, 15, 15, 15));
-        interviewerPane.setCenter(interviewerBox);
-        Button logOutButton10 = new Button("Log out");
-        logOutButton10.setOnAction(e -> primaryStage.setScene(scene1));
-        interviewerPane.setTop(logOutButton10);
 
-        // View Interview Results
 
-        // Log Interview Results
 
-        // sign in button
-        singinButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent g) {
-                if (usernamefield.getText().equals(passwordfield.getText())) {
-                    primaryStage.setScene(scene2);
-                } else {
-                    eror.setText("Wrong user name or password");
-                    primaryStage.setScene(scene10);
-                }
-            }
-        });
-    }
+		//View Interview Results
+		Interviewer example = new Interviewer("example");
+		BorderPane viewerResultPane = new BorderPane();
+		viewerResultPane.setPadding(new Insets(15, 15, 15, 15));
+		Text viewerResultText = new Text("View Interview Results");
+		viewerResultText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+		VBox viewerResulBox = new VBox(20);
+		viewerResulBox.setAlignment(Pos.CENTER);
+		Button backInterview = new Button("Back");
+		ListView<String> listView = new ListView<String>();
+		listView.setMaxSize(409, 64);
+//		for (int i = 0; i < example.getlistOfJobs().size(); i++) {
+//			listView.getItems().add("The result of interview number " + example.getlistOfJobs().get(i).getID()+ " at "
+//					+example.getlistOfJobs().get(i).getDate()+" is " + example.getlistOfJobs().get(i).getResult());
+//		}
+		viewerResulBox.getChildren().addAll(viewerResultText, listView);
 
-    public static void main(String[] args) {
-        launch();
-    }
+		viewerResultPane.setTop(backInterview);
+		viewerResultPane.setCenter(viewerResulBox);
+		Scene sceneview = new Scene(viewerResultPane, 1024, 640);
 
+		//Log Interview Results
+		BorderPane logResultPane = new BorderPane();
+		logResultPane.setPadding(new Insets(15, 15, 15, 15));
+		Text logResultText = new Text("Log Interview Results");
+		logResultText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+		VBox logResulBox = new VBox(20);
+		logResulBox.setAlignment(Pos.CENTER);
+		Button backInterview2 = new Button("Back");
+		Button set = new Button("set");
+		ComboBox<Interview> listComboBox = new ComboBox<>(FXCollections.observableArrayList(interviewList));
+		listComboBox.setMaxSize(409, 64);
+		ArrayList<String> statusList = new ArrayList<String>();
+		statusList.add("Passed");
+		statusList.add("Failed");
+		statusList.add("TBA");
+		ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList(statusList));
+
+		logResulBox.getChildren().addAll(logResultText, listComboBox, statusComboBox, set);
+		logResultPane.setTop(backInterview2);
+		logResultPane.setCenter(logResulBox);
+
+
+		set.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent g) {
+				example.setResult(listComboBox.getSelectionModel().getSelectedItem().getID(), statusComboBox.getSelectionModel().getSelectedItem());
+				System.out.println(listComboBox.getSelectionModel().getSelectedItem().getID());
+				System.out.println(statusComboBox.getSelectionModel().getSelectedItem());
+			}});
+		Scene scenelog = new Scene(logResultPane, 1024, 640);
+
+		//Interviewer page
+		BorderPane interviewerPane = new BorderPane();
+		VBox interviewerBox = new VBox(20);
+		Text interviewerText = new Text("Interviewer page");
+		interviewerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+		Button viewInterviewResultsButton = new Button("View Interview Results");
+		viewInterviewResultsButton.setMaxSize(409, 64);
+		viewInterviewResultsButton.setOnAction(e -> primaryStage.setScene(sceneview));
+		Button logInterviewResultsButton = new Button("Log Interview Results");
+		logInterviewResultsButton.setMaxSize(409, 64);
+		logInterviewResultsButton.setOnAction(e -> primaryStage.setScene(scenelog));
+		Scene scene10 = new Scene(interviewerPane, 1024, 640);
+		interviewerBox.getChildren().addAll(interviewerText, viewInterviewResultsButton, logInterviewResultsButton);
+		interviewerBox.setAlignment(Pos.CENTER);
+		interviewerPane.setPadding(new Insets(15, 15, 15, 15));
+		interviewerPane.setCenter(interviewerBox);
+		Button logOutButton10 = new Button("Log out");
+		logOutButton10.setOnAction(e -> primaryStage.setScene(scene1));
+		interviewerPane.setTop(logOutButton10);
+		backInterview.setOnAction(e -> primaryStage.setScene(scene10));
+		backInterview2.setOnAction(e -> primaryStage.setScene(scene10));
+
+		//sign in button
+		singinButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent g) {
+				if(usernamefield.getText().equals("") || passwordfield.getText().equals("")) {
+					eror.setText("username or password is not entered");
+				}
+				else if(usernamefield.getText().equals(passwordfield.getText())) {
+					if(usernamefield.getText().substring(0, 4).equals("1000")) {
+						primaryStage.setScene(scene2);
+					}else {
+						primaryStage.setScene(scene10);
+					}
+				}
+				else {
+					eror.setText("Wrong username or password");
+				}
+			}});
+	}
+
+	public static void main(String[] args) {
+		launch();
+	}
     public class NumberTextField extends TextField {
 
         @Override
