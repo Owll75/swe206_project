@@ -503,6 +503,7 @@ public class App extends Application {
         listDivBox.setAlignment(Pos.CENTER);
         listDivPane.setPadding(new Insets(15, 15, 15, 15));
         listDivPane.setCenter(listDivBox);
+        listDivPane.setBottom(listDivReturn);
 
         listOfDivisions.setOnAction(e -> {
             primaryStage.setScene(listdivScene);
@@ -535,6 +536,203 @@ public class App extends Application {
                 divNameField.clear();
                 divIDField.clear();
                 primaryStage.setScene(unitScene);
+            }
+        });
+        // Add Directorate scene
+
+        BorderPane AddDirPane = new BorderPane();
+        VBox AddDirBox = new VBox(20);
+        Text dirName = new Text("Enter Name and ID to add new Directorate");
+        divName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        TextField dirNameField = new TextField();
+        dirNameField.setMaxSize(409, 64);
+        dirNameField.setPromptText("Enter Directorate Name");
+        NumberTextField dirIDField = new NumberTextField();
+        dirIDField.setPromptText("Enter ID");
+        dirIDField.setMaxSize(409, 64);
+        Button addDirSave = new Button("Save");
+        addDirSave.setMaxSize(409, 64);
+        Label addDirChecking = new Label("");
+        addDirChecking.setFont(Font.font("Inter", FontWeight.BOLD, 36));
+
+        Scene dirAddScene = new Scene(AddDirPane, 1024, 640);
+        AddDirBox.getChildren().addAll(dirName, dirNameField, dirIDField, addDirSave, addDirChecking);
+        AddDirBox.setAlignment(Pos.CENTER);
+        AddDirPane.setPadding(new Insets(15, 15, 15, 15));
+        AddDirPane.setCenter(AddDirBox);
+        addDirectorate.setOnAction(e -> primaryStage.setScene(dirAddScene));
+        Button addDirBack = new Button("Back");
+        AddDirPane.setBottom(addDivBack);
+        addDirBack.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        // modify Directorate scene
+        BorderPane modifyDirPane = new BorderPane();
+        VBox modifyDirBox = new VBox(20);
+        Text modifyDirText = new Text("Modify Directorate");
+        modifyDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        NumberTextField modifyDirNameSer = new NumberTextField();
+        modifyDirNameSer.setMaxSize(409, 64);
+        modifyDirNameSer.setPromptText("Enter ID");
+        Button modifyDirSerButton = new Button("Search");
+        modifyDirSerButton.setMaxSize(409, 64);
+        TextField modifyDirFi = new TextField();
+        modifyDirFi.setMaxSize(409, 64);
+        modifyDirFi.setVisible(false);
+        NumberTextField modifyDirIDFi = new NumberTextField();
+        modifyDirIDFi.setMaxSize(409, 64);
+        modifyDirIDFi.setVisible(false);
+        Button modifyDirButton = new Button("Save");
+        modifyDirButton.setMaxSize(409, 64);
+        modifyDirButton.setVisible(false);
+        Button modifyDirReturn = new Button("Return");
+        Text modifyDirCheck = new Text();
+        modifyDirCheck.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+
+        Scene modifydirScene = new Scene(modifyDivPane, 1024, 640);
+        modifyDirBox.getChildren().addAll(modifyDirText, modifyDirNameSer, modifyDirSerButton, modifyDirFi,
+                modifyDirIDFi,
+                modifyDirButton, modifyDirCheck);
+        modifyDirBox.setAlignment(Pos.CENTER);
+        modifyDirPane.setPadding(new Insets(15, 15, 15, 15));
+        modifyDirPane.setCenter(modifyDivBox);
+        modifyDirectorate.setOnAction(e -> primaryStage.setScene(modifydirScene));
+
+        modifyDivPane.setBottom(modifyDivReturn);
+        modifyDivReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        modifyDirSerButton.setOnAction(e -> {
+            for (int i = 0; i < directoratesList.size(); i++) {
+                if (modifyDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+                    modifyDirFi.setVisible(true);
+                    modifyDirFi.setText(directoratesList.get(i).getName());
+                    modifyDirIDFi.setVisible(true);
+                    modifyDirIDFi.setText(directoratesList.get(i).getID());
+                    modifyDirButton.setVisible(true);
+                }
+            }
+        });
+        modifyDirButton.setOnAction(e -> {
+            if (modifyDirFi.getText().equals("")) {
+                modifyDirCheck.setText("Directorate name missing, please enter a name");
+
+            } else if (modifyDirIDFi.getText().equals("")) {
+                modifyDirCheck.setText("Directorte ID missing, Please enter an ID");
+
+            } else {
+                for (int i = 0; i < directoratesList.size(); i++) {
+                    if (modifyDirNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        directoratesList.get(i).setName(modifyDirFi.getText());
+                        directoratesList.get(i).setID(modifyDirIDFi.getText());
+
+                    }
+                    modifyDirIDFi.clear();
+                    modifyDirFi.clear();
+                    modifyDirIDFi.setVisible(false);
+                    modifyDirFi.setVisible(false);
+                    modifyDirButton.setVisible(false);
+                    primaryStage.setScene(divisionScene);
+                }
+            }
+        });
+
+        // Delete Directorate scene
+        BorderPane delDirPane = new BorderPane();
+        VBox delDirBox = new VBox(20);
+        Text delDirText = new Text("Delete Directorate");
+        modifyDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        NumberTextField delDirNameSer = new NumberTextField();
+        delDirNameSer.setMaxSize(409, 64);
+        delDirNameSer.setPromptText("Enter ID");
+        Button delDirSerButton = new Button("Search");
+        delDirSerButton.setMaxSize(409, 64);
+        Text delDirResult = new Text();
+        delDivResult.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+        Button delDirButton = new Button("Delete and Save");
+        delDirButton.setVisible(false);
+        delDirButton.setMaxSize(409, 64);
+        Button delDirReturn = new Button("Return");
+
+        Scene deldi4Scene = new Scene(delDirPane, 1024, 640);
+        delDirBox.getChildren().addAll(delDirText, delDirNameSer, delDirSerButton, delDirResult, delDirButton);
+        delDirBox.setAlignment(Pos.CENTER);
+        delDirPane.setPadding(new Insets(15, 15, 15, 15));
+        delDirPane.setCenter(delDivBox);
+        delDirPane.setBottom(delDirReturn);
+        deleteDirectorate.setOnAction(e -> primaryStage.setScene(deldi4Scene));
+
+        delDirPane.setBottom(delDirReturn);
+        delDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        delSerButton.setOnAction(e -> {
+            for (int i = 0; i < directoratesList.size(); i++) {
+                if (delDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+                    delDirResult.setVisible(true);
+                    delDirResult.setText(
+                            "Name: " + directoratesList.get(i).getName() + "     ID: "
+                                    + directoratesList.get(i).getID());
+                    delDirButton.setVisible(true);
+                }
+            }
+        });
+        delDirButton.setOnAction(e -> {
+            for (int i = 0; i < directoratesList.size(); i++) {
+                if (delDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+                    directoratesList.remove(i);
+                    delDirResult.setText("");
+                    delDirResult.setVisible(false);
+                    delDirButton.setVisible(false);
+                    primaryStage.setScene(divisionScene);
+
+                }
+            }
+        });
+
+        // List of Directorate scene
+        BorderPane listDirPane = new BorderPane();
+        VBox listDirBox = new VBox(20);
+        Text listDirText = new Text("List of Directorate:");
+        listDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+
+        Button listDirReturn = new Button("Return");
+
+        Scene listdirScene = new Scene(listDirPane, 1024, 640);
+        listDirBox.getChildren().addAll(listDirText);
+        listDirBox.setAlignment(Pos.CENTER);
+        listDirPane.setPadding(new Insets(15, 15, 15, 15));
+        listDirPane.setCenter(listDirBox);
+        listDirPane.setBottom(listDirReturn);
+
+        viewListOfDirectorate.setOnAction(e -> {
+            primaryStage.setScene(listdirScene);
+
+            for (int i = 0; i < divisionsList.size(); i++) {
+                String list = "\nName:" + directoratesList.get(i).getName() + "                  ID:   "
+                        + directoratesList.get(i).getID();
+                // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+
+                listDirBox.getChildren().add(new Text(list));
+
+            }
+
+        });
+
+        listDirPane.setBottom(delDirReturn);
+        listDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        addDirSave.setOnAction(e -> {
+
+            if (dirNameField.getText().equals("")) {
+                addDirChecking.setText("Division name missing, please enter a name");
+
+            } else if (dirIDField.getText().equals("")) {
+                addDirChecking.setText("Division ID missing, Please enter an ID");
+
+            } else {
+                Directorate addDirision = new Directorate(dirNameField.getText(), dirIDField.getText());
+                directoratesList.add(addDirision);
+                dirNameField.clear();
+                dirIDField.clear();
+                primaryStage.setScene(divisionScene);
             }
         });
 
