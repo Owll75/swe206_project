@@ -1,6 +1,8 @@
 package Classes;
 
-public class Job {
+import java.io.Serializable;
+
+public class Job implements Serializable {
    String jobName;
    double baseSalary;
 

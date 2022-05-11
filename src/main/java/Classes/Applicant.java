@@ -3,7 +3,7 @@ package Classes;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Applicant implements Serializable {
+public class Applicant implements Serializable{
     int ID, yearsOfExperience;
     String position;
     jobBands jobBand;
