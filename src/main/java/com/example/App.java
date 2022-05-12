@@ -489,7 +489,7 @@ public class App extends Application {
         VBox AddDivBox = new VBox(20);
         // AddDivBox.setVisible(true);
         Text divName = new Text("Enter Name and ID to add new division");
-        divName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        divName.setFont(Font.font("Inter", FontWeight.BOLD, 44));
         TextField divNameField = new TextField();
         divNameField.setMaxSize(409, 64);
         divNameField.setPromptText("Enter Division Name");
@@ -709,8 +709,8 @@ public class App extends Application {
         AddDirPane.setPadding(new Insets(15, 15, 15, 15));
         AddDirPane.setCenter(AddDirBox);
         addDirectorate.setOnAction(e -> primaryStage.setScene(dirAddScene));
-        Button addDirBack = new Button("Back");
-        AddDirPane.setBottom(addDivBack);
+        Button addDirBack = new Button("Return");
+        AddDirPane.setBottom(addDirBack);
         addDirBack.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         // modify Directorate scene
@@ -908,7 +908,7 @@ public class App extends Application {
                 addDipChecking);
         AddDipBox.setAlignment(Pos.CENTER);
         AddDipPane.setPadding(new Insets(15, 15, 15, 15));
-        AddDipPane.setCenter(AddDirBox);
+        AddDipPane.setCenter(AddDipBox);
         addDepartment.setOnAction(e -> primaryStage.setScene(dipAddScene));
         Button addDipBack = new Button("Back");
         AddDipPane.setBottom(addDipBack);
@@ -958,6 +958,8 @@ public class App extends Application {
                     modifyDipIDFi.setVisible(true);
                     modifyDipIDFi.setText(departmentsList.get(i).getID());
                     modifyDipButton.setVisible(true);
+                } else {
+                    modifyDipCheck.setText("ID not found, try again");
                 }
             }
         });
@@ -975,6 +977,7 @@ public class App extends Application {
                         departmentsList.get(i).setID(modifyDipIDFi.getText());
 
                     }
+                    modifyDipNameSer.clear();
                     modifyDipIDFi.clear();
                     modifyDipFi.clear();
                     modifyDipIDFi.setVisible(false);
@@ -1029,6 +1032,7 @@ public class App extends Application {
             for (int i = 0; i < departmentsList.size(); i++) {
                 if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
                     departmentsList.remove(i);
+                    delDipNameSer.clear();
                     delDipResult.setText("");
                     delDipResult.setVisible(false);
                     delDipButton.setVisible(false);
