@@ -464,11 +464,11 @@ public class App extends Application {
         Button addDepartment = new Button("Add Department");
         addDepartment.setMaxSize(409, 64);
         Button modifyDepartment = new Button("Modify Department");
-        modifyDirectorate.setMaxSize(409, 64);
+        modifyDepartment.setMaxSize(409, 64);
         Button deleteDepartment = new Button("Delete Department");
-        deleteDirectorate.setMaxSize(409, 64);
+        deleteDepartment.setMaxSize(409, 64);
         Button viewListOfDepartment = new Button("View List of Directorate");
-        viewListOfDirectorate.setMaxSize(409, 64);
+        viewListOfDepartment.setMaxSize(409, 64);
 
         Scene directorateScene = new Scene(DirectoratePane, 1024, 640);
         DirectorateBox.getChildren().addAll(directorateText, addDepartment,
@@ -1123,8 +1123,8 @@ public class App extends Application {
             if (dipNameField.getText().equals("")) {
                 addDipChecking.setText("Department name missing, please enter a name");
 
-            } else if (dirIDField.getText().equals("")) {
-                addDirChecking.setText("Department ID missing, Please enter an ID");
+            } else if (dipIDField.getText().equals("")) {
+                addDipChecking.setText("Department ID missing, Please enter an ID");
 
             } else {
                 Department addDipision = new Department(dipNameField.getText(),
