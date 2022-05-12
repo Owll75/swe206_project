@@ -107,14 +107,13 @@ public class App extends Application {
         employerPane.setTop(logOutButton);
         logOutButton.setOnAction(ActionEvent -> {
             primaryStage.setScene(scene1);
-        //Save feature test
+            // Save feature test
             FileOutputStream fileOut = null;
             try {
                 fileOut = new FileOutputStream("data.dat");
                 ObjectOutputStream output = new ObjectOutputStream(fileOut);
                 output.writeObject(applicantList);
                 output.close();
-
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -124,410 +123,667 @@ public class App extends Application {
 
         });
 
-        //
-        ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
-        bandsList.add(new jobBands("dd", 3444, new ArrayList<>()));
-        ArrayList<String> bandsNamesList = new ArrayList<>();
-        for (int i = 0; i < bandsList.size(); i++) {
-            bandsNamesList.add(bandsList.get(i).getBandName());
-        }
+       //
+       ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
+       bandsList.add(new jobBands("dd", 3444, new ArrayList<>()));
+       ArrayList<String> bandsNamesList = new ArrayList<>();
+       for (int i = 0; i < bandsList.size(); i++) {
+           bandsNamesList.add(bandsList.get(i).getBandName());
+       }
 
-        // bands page
-        BorderPane bandsPane = new BorderPane();
-        VBox bandsBox = new VBox(20);
-        Text bandsText = new Text("Bands");
-        bandsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button addBandButton = new Button("Add band");
-        addBandButton.setMaxSize(409, 64);
-        Button AssignBandButton = new Button("Assign band");
-        AssignBandButton.setMaxSize(409, 64);
-        Button deleteBandButton = new Button("Delete band");
-        deleteBandButton.setMaxSize(409, 64);
-        Button modifyBandButton = new Button("modify band");
-        modifyBandButton.setMaxSize(409, 64);
-        Scene scene3 = new Scene(bandsPane, 1024, 640);
-        bandsBox.getChildren().addAll(bandsText, addBandButton, AssignBandButton, deleteBandButton, modifyBandButton);
-        bandsBox.setAlignment(Pos.CENTER);
-        bandsPane.setPadding(new Insets(15, 15, 15, 15));
-        bandsPane.setCenter(bandsBox);
-        Button backButton = new Button("Back");
-        backButton.setOnAction(e -> {primaryStage.setScene(scene2);});
-        bandsPane.setTop(backButton);
-        bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
+       // bands page
+       BorderPane bandsPane = new BorderPane();
+       VBox bandsBox = new VBox(20);
+       Text bandsText = new Text("Bands");
+       bandsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+       Button addBandButton = new Button("Add band");
+       addBandButton.setMaxSize(409, 64);
+       Button AssignBandButton = new Button("Assign band");
+       AssignBandButton.setMaxSize(409, 64);
+       Button deleteBandButton = new Button("Delete band");
+       deleteBandButton.setMaxSize(409, 64);
+       Button modifyBandButton = new Button("modify band");
+       modifyBandButton.setMaxSize(409, 64);
+       Scene scene3 = new Scene(bandsPane, 1024, 640);
+       bandsBox.getChildren().addAll(bandsText, addBandButton, AssignBandButton, deleteBandButton, modifyBandButton);
+       bandsBox.setAlignment(Pos.CENTER);
+       bandsPane.setPadding(new Insets(15, 15, 15, 15));
+       bandsPane.setCenter(bandsBox);
+       Button backButton = new Button("Back");
+       backButton.setOnAction(e -> {primaryStage.setScene(scene2);});
+       bandsPane.setTop(backButton);
+       bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
 
-        //Add band
-        BorderPane addBandPane = new BorderPane();
-        VBox addBandBox = new VBox(20);
-        Text addBandText = new Text("Add Band");
-        addBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button bandAddButton = new Button("confirm");
-        bandAddButton.setMaxSize(409, 64);
-        TextField bandNamefield1 = new TextField();
-        bandNamefield1.setMaxSize(409, 64);
-        bandNamefield1.setPromptText("Enter Band Name");
-        TextField bandIDfield1 = new TextField();
-        Text massage3 = new Text("");
-        bandIDfield1.setMaxSize(409, 64);
-        bandIDfield1.setPromptText("Enter Band ID");
-        Scene scene8 = new Scene(addBandPane, 1024, 640);
-        addBandBox.setAlignment(Pos.CENTER);
-        addBandPane.setPadding(new Insets(15, 15, 15, 15));
-        addBandPane.setCenter(addBandBox);
-        Button backButto7 = new Button("Back");
-        addBandBox.getChildren().addAll(addBandText,bandIDfield1,bandNamefield1,bandAddButton,massage3);
-        backButto7.setOnAction(e -> primaryStage.setScene(scene3));
-        addBandPane.setTop(backButto7);
-        addBandButton.setOnAction(e -> {primaryStage.setScene(scene8);});
-        bandAddButton.setOnAction(ActionEvent -> {
-            try{
-            bandsList.add(new jobBands(bandNamefield1.getText(),Integer.valueOf(bandIDfield1.getText()), new ArrayList<Job>()));
-            bandsNamesList.add(bandNamefield1.getText());
-            massage3.setText("Bnad added secssfuly");
-        }
-        catch(Exception e){
-            massage3.setText("Bnad addign filed pleese enter an integer number only for ID ");}});
-        //delete band
-        BorderPane deleteBandPane = new BorderPane();
-        VBox deleteBandBox = new VBox(20);
-        Text deleteBandText = new Text("Delete Band");
-        deleteBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        ComboBox<String> bandsComboBox = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
-        Button bandDeleteButton = new Button("Delete");
-        bandDeleteButton.setMaxSize(409, 64);
-        bandsComboBox.setMaxSize(409, 64);
-        Scene scene6 = new Scene(deleteBandPane, 1024, 640);
-        deleteBandButton.setOnAction(ActionEvent ->{
-            bandsComboBox.getItems().clear();
-            bandsComboBox.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-            primaryStage.setScene(scene6);
-        });
-        deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton);
-        deleteBandBox.setAlignment(Pos.CENTER);
-        deleteBandPane.setPadding(new Insets(15, 15, 15, 15));
-        deleteBandPane.setCenter(deleteBandBox);
-        Button backButto5 = new Button("Back");
-        backButto5.setOnAction(e -> primaryStage.setScene(scene3));
-        deleteBandPane.setTop(backButto5);
-        bandDeleteButton.setOnAction((ActionEvent ->{
-            bandsNamesList.remove(bandsComboBox.getSelectionModel().getSelectedItem());
-            bandsComboBox.getItems().clear();
-            bandsComboBox.getItems().addAll(bandsNamesList);
-        }));
-        //modify band
-        BorderPane modifyBandPane = new BorderPane();
-        VBox modifyBandBox = new VBox(20);
-        Text modifyBandText = new Text("Modify Band");
-        modifyBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button bandModifyButton = new Button("confirm");
-        bandDeleteButton.setMaxSize(409, 64);
-        TextField bandNamefield = new TextField();
-        bandNamefield.setMaxSize(409, 64);
-        ComboBox<String> bandsComboBox2 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
-        bandsComboBox2.setMaxSize(409, 64);
-        TextField bandIDfield = new TextField();
-        bandIDfield.setMaxSize(409, 64);
-        Scene scene7 = new Scene(modifyBandPane, 1024, 640);
-        modifyBandBox.setAlignment(Pos.CENTER);
-        modifyBandPane.setPadding(new Insets(15, 15, 15, 15));
-        modifyBandPane.setCenter(modifyBandBox);
-        Button backButto6 = new Button("Back");
-        Text namebandText = new Text("Band Name:");
-        Text massage4 = new Text("");
-        Text idBandText = new Text("Band ID:");
-        modifyBandBox.getChildren().addAll(modifyBandText,bandsComboBox2,namebandText,bandNamefield,idBandText,bandIDfield,bandModifyButton,massage4);
-        backButto6.setOnAction(e -> {
-            bandNamefield.clear();
-            bandIDfield.clear();
-            massage4.setText("");
-            primaryStage.setScene(scene3);
-        });
-        modifyBandPane.setTop(backButto6);
-        bandsComboBox2.setOnAction(e ->{
-            for (int i = 0; i < bandsList.size(); i++) {
-                if(bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())){
-                    bandNamefield.setText(bandsList.get(i).getBandName());
-                    bandIDfield.setText(String.valueOf(bandsList.get(i).getBandID()));
-                }
-            }
-        });
-        bandModifyButton.setOnAction(e ->{
-            for (int i = 0; i < bandsList.size(); i++) {
-                if(bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())){
-                    try{
-                        bandsList.get(i).modifyBand(bandNamefield.getText(), Integer.valueOf(bandIDfield.getText()));
-                        massage4.setText("Bnad has been modified secssfuly");
-                    }
-                    catch(Exception e1){
-                        massage4.setText("modifying the Bnad has filed pleese enter an integer number only for ID ");
-                    }
-                }
-                }
-                bandsNamesList.clear();
-                for (int i = 0; i < bandsList.size(); i++) {
-                    bandsNamesList.add(bandsList.get(i).getBandName());
-                }
-                bandsComboBox2.getItems().clear();
-                bandsComboBox2.getItems().addAll(bandsNamesList);
-            });
-        modifyBandButton.setOnAction(e -> {
-            bandsComboBox2.getItems().clear();
-            bandsComboBox2.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-            primaryStage.setScene(scene7);
-        });
-        //
-        //assign band
-        BorderPane assignBandPane = new BorderPane();
-        VBox assignBandBox = new VBox(20);
-        Text assignBandText = new Text("Assign Band");
-        assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        ComboBox<String> bandsComboBox3 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
-        ComboBox<String>jobComboBox = new ComboBox<>();
-        Button bandAssignButton = new Button("Assign");
-        bandAssignButton.setMaxSize(409, 64);
-        bandsComboBox3.setMaxSize(409, 64);
-        jobComboBox.setMaxSize(409, 64);
-        assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton);
-        Scene scene9 = new Scene(assignBandPane, 1024, 640);
-        assignBandBox.setAlignment(Pos.CENTER);
-        assignBandPane.setPadding(new Insets(15, 15, 15, 15));
-        assignBandPane.setCenter(assignBandBox);
-        Button backButto8 = new Button("Back");
-        backButto8.setOnAction(e -> primaryStage.setScene(scene3));
-        assignBandPane.setTop(backButto8);
-        AssignBandButton.setOnAction(e -> {
-            bandsComboBox3.getItems().clear();
-            bandsComboBox3.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-            primaryStage.setScene(scene9);
-        });
+       //Add band
+       BorderPane addBandPane = new BorderPane();
+       VBox addBandBox = new VBox(20);
+       Text addBandText = new Text("Add Band");
+       addBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+       Button bandAddButton = new Button("confirm");
+       bandAddButton.setMaxSize(409, 64);
+       TextField bandNamefield1 = new TextField();
+       bandNamefield1.setMaxSize(409, 64);
+       bandNamefield1.setPromptText("Enter Band Name");
+       TextField bandIDfield1 = new TextField();
+       Text massage3 = new Text("");
+       bandIDfield1.setMaxSize(409, 64);
+       bandIDfield1.setPromptText("Enter Band ID");
+       Scene scene8 = new Scene(addBandPane, 1024, 640);
+       addBandBox.setAlignment(Pos.CENTER);
+       addBandPane.setPadding(new Insets(15, 15, 15, 15));
+       addBandPane.setCenter(addBandBox);
+       Button backButto7 = new Button("Back");
+       addBandBox.getChildren().addAll(addBandText,bandIDfield1,bandNamefield1,bandAddButton,massage3);
+       backButto7.setOnAction(e -> primaryStage.setScene(scene3));
+       addBandPane.setTop(backButto7);
+       addBandButton.setOnAction(e -> {primaryStage.setScene(scene8);});
+       bandAddButton.setOnAction(ActionEvent -> {
+           try{
+           bandsList.add(new jobBands(bandNamefield1.getText(),Integer.valueOf(bandIDfield1.getText()), new ArrayList<Job>()));
+           bandsNamesList.add(bandNamefield1.getText());
+           massage3.setText("Bnad added secssfuly");
+       }
+       catch(Exception e){
+           massage3.setText("Bnad addign filed pleese enter an integer number only for ID ");}});
+       //delete band
+       BorderPane deleteBandPane = new BorderPane();
+       VBox deleteBandBox = new VBox(20);
+       Text deleteBandText = new Text("Delete Band");
+       deleteBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+       ComboBox<String> bandsComboBox = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
+       Button bandDeleteButton = new Button("Delete");
+       bandDeleteButton.setMaxSize(409, 64);
+       bandsComboBox.setMaxSize(409, 64);
+       Scene scene6 = new Scene(deleteBandPane, 1024, 640);
+       deleteBandButton.setOnAction(ActionEvent ->{
+           bandsComboBox.getItems().clear();
+           bandsComboBox.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
+           primaryStage.setScene(scene6);
+       });
+       deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton);
+       deleteBandBox.setAlignment(Pos.CENTER);
+       deleteBandPane.setPadding(new Insets(15, 15, 15, 15));
+       deleteBandPane.setCenter(deleteBandBox);
+       Button backButto5 = new Button("Back");
+       backButto5.setOnAction(e -> primaryStage.setScene(scene3));
+       deleteBandPane.setTop(backButto5);
+       bandDeleteButton.setOnAction((ActionEvent ->{
+           bandsNamesList.remove(bandsComboBox.getSelectionModel().getSelectedItem());
+           bandsComboBox.getItems().clear();
+           bandsComboBox.getItems().addAll(bandsNamesList);
+       }));
+       //modify band
+       BorderPane modifyBandPane = new BorderPane();
+       VBox modifyBandBox = new VBox(20);
+       Text modifyBandText = new Text("Modify Band");
+       modifyBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+       Button bandModifyButton = new Button("confirm");
+       bandDeleteButton.setMaxSize(409, 64);
+       TextField bandNamefield = new TextField();
+       bandNamefield.setMaxSize(409, 64);
+       ComboBox<String> bandsComboBox2 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
+       bandsComboBox2.setMaxSize(409, 64);
+       TextField bandIDfield = new TextField();
+       bandIDfield.setMaxSize(409, 64);
+       Scene scene7 = new Scene(modifyBandPane, 1024, 640);
+       modifyBandBox.setAlignment(Pos.CENTER);
+       modifyBandPane.setPadding(new Insets(15, 15, 15, 15));
+       modifyBandPane.setCenter(modifyBandBox);
+       Button backButto6 = new Button("Back");
+       Text namebandText = new Text("Band Name:");
+       Text massage4 = new Text("");
+       Text idBandText = new Text("Band ID:");
+       modifyBandBox.getChildren().addAll(modifyBandText,bandsComboBox2,namebandText,bandNamefield,idBandText,bandIDfield,bandModifyButton,massage4);
+       backButto6.setOnAction(e -> {
+           bandNamefield.clear();
+           bandIDfield.clear();
+           massage4.setText("");
+           primaryStage.setScene(scene3);
+       });
+       modifyBandPane.setTop(backButto6);
+       bandsComboBox2.setOnAction(e ->{
+           for (int i = 0; i < bandsList.size(); i++) {
+               if(bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())){
+                   bandNamefield.setText(bandsList.get(i).getBandName());
+                   bandIDfield.setText(String.valueOf(bandsList.get(i).getBandID()));
+               }
+           }
+       });
+       bandModifyButton.setOnAction(e ->{
+           for (int i = 0; i < bandsList.size(); i++) {
+               if(bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())){
+                   try{
+                       bandsList.get(i).modifyBand(bandNamefield.getText(), Integer.valueOf(bandIDfield.getText()));
+                       massage4.setText("Bnad has been modified secssfuly");
+                   }
+                   catch(Exception e1){
+                       massage4.setText("modifying the Bnad has filed pleese enter an integer number only for ID ");
+                   }
+               }
+               }
+               bandsNamesList.clear();
+               for (int i = 0; i < bandsList.size(); i++) {
+                   bandsNamesList.add(bandsList.get(i).getBandName());
+               }
+               bandsComboBox2.getItems().clear();
+               bandsComboBox2.getItems().addAll(bandsNamesList);
+           });
+       modifyBandButton.setOnAction(e -> {
+           bandsComboBox2.getItems().clear();
+           bandsComboBox2.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
+           primaryStage.setScene(scene7);
+       });
+       //
+       //assign band
+       BorderPane assignBandPane = new BorderPane();
+       VBox assignBandBox = new VBox(20);
+       Text assignBandText = new Text("Assign Band");
+       assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+       ComboBox<String> bandsComboBox3 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
+       ComboBox<String>jobComboBox = new ComboBox<>();
+       Button bandAssignButton = new Button("Assign");
+       bandAssignButton.setMaxSize(409, 64);
+       bandsComboBox3.setMaxSize(409, 64);
+       jobComboBox.setMaxSize(409, 64);
+       assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton);
+       Scene scene9 = new Scene(assignBandPane, 1024, 640);
+       assignBandBox.setAlignment(Pos.CENTER);
+       assignBandPane.setPadding(new Insets(15, 15, 15, 15));
+       assignBandPane.setCenter(assignBandBox);
+       Button backButto8 = new Button("Back");
+       backButto8.setOnAction(e -> primaryStage.setScene(scene3));
+       assignBandPane.setTop(backButto8);
+       AssignBandButton.setOnAction(e -> {
+           bandsComboBox3.getItems().clear();
+           bandsComboBox3.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
+           primaryStage.setScene(scene9);
+       });
 
-        // used for unit
 
-        ArrayList<division> divisionsList = new ArrayList<division>();
-        ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
-        ArrayList<Department> departmentsList = new ArrayList<Department>();
+        // // used for unit
 
-        // units page
-        BorderPane DepartmentsPane = new BorderPane();
-        VBox DepartmentsBox = new VBox(20);
-        Text DepartmentsText = new Text("Units");
-        DepartmentsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button divsButton = new Button("Division");
+        // ArrayList<division> divisionsList = new ArrayList<division>();
+        // ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
+        // ArrayList<Department> departmentsList = new ArrayList<Department>();
 
-        divsButton.setMaxSize(409, 64);
-        // VBox.setMargin(addDepartButton, new Insets(15, 15, 15, 15));
-        Button direcButton = new Button("Directorate");
-        direcButton.setMaxSize(409, 64);
-        Button addDivision = new Button("Add Division");
-        addDivision.setMaxSize(409, 64);
-        Button modifyDivision = new Button("Modify Division");
-        modifyDivision.setMaxSize(409, 64);
-        Button deleteDivision = new Button("Delete Division");
-        deleteDivision.setMaxSize(409, 64);
-        Button listOfDivisions = new Button("List of Divisions");
-        listOfDivisions.setMaxSize(409, 64);
+        // // units page
+        // BorderPane DepartmentsPane = new BorderPane();
+        // VBox DepartmentsBox = new VBox(20);
+        // Text DepartmentsText = new Text("Units");
+        // DepartmentsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        // Button divsButton = new Button("Division");
 
-        Scene unitScene = new Scene(DepartmentsPane, 1024, 640);
-        DepartmentsBox.getChildren().addAll(DepartmentsText, divsButton, direcButton, addDivision, modifyDivision,
-                deleteDivision, listOfDivisions);
-        DepartmentsBox.setAlignment(Pos.CENTER);
-        DepartmentsPane.setPadding(new Insets(15, 15, 15, 15));
-        DepartmentsPane.setCenter(DepartmentsBox);
+        // divsButton.setMaxSize(409, 64);
+        // // VBox.setMargin(addDepartButton, new Insets(15, 15, 15, 15));
+        // Button direcButton = new Button("Directorate");
+        // direcButton.setMaxSize(409, 64);
+        // Button addDivision = new Button("Add Division");
+        // addDivision.setMaxSize(409, 64);
+        // Button modifyDivision = new Button("Modify Division");
+        // modifyDivision.setMaxSize(409, 64);
+        // Button deleteDivision = new Button("Delete Division");
+        // deleteDivision.setMaxSize(409, 64);
+        // Button listOfDivisions = new Button("List of Divisions");
+        // listOfDivisions.setMaxSize(409, 64);
 
-        Button unitBackButton = new Button("Back");
-        unitBackButton.setOnAction(e -> primaryStage.setScene(scene2));
+        // Scene unitScene = new Scene(DepartmentsPane, 1024, 640);
+        // DepartmentsBox.getChildren().addAll(DepartmentsText, divsButton, direcButton, addDivision, modifyDivision,
+        //         deleteDivision, listOfDivisions);
+        // DepartmentsBox.setAlignment(Pos.CENTER);
+        // DepartmentsPane.setPadding(new Insets(15, 15, 15, 15));
+        // DepartmentsPane.setCenter(DepartmentsBox);
 
-        DepartmentsPane.setBottom(unitBackButton);
-        DepartmentsButton.setOnAction(e -> primaryStage.setScene(unitScene));
+        // Button unitBackButton = new Button("Back");
+        // unitBackButton.setOnAction(e -> primaryStage.setScene(scene2));
 
-        // Division page
+        // DepartmentsPane.setBottom(unitBackButton);
+        // DepartmentsButton.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        BorderPane DivisionPane = new BorderPane();
-        VBox DivisionBox = new VBox(20);
-        Text divisionText = new Text("Division");
-        divisionText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button addDirectorate = new Button("Add Directorate");
-        addDirectorate.setMaxSize(409, 64);
-        Button modifyDirectorate = new Button("Modify Directorate");
-        modifyDirectorate.setMaxSize(409, 64);
-        Button deleteDirectorate = new Button("Delete Directorate");
-        deleteDirectorate.setMaxSize(409, 64);
-        Button viewListOfDirectorate = new Button("View List of Directorates");
-        viewListOfDirectorate.setMaxSize(409, 64);
+        // // Division page
 
-        Scene divisionScene = new Scene(DivisionPane, 1024, 640);
-        DivisionBox.getChildren().addAll(divisionText, addDirectorate, modifyDirectorate, deleteDirectorate,
-                viewListOfDirectorate);
-        DivisionBox.setAlignment(Pos.CENTER);
-        DivisionPane.setPadding(new Insets(15, 15, 15, 15));
-        DivisionPane.setCenter(DivisionBox);
+        // BorderPane DivisionPane = new BorderPane();
+        // VBox DivisionBox = new VBox(20);
+        // Text divisionText = new Text("Division");
+        // divisionText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        // Button addDirectorate = new Button("Add Directorate");
+        // addDirectorate.setMaxSize(409, 64);
+        // Button modifyDirectorate = new Button("Modify Directorate");
+        // modifyDirectorate.setMaxSize(409, 64);
+        // Button deleteDirectorate = new Button("Delete Directorate");
+        // deleteDirectorate.setMaxSize(409, 64);
+        // Button viewListOfDirectorate = new Button("View List of Directorates");
+        // viewListOfDirectorate.setMaxSize(409, 64);
 
-        Button divisionBackButon = new Button("Back");
-        DivisionPane.setBottom(divisionBackButon);
-        divsButton.setOnAction(e -> primaryStage.setScene(divisionScene));
-        divisionBackButon.setOnAction(e -> primaryStage.setScene(unitScene));
+        // Scene divisionScene = new Scene(DivisionPane, 1024, 640);
+        // DivisionBox.getChildren().addAll(divisionText, addDirectorate, modifyDirectorate, deleteDirectorate,
+        //         viewListOfDirectorate);
+        // DivisionBox.setAlignment(Pos.CENTER);
+        // DivisionPane.setPadding(new Insets(15, 15, 15, 15));
+        // DivisionPane.setCenter(DivisionBox);
 
-        // Directorate page
+        // Button divisionBackButon = new Button("Back");
+        // DivisionPane.setBottom(divisionBackButon);
+        // divsButton.setOnAction(e -> primaryStage.setScene(divisionScene));
+        // divisionBackButon.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        BorderPane DirectoratePane = new BorderPane();
-        VBox DirectorateBox = new VBox(20);
-        Text directorateText = new Text("Directorate");
-        directorateText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button addDepartment = new Button("Add Department");
-        addDepartment.setMaxSize(409, 64);
-        Button modifyDepartment = new Button("Modify Department");
-        modifyDirectorate.setMaxSize(409, 64);
-        Button deleteDepartment = new Button("Delete Department");
-        deleteDirectorate.setMaxSize(409, 64);
-        Button viewListOfDepartment = new Button("View List of Directorate");
-        viewListOfDirectorate.setMaxSize(409, 64);
+        // // Directorate page
 
-        Scene directorateScene = new Scene(DirectoratePane, 1024, 640);
-        DirectorateBox.getChildren().addAll(directorateText, addDepartment, modifyDepartment, deleteDepartment,
-                viewListOfDepartment);
-        DirectorateBox.setAlignment(Pos.CENTER);
-        DirectoratePane.setPadding(new Insets(15, 15, 15, 15));
-        DirectoratePane.setCenter(DirectorateBox);
+        // BorderPane DirectoratePane = new BorderPane();
+        // VBox DirectorateBox = new VBox(20);
+        // Text directorateText = new Text("Directorate");
+        // directorateText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        // Button addDepartment = new Button("Add Department");
+        // addDepartment.setMaxSize(409, 64);
+        // Button modifyDepartment = new Button("Modify Department");
+        // modifyDirectorate.setMaxSize(409, 64);
+        // Button deleteDepartment = new Button("Delete Department");
+        // deleteDirectorate.setMaxSize(409, 64);
+        // Button viewListOfDepartment = new Button("View List of Directorate");
+        // viewListOfDirectorate.setMaxSize(409, 64);
 
-        direcButton.setOnAction(e -> primaryStage.setScene(directorateScene));
-        Button direBackButton = new Button("Back");
-        DirectoratePane.setBottom(direBackButton);
-        direBackButton.setOnAction(e -> primaryStage.setScene(unitScene));
+        // Scene directorateScene = new Scene(DirectoratePane, 1024, 640);
+        // DirectorateBox.getChildren().addAll(directorateText, addDepartment, modifyDepartment, deleteDepartment,
+        //         viewListOfDepartment);
+        // DirectorateBox.setAlignment(Pos.CENTER);
+        // DirectoratePane.setPadding(new Insets(15, 15, 15, 15));
+        // DirectoratePane.setCenter(DirectorateBox);
 
-        // Add division scene
+        // direcButton.setOnAction(e -> primaryStage.setScene(directorateScene));
+        // Button direBackButton = new Button("Back");
+        // DirectoratePane.setBottom(direBackButton);
+        // direBackButton.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        BorderPane AddDivPane = new BorderPane();
-        VBox AddDivBox = new VBox(20);
-        Text divName = new Text("Enter Name and ID to add new division");
-        divName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
-        TextField divNameField = new TextField();
-        divNameField.setMaxSize(409, 64);
-        divNameField.setPromptText("Enter Division Name");
-        NumberTextField divIDField = new NumberTextField();
-        divIDField.setPromptText("Enter ID");
-        divIDField.setMaxSize(409, 64);
-        Button addDivSave = new Button("Save");
-        addDivSave.setMaxSize(409, 64);
-        Label addDivChecking = new Label("");
-        addDivChecking.setFont(Font.font("Inter", FontWeight.BOLD, 36));
+        // // Add division scene
 
-        Scene diVAddScene = new Scene(AddDivPane, 1024, 640);
-        AddDivBox.getChildren().addAll(divName, divNameField, divIDField, addDivSave, addDivChecking);
-        AddDivBox.setAlignment(Pos.CENTER);
-        AddDivPane.setPadding(new Insets(15, 15, 15, 15));
-        AddDivPane.setCenter(AddDivBox);
-        addDivision.setOnAction(e -> primaryStage.setScene(diVAddScene));
-        Button addDivBack = new Button("Back");
-        AddDivPane.setBottom(addDivBack);
-        addDivBack.setOnAction(e -> primaryStage.setScene(unitScene));
+        // BorderPane AddDivPane = new BorderPane();
+        // VBox AddDivBox = new VBox(20);
+        // Text divName = new Text("Enter Name and ID to add new division");
+        // divName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // TextField divNameField = new TextField();
+        // divNameField.setMaxSize(409, 64);
+        // divNameField.setPromptText("Enter Division Name");
+        // NumberTextField divIDField = new NumberTextField();
+        // divIDField.setPromptText("Enter ID");
+        // divIDField.setMaxSize(409, 64);
+        // Button addDivSave = new Button("Save");
+        // addDivSave.setMaxSize(409, 64);
+        // Label addDivChecking = new Label("");
+        // addDivChecking.setFont(Font.font("Inter", FontWeight.BOLD, 36));
 
-        // modify division scene
-        BorderPane modifyDivPane = new BorderPane();
-        VBox modifyDivBox = new VBox(20);
-        Text modifyDivText = new Text("Modify Division");
-        modifyDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
-        NumberTextField modifyDivNameSer = new NumberTextField();
-        modifyDivNameSer.setMaxSize(409, 64);
-        modifyDivNameSer.setPromptText("Enter ID");
-        Button modifySerButton = new Button("Search");
-        modifySerButton.setMaxSize(409, 64);
-        TextField modifyDivFi = new TextField();
-        modifyDivFi.setMaxSize(409, 64);
-        modifyDivFi.setVisible(false);
-        NumberTextField modifyDivIDFi = new NumberTextField();
-        modifyDivIDFi.setMaxSize(409, 64);
-        modifyDivIDFi.setVisible(false);
-        Button modifyDivButton = new Button("Save");
-        modifyDivButton.setMaxSize(409, 64);
-        modifyDivButton.setVisible(false);
-        Button modifyDivReturn = new Button("Return");
+        // Scene diVAddScene = new Scene(AddDivPane, 1024, 640);
+        // AddDivBox.getChildren().addAll(divName, divNameField, divIDField, addDivSave, addDivChecking);
+        // AddDivBox.setAlignment(Pos.CENTER);
+        // AddDivPane.setPadding(new Insets(15, 15, 15, 15));
+        // AddDivPane.setCenter(AddDivBox);
+        // addDivision.setOnAction(e -> primaryStage.setScene(diVAddScene));
+        // Button addDivBack = new Button("Back");
+        // AddDivPane.setBottom(addDivBack);
+        // addDivBack.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        Scene modifydivScene = new Scene(modifyDivPane, 1024, 640);
-        modifyDivBox.getChildren().addAll(modifyDivText, modifyDivNameSer, modifySerButton, modifyDivFi, modifyDivIDFi,
-                modifyDivButton);
-        modifyDivBox.setAlignment(Pos.CENTER);
-        modifyDivPane.setPadding(new Insets(15, 15, 15, 15));
-        modifyDivPane.setCenter(modifyDivBox);
-        modifyDivision.setOnAction(e -> primaryStage.setScene(modifydivScene));
+        // // modify division scene
+        // BorderPane modifyDivPane = new BorderPane();
+        // VBox modifyDivBox = new VBox(20);
+        // Text modifyDivText = new Text("Modify Division");
+        // modifyDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // NumberTextField modifyDivNameSer = new NumberTextField();
+        // modifyDivNameSer.setMaxSize(409, 64);
+        // modifyDivNameSer.setPromptText("Enter ID");
+        // Button modifySerButton = new Button("Search");
+        // modifySerButton.setMaxSize(409, 64);
+        // TextField modifyDivFi = new TextField();
+        // modifyDivFi.setMaxSize(409, 64);
+        // modifyDivFi.setVisible(false);
+        // NumberTextField modifyDivIDFi = new NumberTextField();
+        // modifyDivIDFi.setMaxSize(409, 64);
+        // modifyDivIDFi.setVisible(false);
+        // Button modifyDivButton = new Button("Save");
+        // modifyDivButton.setMaxSize(409, 64);
+        // modifyDivButton.setVisible(false);
+        // Button modifyDivReturn = new Button("Return");
+        // Text modifyDivCheck = new Text();
+        // modifyDivCheck.setFont(Font.font("Inter", FontWeight.BOLD, 38));
 
-        modifyDivPane.setBottom(modifyDivReturn);
-        modifyDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
+        // Scene modifydivScene = new Scene(modifyDivPane, 1024, 640);
+        // modifyDivBox.getChildren().addAll(modifyDivText, modifyDivNameSer, modifySerButton, modifyDivFi, modifyDivIDFi,
+        //         modifyDivButton, modifyDivCheck);
+        // modifyDivBox.setAlignment(Pos.CENTER);
+        // modifyDivPane.setPadding(new Insets(15, 15, 15, 15));
+        // modifyDivPane.setCenter(modifyDivBox);
+        // modifyDivision.setOnAction(e -> primaryStage.setScene(modifydivScene));
 
-        // Delete Division scene
-        BorderPane delDivPane = new BorderPane();
-        VBox delDivBox = new VBox(20);
-        Text delDivText = new Text("Delete Division");
-        modifyDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
-        NumberTextField delDivNameSer = new NumberTextField();
-        delDivNameSer.setMaxSize(409, 64);
-        delDivNameSer.setPromptText("Enter ID");
-        Button delSerButton = new Button("Search");
-        delSerButton.setMaxSize(409, 64);
-        Text delDivResult = new Text();
-        delDivResult.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-        Button delDivButton = new Button("Save");
-        delDivButton.setVisible(false);
-        delDivButton.setMaxSize(409, 64);
-        Button delDivReturn = new Button("Return");
+        // modifyDivPane.setBottom(modifyDivReturn);
+        // modifyDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        Scene deldivScene = new Scene(delDivPane, 1024, 640);
-        delDivBox.getChildren().addAll(delDivText, delDivNameSer, delSerButton, delDivResult, delDivButton);
-        delDivBox.setAlignment(Pos.CENTER);
-        delDivPane.setPadding(new Insets(15, 15, 15, 15));
-        delDivPane.setCenter(delDivBox);
-        deleteDivision.setOnAction(e -> primaryStage.setScene(deldivScene));
+        // modifySerButton.setOnAction(e -> {
+        //     for (int i = 0; i < divisionsList.size(); i++) {
+        //         if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+        //             modifyDivFi.setVisible(true);
+        //             modifyDivFi.setText(divisionsList.get(i).getName());
+        //             modifyDivIDFi.setVisible(true);
+        //             modifyDivIDFi.setText(divisionsList.get(i).getID());
+        //             modifyDivButton.setVisible(true);
+        //         }
+        //     }
+        // });
+        // modifyDivButton.setOnAction(e -> {
+        //     if (modifyDivFi.getText().equals("")) {
+        //         modifyDivCheck.setText("Division name missing, please enter a name");
 
-        delDivPane.setBottom(delDivReturn);
-        delDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
+        //     } else if (modifyDivIDFi.getText().equals("")) {
+        //         modifyDivCheck.setText("Division ID missing, Please enter an ID");
 
-        // List of divisions scene
-        BorderPane listDivPane = new BorderPane();
-        VBox listDivBox = new VBox(20);
-        Text listDivText = new Text("List of Divisions:");
-        listDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        //     } else {
+        //         for (int i = 0; i < divisionsList.size(); i++) {
+        //             if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+        //                 divisionsList.get(i).setName(modifyDivFi.getText());
+        //                 divisionsList.get(i).setID(modifyDivIDFi.getText());
 
-        Button listDivReturn = new Button("Return");
+        //             }
+        //             modifyDivIDFi.clear();
+        //             modifyDivFi.clear();
+        //             modifyDivIDFi.setVisible(false);
+        //             modifyDivFi.setVisible(false);
+        //             modifyDivButton.setVisible(false);
+        //             primaryStage.setScene(unitScene);
+        //         }
+        //     }
+        // });
 
-        Scene listdivScene = new Scene(listDivPane, 1024, 640);
-        listDivBox.getChildren().addAll(listDivText);
-        listDivBox.setAlignment(Pos.CENTER);
-        listDivPane.setPadding(new Insets(15, 15, 15, 15));
-        listDivPane.setCenter(listDivBox);
+        // // Delete Division scene
+        // BorderPane delDivPane = new BorderPane();
+        // VBox delDivBox = new VBox(20);
+        // Text delDivText = new Text("Delete Division");
+        // modifyDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // NumberTextField delDivNameSer = new NumberTextField();
+        // delDivNameSer.setMaxSize(409, 64);
+        // delDivNameSer.setPromptText("Enter ID");
+        // Button delSerButton = new Button("Search");
+        // delSerButton.setMaxSize(409, 64);
+        // Text delDivResult = new Text();
+        // delDivResult.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+        // Button delDivButton = new Button("Delete and Save");
+        // delDivButton.setVisible(false);
+        // delDivButton.setMaxSize(409, 64);
+        // Button delDivReturn = new Button("Return");
 
-        listOfDivisions.setOnAction(e -> {
-            primaryStage.setScene(listdivScene);
+        // Scene deldivScene = new Scene(delDivPane, 1024, 640);
+        // delDivBox.getChildren().addAll(delDivText, delDivNameSer, delSerButton, delDivResult, delDivButton);
+        // delDivBox.setAlignment(Pos.CENTER);
+        // delDivPane.setPadding(new Insets(15, 15, 15, 15));
+        // delDivPane.setCenter(delDivBox);
+        // deleteDivision.setOnAction(e -> primaryStage.setScene(deldivScene));
 
-            System.out.println(divisionsList.get(0).getID() + "before");
-            for (int i = 0; i < divisionsList.size(); i++) {
-                String list = "\nName:" + divisionsList.get(i).getName() + "                  ID:   "
-                        + divisionsList.get(i).getID();
-                // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        // delDivPane.setBottom(delDivReturn);
+        // delDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
-                listDivBox.getChildren().add(new Text(list));
-                System.out.println(divisionsList.get(0).getID() + "after");
+        // delSerButton.setOnAction(e -> {
+        //     for (int i = 0; i < divisionsList.size(); i++) {
+        //         if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+        //             delDivResult.setVisible(true);
+        //             delDivResult.setText(
+        //                     "Name: " + divisionsList.get(i).getName() + "     ID: " + divisionsList.get(i).getID());
+        //             delDivButton.setVisible(true);
+        //         }
+        //     }
+        // });
+        // delDivButton.setOnAction(e -> {
+        //     for (int i = 0; i < divisionsList.size(); i++) {
+        //         if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+        //             divisionsList.remove(i);
+        //             delDivResult.setText("");
+        //             delDivResult.setVisible(false);
+        //             delDivButton.setVisible(false);
+        //             primaryStage.setScene(unitScene);
 
-            }
+        //         }
+        //     }
+        // });
 
-        });
+        // // List of divisions scene
+        // BorderPane listDivPane = new BorderPane();
+        // VBox listDivBox = new VBox(20);
+        // Text listDivText = new Text("List of Divisions:");
+        // listDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
 
-        listDivPane.setBottom(delDivReturn);
-        listDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
+        // Button listDivReturn = new Button("Return");
 
-        addDivSave.setOnAction(e -> {
+        // Scene listdivScene = new Scene(listDivPane, 1024, 640);
+        // listDivBox.getChildren().addAll(listDivText);
+        // listDivBox.setAlignment(Pos.CENTER);
+        // listDivPane.setPadding(new Insets(15, 15, 15, 15));
+        // listDivPane.setCenter(listDivBox);
+        // listDivPane.setBottom(listDivReturn);
 
-            if (divNameField.getText().equals("")) {
-                addDivChecking.setText("Division name missing, please enter a name");
+        // listOfDivisions.setOnAction(e -> {
+        //     primaryStage.setScene(listdivScene);
 
-            } else if (divIDField.getText().equals("")) {
-                addDivChecking.setText("Division ID missing, Please enter an ID");
+        //     for (int i = 0; i < divisionsList.size(); i++) {
+        //         String list = "\nName:" + divisionsList.get(i).getName() + "                  ID:   "
+        //                 + divisionsList.get(i).getID();
+        //         // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
-            } else {
-                division addDivdision = new division(divNameField.getText(), divIDField.getText());
-                divisionsList.add(addDivdision);
-                divNameField.clear();
-                divIDField.clear();
-                primaryStage.setScene(unitScene);
-            }
-        });
+        //         listDivBox.getChildren().add(new Text(list));
+
+        //     }
+
+        // });
+
+        // listDivPane.setBottom(delDivReturn);
+        // listDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
+
+        // addDivSave.setOnAction(e -> {
+
+        //     if (divNameField.getText().equals("")) {
+        //         addDivChecking.setText("Division name missing, please enter a name");
+
+        //     } else if (divIDField.getText().equals("")) {
+        //         addDivChecking.setText("Division ID missing, Please enter an ID");
+
+        //     } else {
+        //         division addDivdision = new division(divNameField.getText(), divIDField.getText());
+        //         divisionsList.add(addDivdision);
+        //         divNameField.clear();
+        //         divIDField.clear();
+        //         primaryStage.setScene(unitScene);
+        //     }
+        // });
+        // // Add Directorate scene
+
+        // BorderPane AddDirPane = new BorderPane();
+        // VBox AddDirBox = new VBox(20);
+        // Text dirName = new Text("Enter Name and ID to add new Directorate");
+        // divName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // TextField dirNameField = new TextField();
+        // dirNameField.setMaxSize(409, 64);
+        // dirNameField.setPromptText("Enter Directorate Name");
+        // NumberTextField dirIDField = new NumberTextField();
+        // dirIDField.setPromptText("Enter ID");
+        // dirIDField.setMaxSize(409, 64);
+        // Button addDirSave = new Button("Save");
+        // addDirSave.setMaxSize(409, 64);
+        // Label addDirChecking = new Label("");
+        // addDirChecking.setFont(Font.font("Inter", FontWeight.BOLD, 36));
+
+        // Scene dirAddScene = new Scene(AddDirPane, 1024, 640);
+        // AddDirBox.getChildren().addAll(dirName, dirNameField, dirIDField, addDirSave, addDirChecking);
+        // AddDirBox.setAlignment(Pos.CENTER);
+        // AddDirPane.setPadding(new Insets(15, 15, 15, 15));
+        // AddDirPane.setCenter(AddDirBox);
+        // addDirectorate.setOnAction(e -> primaryStage.setScene(dirAddScene));
+        // Button addDirBack = new Button("Back");
+        // AddDirPane.setBottom(addDivBack);
+        // addDirBack.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        // // modify Directorate scene
+        // BorderPane modifyDirPane = new BorderPane();
+        // VBox modifyDirBox = new VBox(20);
+        // Text modifyDirText = new Text("Modify Directorate");
+        // modifyDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // NumberTextField modifyDirNameSer = new NumberTextField();
+        // modifyDirNameSer.setMaxSize(409, 64);
+        // modifyDirNameSer.setPromptText("Enter ID");
+        // Button modifyDirSerButton = new Button("Search");
+        // modifyDirSerButton.setMaxSize(409, 64);
+        // TextField modifyDirFi = new TextField();
+        // modifyDirFi.setMaxSize(409, 64);
+        // modifyDirFi.setVisible(false);
+        // NumberTextField modifyDirIDFi = new NumberTextField();
+        // modifyDirIDFi.setMaxSize(409, 64);
+        // modifyDirIDFi.setVisible(false);
+        // Button modifyDirButton = new Button("Save");
+        // modifyDirButton.setMaxSize(409, 64);
+        // modifyDirButton.setVisible(false);
+        // Button modifyDirReturn = new Button("Return");
+        // Text modifyDirCheck = new Text();
+        // modifyDirCheck.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+
+        // Scene modifydirScene = new Scene(modifyDivPane, 1024, 640);
+        // modifyDirBox.getChildren().addAll(modifyDirText, modifyDirNameSer, modifyDirSerButton, modifyDirFi,
+        //         modifyDirIDFi,
+        //         modifyDirButton, modifyDirCheck);
+        // modifyDirBox.setAlignment(Pos.CENTER);
+        // modifyDirPane.setPadding(new Insets(15, 15, 15, 15));
+        // modifyDirPane.setCenter(modifyDivBox);
+        // modifyDirectorate.setOnAction(e -> primaryStage.setScene(modifydirScene));
+
+        // modifyDivPane.setBottom(modifyDivReturn);
+        // modifyDivReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        // modifyDirSerButton.setOnAction(e -> {
+        //     for (int i = 0; i < directoratesList.size(); i++) {
+        //         if (modifyDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+        //             modifyDirFi.setVisible(true);
+        //             modifyDirFi.setText(directoratesList.get(i).getName());
+        //             modifyDirIDFi.setVisible(true);
+        //             modifyDirIDFi.setText(directoratesList.get(i).getID());
+        //             modifyDirButton.setVisible(true);
+        //         }
+        //     }
+        // });
+        // modifyDirButton.setOnAction(e -> {
+        //     if (modifyDirFi.getText().equals("")) {
+        //         modifyDirCheck.setText("Directorate name missing, please enter a name");
+
+        //     } else if (modifyDirIDFi.getText().equals("")) {
+        //         modifyDirCheck.setText("Directorte ID missing, Please enter an ID");
+
+        //     } else {
+        //         for (int i = 0; i < directoratesList.size(); i++) {
+        //             if (modifyDirNameSer.getText().equals(divisionsList.get(i).getID())) {
+        //                 directoratesList.get(i).setName(modifyDirFi.getText());
+        //                 directoratesList.get(i).setID(modifyDirIDFi.getText());
+
+        //             }
+        //             modifyDirIDFi.clear();
+        //             modifyDirFi.clear();
+        //             modifyDirIDFi.setVisible(false);
+        //             modifyDirFi.setVisible(false);
+        //             modifyDirButton.setVisible(false);
+        //             primaryStage.setScene(divisionScene);
+        //         }
+        //     }
+        // });
+
+        // // Delete Directorate scene
+        // BorderPane delDirPane = new BorderPane();
+        // VBox delDirBox = new VBox(20);
+        // Text delDirText = new Text("Delete Directorate");
+        // modifyDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // NumberTextField delDirNameSer = new NumberTextField();
+        // delDirNameSer.setMaxSize(409, 64);
+        // delDirNameSer.setPromptText("Enter ID");
+        // Button delDirSerButton = new Button("Search");
+        // delDirSerButton.setMaxSize(409, 64);
+        // Text delDirResult = new Text();
+        // delDivResult.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+        // Button delDirButton = new Button("Delete and Save");
+        // delDirButton.setVisible(false);
+        // delDirButton.setMaxSize(409, 64);
+        // Button delDirReturn = new Button("Return");
+
+        // Scene deldi4Scene = new Scene(delDirPane, 1024, 640);
+        // delDirBox.getChildren().addAll(delDirText, delDirNameSer, delDirSerButton, delDirResult, delDirButton);
+        // delDirBox.setAlignment(Pos.CENTER);
+        // delDirPane.setPadding(new Insets(15, 15, 15, 15));
+        // delDirPane.setCenter(delDivBox);
+        // delDirPane.setBottom(delDirReturn);
+        // deleteDirectorate.setOnAction(e -> primaryStage.setScene(deldi4Scene));
+
+        // delDirPane.setBottom(delDirReturn);
+        // delDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        // delSerButton.setOnAction(e -> {
+        //     for (int i = 0; i < directoratesList.size(); i++) {
+        //         if (delDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+        //             delDirResult.setVisible(true);
+        //             delDirResult.setText(
+        //                     "Name: " + directoratesList.get(i).getName() + "     ID: "
+        //                             + directoratesList.get(i).getID());
+        //             delDirButton.setVisible(true);
+        //         }
+        //     }
+        // });
+        // delDirButton.setOnAction(e -> {
+        //     for (int i = 0; i < directoratesList.size(); i++) {
+        //         if (delDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+        //             directoratesList.remove(i);
+        //             delDirResult.setText("");
+        //             delDirResult.setVisible(false);
+        //             delDirButton.setVisible(false);
+        //             primaryStage.setScene(divisionScene);
+
+        //         }
+        //     }
+        // });
+
+        // // List of Directorate scene
+        // BorderPane listDirPane = new BorderPane();
+        // VBox listDirBox = new VBox(20);
+        // Text listDirText = new Text("List of Directorate:");
+        // listDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+
+        // Button listDirReturn = new Button("Return");
+
+        // Scene listdirScene = new Scene(listDirPane, 1024, 640);
+        // listDirBox.getChildren().addAll(listDirText);
+        // listDirBox.setAlignment(Pos.CENTER);
+        // listDirPane.setPadding(new Insets(15, 15, 15, 15));
+        // listDirPane.setCenter(listDirBox);
+        // listDirPane.setBottom(listDirReturn);
+
+        // viewListOfDirectorate.setOnAction(e -> {
+        //     primaryStage.setScene(listdirScene);
+
+        //     for (int i = 0; i < divisionsList.size(); i++) {
+        //         String list = "\nName:" + directoratesList.get(i).getName() + "                  ID:   "
+        //                 + directoratesList.get(i).getID();
+        //         // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+
+        //         listDirBox.getChildren().add(new Text(list));
+
+        //     }
+
+        // });
+
+        // listDirPane.setBottom(delDirReturn);
+        // listDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+
+        // addDirSave.setOnAction(e -> {
+
+        //     if (dirNameField.getText().equals("")) {
+        //         addDirChecking.setText("Division name missing, please enter a name");
+
+        //     } else if (dirIDField.getText().equals("")) {
+        //         addDirChecking.setText("Division ID missing, Please enter an ID");
+
+        //     } else {
+        //         Directorate addDirision = new Directorate(dirNameField.getText(), dirIDField.getText());
+        //         directoratesList.add(addDirision);
+        //         dirNameField.clear();
+        //         dirIDField.clear();
+        //         primaryStage.setScene(divisionScene);
+        //     }
+        // });
 
         // Applicants
         BorderPane ApplicantsPane = new BorderPane();
@@ -898,106 +1154,106 @@ public class App extends Application {
         backButton7.setOnAction(e -> primaryStage.setScene(scene5));
         viewWhoPassPane.setTop(backButton7);
 
+        // View Interview Results
+        Interviewer example = new Interviewer("example");
+        BorderPane viewerResultPane = new BorderPane();
+        viewerResultPane.setPadding(new Insets(15, 15, 15, 15));
+        Text viewerResultText = new Text("View Interview Results");
+        viewerResultText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        VBox viewerResulBox = new VBox(20);
+        viewerResulBox.setAlignment(Pos.CENTER);
+        Button backInterview = new Button("Back");
+        ListView<String> listView = new ListView<String>();
+        listView.setMaxSize(409, 64);
+        // for (int i = 0; i < example.getlistOfJobs().size(); i++) {
+        // listView.getItems().add("The result of interview number " +
+        // example.getlistOfJobs().get(i).getID()+ " at "
+        // +example.getlistOfJobs().get(i).getDate()+" is " +
+        // example.getlistOfJobs().get(i).getResult());
+        // }
+        viewerResulBox.getChildren().addAll(viewerResultText, listView);
 
+        viewerResultPane.setTop(backInterview);
+        viewerResultPane.setCenter(viewerResulBox);
+        Scene sceneview = new Scene(viewerResultPane, 1024, 640);
 
+        // Log Interview Results
+        BorderPane logResultPane = new BorderPane();
+        logResultPane.setPadding(new Insets(15, 15, 15, 15));
+        Text logResultText = new Text("Log Interview Results");
+        logResultText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        VBox logResulBox = new VBox(20);
+        logResulBox.setAlignment(Pos.CENTER);
+        Button backInterview2 = new Button("Back");
+        Button set = new Button("set");
+        ComboBox<Interview> listComboBox = new ComboBox<>(FXCollections.observableArrayList(interviewList));
+        listComboBox.setMaxSize(409, 64);
+        ArrayList<String> statusList = new ArrayList<String>();
+        statusList.add("Passed");
+        statusList.add("Failed");
+        statusList.add("TBA");
+        ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList(statusList));
 
-		//View Interview Results
-		Interviewer example = new Interviewer("example");
-		BorderPane viewerResultPane = new BorderPane();
-		viewerResultPane.setPadding(new Insets(15, 15, 15, 15));
-		Text viewerResultText = new Text("View Interview Results");
-		viewerResultText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-		VBox viewerResulBox = new VBox(20);
-		viewerResulBox.setAlignment(Pos.CENTER);
-		Button backInterview = new Button("Back");
-		ListView<String> listView = new ListView<String>();
-		listView.setMaxSize(409, 64);
-//		for (int i = 0; i < example.getlistOfJobs().size(); i++) {
-//			listView.getItems().add("The result of interview number " + example.getlistOfJobs().get(i).getID()+ " at "
-//					+example.getlistOfJobs().get(i).getDate()+" is " + example.getlistOfJobs().get(i).getResult());
-//		}
-		viewerResulBox.getChildren().addAll(viewerResultText, listView);
+        logResulBox.getChildren().addAll(logResultText, listComboBox, statusComboBox, set);
+        logResultPane.setTop(backInterview2);
+        logResultPane.setCenter(logResulBox);
 
-		viewerResultPane.setTop(backInterview);
-		viewerResultPane.setCenter(viewerResulBox);
-		Scene sceneview = new Scene(viewerResultPane, 1024, 640);
+        set.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent g) {
+                example.setResult(listComboBox.getSelectionModel().getSelectedItem().getID(),
+                        statusComboBox.getSelectionModel().getSelectedItem());
+                System.out.println(listComboBox.getSelectionModel().getSelectedItem().getID());
+                System.out.println(statusComboBox.getSelectionModel().getSelectedItem());
+            }
+        });
+        Scene scenelog = new Scene(logResultPane, 1024, 640);
 
-		//Log Interview Results
-		BorderPane logResultPane = new BorderPane();
-		logResultPane.setPadding(new Insets(15, 15, 15, 15));
-		Text logResultText = new Text("Log Interview Results");
-		logResultText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-		VBox logResulBox = new VBox(20);
-		logResulBox.setAlignment(Pos.CENTER);
-		Button backInterview2 = new Button("Back");
-		Button set = new Button("set");
-		ComboBox<Interview> listComboBox = new ComboBox<>(FXCollections.observableArrayList(interviewList));
-		listComboBox.setMaxSize(409, 64);
-		ArrayList<String> statusList = new ArrayList<String>();
-		statusList.add("Passed");
-		statusList.add("Failed");
-		statusList.add("TBA");
-		ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList(statusList));
+        // Interviewer page
+        BorderPane interviewerPane = new BorderPane();
+        VBox interviewerBox = new VBox(20);
+        Text interviewerText = new Text("Interviewer page");
+        interviewerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button viewInterviewResultsButton = new Button("View Interview Results");
+        viewInterviewResultsButton.setMaxSize(409, 64);
+        viewInterviewResultsButton.setOnAction(e -> primaryStage.setScene(sceneview));
+        Button logInterviewResultsButton = new Button("Log Interview Results");
+        logInterviewResultsButton.setMaxSize(409, 64);
+        logInterviewResultsButton.setOnAction(e -> primaryStage.setScene(scenelog));
+        Scene scene10 = new Scene(interviewerPane, 1024, 640);
+        interviewerBox.getChildren().addAll(interviewerText, viewInterviewResultsButton, logInterviewResultsButton);
+        interviewerBox.setAlignment(Pos.CENTER);
+        interviewerPane.setPadding(new Insets(15, 15, 15, 15));
+        interviewerPane.setCenter(interviewerBox);
+        Button logOutButton10 = new Button("Log out");
+        logOutButton10.setOnAction(e -> primaryStage.setScene(scene1));
+        interviewerPane.setTop(logOutButton10);
+        backInterview.setOnAction(e -> primaryStage.setScene(scene10));
+        backInterview2.setOnAction(e -> primaryStage.setScene(scene10));
 
-		logResulBox.getChildren().addAll(logResultText, listComboBox, statusComboBox, set);
-		logResultPane.setTop(backInterview2);
-		logResultPane.setCenter(logResulBox);
+        // sign in button
+        singinButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent g) {
+                if (usernamefield.getText().equals("") || passwordfield.getText().equals("")) {
+                    eror.setText("username or password is not entered");
+                } else if (usernamefield.getText().equals(passwordfield.getText())) {
+                    if (usernamefield.getText().substring(0, 4).equals("1000")) {
+                        primaryStage.setScene(scene2);
+                    } else {
+                        primaryStage.setScene(scene10);
+                    }
+                } else {
+                    eror.setText("Wrong username or password");
+                }
+            }
+        });
+    }
 
+    public static void main(String[] args) {
+        launch();
+    }
 
-		set.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent g) {
-				example.setResult(listComboBox.getSelectionModel().getSelectedItem().getID(), statusComboBox.getSelectionModel().getSelectedItem());
-				System.out.println(listComboBox.getSelectionModel().getSelectedItem().getID());
-				System.out.println(statusComboBox.getSelectionModel().getSelectedItem());
-			}});
-		Scene scenelog = new Scene(logResultPane, 1024, 640);
-
-		//Interviewer page
-		BorderPane interviewerPane = new BorderPane();
-		VBox interviewerBox = new VBox(20);
-		Text interviewerText = new Text("Interviewer page");
-		interviewerText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-		Button viewInterviewResultsButton = new Button("View Interview Results");
-		viewInterviewResultsButton.setMaxSize(409, 64);
-		viewInterviewResultsButton.setOnAction(e -> primaryStage.setScene(sceneview));
-		Button logInterviewResultsButton = new Button("Log Interview Results");
-		logInterviewResultsButton.setMaxSize(409, 64);
-		logInterviewResultsButton.setOnAction(e -> primaryStage.setScene(scenelog));
-		Scene scene10 = new Scene(interviewerPane, 1024, 640);
-		interviewerBox.getChildren().addAll(interviewerText, viewInterviewResultsButton, logInterviewResultsButton);
-		interviewerBox.setAlignment(Pos.CENTER);
-		interviewerPane.setPadding(new Insets(15, 15, 15, 15));
-		interviewerPane.setCenter(interviewerBox);
-		Button logOutButton10 = new Button("Log out");
-		logOutButton10.setOnAction(e -> primaryStage.setScene(scene1));
-		interviewerPane.setTop(logOutButton10);
-		backInterview.setOnAction(e -> primaryStage.setScene(scene10));
-		backInterview2.setOnAction(e -> primaryStage.setScene(scene10));
-
-		//sign in button
-		singinButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent g) {
-				if(usernamefield.getText().equals("") || passwordfield.getText().equals("")) {
-					eror.setText("username or password is not entered");
-				}
-				else if(usernamefield.getText().equals(passwordfield.getText())) {
-					if(usernamefield.getText().substring(0, 4).equals("1000")) {
-						primaryStage.setScene(scene2);
-					}else {
-						primaryStage.setScene(scene10);
-					}
-				}
-				else {
-					eror.setText("Wrong username or password");
-				}
-			}});
-	}
-
-	public static void main(String[] args) {
-		launch();
-	}
     public class NumberTextField extends TextField {
 
         @Override

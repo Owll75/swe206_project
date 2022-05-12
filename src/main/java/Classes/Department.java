@@ -1,15 +1,15 @@
 package Classes;
 
 public class Department extends Unit {
-    int depID;
+    String depID;
 
-    public Department(String _name, int _depId) {
+    public Department(String _name, String _depId) {
         super(_name);
         depID = _depId;
 
     }
 
-    public int getID() {
+    public String getID() {
         return depID;
     }
 
@@ -17,7 +17,7 @@ public class Department extends Unit {
         return super.name;
     }
 
-    public void setID(int _ID) {
+    public void setID(String _ID) {
         depID = _ID;
 
     }

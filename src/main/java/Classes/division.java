@@ -6,9 +6,9 @@ public class division extends Unit {
     String divID;
     ArrayList<Directorate> listOfDirectorate = new ArrayList<Directorate>();
 
-    public division(String _name, String _ID) {
+    public division(String _name, String _divID) {
         super(_name);
-        divID = _ID;
+        divID = _divID;
 
     }
 
@@ -29,7 +29,7 @@ public class division extends Unit {
         super.name = _Name;
     }
 
-    public void removeDirectorate(int _ID) {
+    public void removeDirectorate(String _ID) {
         for (int i = 0; i >= listOfDirectorate.size(); i++) {
             if (_ID == listOfDirectorate.get(i).getID()) {
                 listOfDirectorate.remove(i);
