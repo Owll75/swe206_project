@@ -551,13 +551,17 @@ public class App extends Application {
         modifyDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
         modifyDivSerButton.setOnAction(e -> {
-            for (int i = 0; i < divisionsList.size(); i++) {
-                if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
-                    modifyDivFi.setVisible(true);
-                    modifyDivFi.setText(divisionsList.get(i).getName());
-                    modifyDivIDFi.setVisible(true);
-                    modifyDivIDFi.setText(divisionsList.get(i).getID());
-                    modifyDivButton.setVisible(true);
+            if (modifyDivNameSer.getText().equals("")) {
+                modifyDivCheck.setText("ID not vaild, or doesn't exist. Try again");
+            } else {
+                for (int i = 0; i < divisionsList.size(); i++) {
+                    if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        modifyDivFi.setVisible(true);
+                        modifyDivFi.setText(divisionsList.get(i).getName());
+                        modifyDivIDFi.setVisible(true);
+                        modifyDivIDFi.setText(divisionsList.get(i).getID());
+                        modifyDivButton.setVisible(true);
+                    }
                 }
             }
         });
@@ -575,6 +579,7 @@ public class App extends Application {
                         divisionsList.get(i).setID(modifyDivIDFi.getText());
 
                     }
+                    modifyDivNameSer.clear();
                     modifyDivIDFi.clear();
                     modifyDivFi.clear();
                     modifyDivIDFi.setVisible(false);
@@ -601,6 +606,8 @@ public class App extends Application {
         delDivButton.setVisible(false);
         delDivButton.setMaxSize(409, 64);
         Button delDivReturn = new Button("Return");
+        Text delDivCheck = new Text();
+        delDivCheck.setFont(Font.font("Inter", FontWeight.BOLD, 36));
 
         Scene deldivScene = new Scene(delDivPane, 1024, 640);
         delDivBox.getChildren().addAll(delDivText, delDivNameSer, delSerButton,
@@ -614,13 +621,18 @@ public class App extends Application {
         delDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
         delSerButton.setOnAction(e -> {
-            for (int i = 0; i < divisionsList.size(); i++) {
-                if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
-                    delDivResult.setVisible(true);
-                    delDivResult.setText(
-                            "Name: " + divisionsList.get(i).getName() + " ID: " +
-                                    divisionsList.get(i).getID());
-                    delDivButton.setVisible(true);
+            if (delDivNameSer.getText().equals("")) {
+                delDivCheck.setText("ID not vaild, or doesn't exist. Try again");
+
+            } else {
+                for (int i = 0; i < divisionsList.size(); i++) {
+                    if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        delDivResult.setVisible(true);
+                        delDivResult.setText(
+                                "Name: " + divisionsList.get(i).getName() + " ID: " +
+                                        divisionsList.get(i).getID());
+                        delDivButton.setVisible(true);
+                    }
                 }
             }
         });
@@ -660,13 +672,15 @@ public class App extends Application {
                         + divisionsList.get(i).getID();
                 // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
-                listDivBox.getChildren().add(new Text(list));
-
             }
 
         });
 
-        listDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
+        listDivReturn.setOnAction(e -> {
+
+            primaryStage.setScene(unitScene);
+
+        });
 
         addDivSave.setOnAction(e -> {
 
@@ -1509,28 +1523,54 @@ public class App extends Application {
         Button backInterview = new Button("Back");
         ListView<String> listView = new ListView<String>();
         listView.setMaxSize(409, 64);
+        listView.setMinWidth(64);
+        listView.setMinHeight(300);
+        ComboBox<Integer> applicantComboBox8 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        applicantComboBox8.setMaxSize(409, 64);
+        Button viewResultsButton = new Button("view interview results");
+        viewResultsButton.setMaxSize(409, 64);
+
         // for (int i = 0; i < example.getlistOfJobs().size(); i++) {
         // listView.getItems().add("The result of interview number " +
         // example.getlistOfJobs().get(i).getID()+ " at "
         // +example.getlistOfJobs().get(i).getDate()+" is " +
         // example.getlistOfJobs().get(i).getResult());
         // }
-        viewerResulBox.getChildren().addAll(viewerResultText, listView);
+        viewerResulBox.getChildren().addAll(viewerResultText, applicantComboBox8, viewResultsButton, listView);
 
         viewerResultPane.setTop(backInterview);
         viewerResultPane.setCenter(viewerResulBox);
         Scene sceneview = new Scene(viewerResultPane, 1024, 640);
 
+        viewResultsButton.setOnAction(ActionEvent -> {
+            listView.getItems().clear();
+            for (int i = 0; i < interviewList.size(); i++) {
+                if (interviewList.get(i).getApplicant().getID() == applicantComboBox8.getSelectionModel()
+                        .getSelectedItem()) {
+                    listView.getItems()
+                            .add("Interview ID: " + interviewList.get(i).getID() + " at date: "
+                                    + interviewList.get(i).getDate() + " results: " + interviewList.get(i).getResult());
+                }
+            }
+        });
+
         // Log Interview Results
+        ArrayList<Integer> interviewNames = new ArrayList<>();
+        for (int i = 0; i < interviewList.size(); i++) {
+            interviewNames.add(interviewList.get(i).getID());
+        }
+
         BorderPane logResultPane = new BorderPane();
         logResultPane.setPadding(new Insets(15, 15, 15, 15));
         Text logResultText = new Text("Log Interview Results");
         logResultText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         VBox logResulBox = new VBox(20);
         logResulBox.setAlignment(Pos.CENTER);
+        Button refreshButton = new Button("refresh");
+        refreshButton.setMaxSize(409, 64);
         Button backInterview2 = new Button("Back");
         Button set = new Button("set");
-        ComboBox<Interview> listComboBox = new ComboBox<>(FXCollections.observableArrayList(interviewList));
+        ComboBox<Integer> listComboBox = new ComboBox<>(FXCollections.observableArrayList(interviewNames));
         listComboBox.setMaxSize(409, 64);
         ArrayList<String> statusList = new ArrayList<String>();
         statusList.add("Passed");
@@ -1538,21 +1578,37 @@ public class App extends Application {
         statusList.add("TBA");
         ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList(statusList));
 
-        logResulBox.getChildren().addAll(logResultText, listComboBox, statusComboBox, set);
+        logResulBox.getChildren().addAll(logResultText, refreshButton, listComboBox, statusComboBox, set);
         logResultPane.setTop(backInterview2);
         logResultPane.setCenter(logResulBox);
+
+        refreshButton.setOnAction(ActionEvent -> {
+            interviewNames.clear();
+            listComboBox.getItems().clear();
+
+            for (int i = 0; i < interviewList.size(); i++) {
+                interviewNames.add(interviewList.get(i).getID());
+                listComboBox.getItems().add(interviewNames.get(i));
+            }
+
+            logResulBox.getChildren().clear();
+            logResulBox.getChildren().addAll(logResultText, refreshButton, listComboBox, statusComboBox, set);
+        });
 
         set.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent g) {
-                example.setResult(listComboBox.getSelectionModel().getSelectedItem().getID(),
-                        statusComboBox.getSelectionModel().getSelectedItem());
-                System.out.println(listComboBox.getSelectionModel().getSelectedItem().getID());
-                System.out.println(statusComboBox.getSelectionModel().getSelectedItem());
+                for (int i = 0; i < interviewList.size(); i++) {
+                    if (listComboBox.getSelectionModel().getSelectedItem() == interviewList.get(i).getID()) {
+                        interviewList.get(i).setResult(statusComboBox.getSelectionModel().getSelectedItem());
+                        // System.out.println(listComboBox.getSelectionModel().getSelectedItem().getID());
+                        // System.out.println(statusComboBox.getSelectionModel().getSelectedItem());
+                    }
+                }
+
             }
         });
         Scene scenelog = new Scene(logResultPane, 1024, 640);
-
         // Interviewer page
         BorderPane interviewerPane = new BorderPane();
         VBox interviewerBox = new VBox(20);
