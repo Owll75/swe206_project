@@ -1,8 +1,10 @@
 package Classes;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 
-public class Directorate extends Unit {
+public class Directorate extends Unit implements Serializable {
     String direID;
     ArrayList<Department> listoFDepratments = new ArrayList<Department>();
 

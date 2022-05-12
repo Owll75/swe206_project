@@ -1,8 +1,10 @@
 package Classes;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 
-public class division extends Unit {
+public class division extends Unit implements Serializable {
     String divID;
     ArrayList<Directorate> listOfDirectorate = new ArrayList<Directorate>();
 

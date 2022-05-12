@@ -13,11 +13,12 @@ public class jobBands implements Serializable {
       this.bandID = bandID;
       this.listOfJobs = listOfJobs;
    }
-   public String getBandName(){
+
+   public String getBandName() {
       return bandName;
    }
 
-   public int getBandID(){
+   public int getBandID() {
       return bandID;
    }
 

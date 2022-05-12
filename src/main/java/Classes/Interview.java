@@ -1,13 +1,15 @@
 package Classes;
 
+import java.io.Serializable;
 
-public class Interview {
+public class Interview implements Serializable {
 	int ID;
 	String date;
 	Applicant applicant;
 	Interviewer interviewer;
 	String result;
-	public Interview(int ID, String date, Applicant applicant, Interviewer interviewer){
+
+	public Interview(int ID, String date, Applicant applicant, Interviewer interviewer) {
 		this.ID = ID;
 		this.date = date;
 		this.applicant = applicant;

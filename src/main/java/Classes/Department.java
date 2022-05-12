@@ -1,6 +1,8 @@
 package Classes;
 
-public class Department extends Unit {
+import java.io.Serializable;
+
+public class Department extends Unit implements Serializable {
     String depID;
 
     public Department(String _name, String _depId) {

@@ -670,13 +670,17 @@ public class App extends Application {
             for (int i = 0; i < divisionsList.size(); i++) {
                 String list = "\nName:" + divisionsList.get(i).getName() + " ID: "
                         + divisionsList.get(i).getID();
+
                 // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+                listDivBox.getChildren().add(new Text(list));
 
             }
 
         });
 
         listDivReturn.setOnAction(e -> {
+            listDivBox.getChildren().clear();
+            listDivBox.getChildren().addAll(listDivText);
 
             primaryStage.setScene(unitScene);
 
@@ -789,6 +793,7 @@ public class App extends Application {
                         directoratesList.get(i).setID(modifyDirIDFi.getText());
 
                     }
+                    modifyDirNameSer.clear();
                     modifyDirIDFi.clear();
                     modifyDirFi.clear();
                     modifyDirIDFi.setVisible(false);
@@ -844,6 +849,7 @@ public class App extends Application {
                 if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
                     directoratesList.remove(i);
                     delDirResult.setText("");
+                    delDirNameSer.clear();
                     delDirResult.setVisible(false);
                     delDirButton.setVisible(false);
                     primaryStage.setScene(divisionScene);
@@ -870,7 +876,7 @@ public class App extends Application {
         viewListOfDirectorate.setOnAction(e -> {
             primaryStage.setScene(listdirScene);
 
-            for (int i = 0; i < divisionsList.size(); i++) {
+            for (int i = 0; i < directoratesList.size(); i++) {
                 String list = "\nName:" + directoratesList.get(i).getName() + " ID: "
                         + directoratesList.get(i).getID();
                 // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
