@@ -1458,10 +1458,10 @@ public class App extends Application {
         backButton7.setOnAction(e -> primaryStage.setScene(scene5));
         viewWhoPassPane.setTop(backButton7);
 
-        //Applicant: review interview results
+        // Applicant: review interview results
         BorderPane reviewResultPane = new BorderPane();
         VBox reviewResultBox = new VBox(20);
-        reviewResultPane.setPadding(new Insets(15, 15 , 15 , 15));
+        reviewResultPane.setPadding(new Insets(15, 15, 15, 15));
         Text reviewResultsText = new Text("Review Interview Results");
         reviewResultsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
         ComboBox<Integer> applicantComboBox7 = new ComboBox<>(FXCollections.observableArrayList(IDList));
@@ -1473,18 +1473,22 @@ public class App extends Application {
         interviewResultsListView.setMaxSize(409, 64);
         interviewResultsListView.setMinWidth(64);
         interviewResultsListView.setMinHeight(300);
-        reviewResultBox.getChildren().addAll(reviewResultsText, applicantComboBox7, reviewResultsButton, interviewResultsListView);
+        reviewResultBox.getChildren().addAll(reviewResultsText, applicantComboBox7, reviewResultsButton,
+                interviewResultsListView);
         reviewResultPane.setCenter(reviewResultBox);
         reviewResultBox.setAlignment(Pos.CENTER);
         reviewResultPane.setTop(backReview);
-        
-        Scene reviewResultsScene = new Scene(reviewResultPane,1024, 640);
+
+        Scene reviewResultsScene = new Scene(reviewResultPane, 1024, 640);
 
         reviewResultsButton.setOnAction(ActionEvent -> {
             interviewResultsListView.getItems().clear();
-            for (int i = 0; i<interviewList.size(); i++){
-                if(interviewList.get(i).getApplicant().getID() == applicantComboBox7.getSelectionModel().getSelectedItem()){
-                    interviewResultsListView.getItems().add("Interview ID: " + interviewList.get(i).getID() + " at date: " + interviewList.get(i).getDate() + " results: " + interviewList.get(i).getResult());
+            for (int i = 0; i < interviewList.size(); i++) {
+                if (interviewList.get(i).getApplicant().getID() == applicantComboBox7.getSelectionModel()
+                        .getSelectedItem()) {
+                    interviewResultsListView.getItems()
+                            .add("Interview ID: " + interviewList.get(i).getID() + " at date: "
+                                    + interviewList.get(i).getDate() + " results: " + interviewList.get(i).getResult());
                 }
             }
         });
