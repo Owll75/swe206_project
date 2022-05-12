@@ -41,7 +41,8 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
 
         // Used for test purposes
-        // ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"));
+        // ObjectInputStream input = new ObjectInputStream(new
+        // FileInputStream("data.dat"));
         // ArrayList<ArrayList> dataList = (ArrayList<ArrayList>) input.readObject();
         // ArrayList<Applicant> applicantList = dataList.get(0);
         // ArrayList<Job> jobList = dataList.get(1);
@@ -62,15 +63,14 @@ public class App extends Application {
         ArrayList<Department> departmentsList = new ArrayList<>();
         jobList.add(new Job("Program Manager", 1));
         jobList.add(new Job("Product Manager", 1));
-        //ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
-        //ArrayList<division> divisionsList = new ArrayList<division>();
-        //ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
-        //ArrayList<Department> departmentsList = new ArrayList<Department>();
+        // ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
+        // ArrayList<division> divisionsList = new ArrayList<division>();
+        // ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
+        // ArrayList<Department> departmentsList = new ArrayList<Department>();
 
         interviewerList.add(new Interviewer("Jonathan"));
         interviewerList.add(new Interviewer("Joseph"));
         interviewerList.add(new Interviewer("Jotaro"));
-
 
         ArrayList<String> interviewerNameList = new ArrayList<String>();
         for (int i = 0; i < interviewerList.size(); i++) {
@@ -125,7 +125,7 @@ public class App extends Application {
         employerPane.setTop(logOutButton);
         logOutButton.setOnAction(ActionEvent -> {
             primaryStage.setScene(scene1);
-        //Save featurer test
+            // Save featurer test
             FileOutputStream fileOut = null;
             ArrayList<ArrayList> dataLists = new ArrayList<>();
             dataLists.add(applicantList);
@@ -137,14 +137,12 @@ public class App extends Application {
             dataLists.add(directoratesList);
             dataLists.add(departmentsList);
 
-
             try {
                 fileOut = new FileOutputStream("data.dat");
                 ObjectOutputStream output = new ObjectOutputStream(fileOut);
                 output.writeObject(dataLists);
 
                 output.close();
-
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -154,234 +152,240 @@ public class App extends Application {
 
         });
 
-
-       //
-       ArrayList<String> bandsNamesList = new ArrayList<>();
-       for (int i = 0; i < bandsList.size(); i++) {
-           bandsNamesList.add(bandsList.get(i).getBandName());
-       }
-
-       // bands page
-       BorderPane bandsPane = new BorderPane();
-       VBox bandsBox = new VBox(20);
-       Text bandsText = new Text("Bands");
-       bandsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-       Button addBandButton = new Button("Add band");
-       addBandButton.setMaxSize(409, 64);
-       Button AssignBandButton = new Button("Assign band");
-       AssignBandButton.setMaxSize(409, 64);
-       Button deleteBandButton = new Button("Delete band");
-       deleteBandButton.setMaxSize(409, 64);
-       Button modifyBandButton = new Button("modify band");
-       modifyBandButton.setMaxSize(409, 64);
-       Scene scene3 = new Scene(bandsPane, 1024, 640);
-       bandsBox.getChildren().addAll(bandsText, addBandButton, AssignBandButton, deleteBandButton, modifyBandButton);
-       bandsBox.setAlignment(Pos.CENTER);
-       bandsPane.setPadding(new Insets(15, 15, 15, 15));
-       bandsPane.setCenter(bandsBox);
-       Button backButton = new Button("Back");
-       backButton.setOnAction(e -> {primaryStage.setScene(scene2);});
-       bandsPane.setTop(backButton);
-       bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
-
-       //Add band
-       BorderPane addBandPane = new BorderPane();
-       VBox addBandBox = new VBox(20);
-       Text addBandText = new Text("Add Band");
-       addBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-       Button bandAddButton = new Button("confirm");
-       bandAddButton.setMaxSize(409, 64);
-       TextField bandNamefield1 = new TextField();
-       bandNamefield1.setMaxSize(409, 64);
-       bandNamefield1.setPromptText("Enter Band Name");
-       TextField bandIDfield1 = new TextField();
-       Text massage3 = new Text("");
-       bandIDfield1.setMaxSize(409, 64);
-       bandIDfield1.setPromptText("Enter Band ID");
-       Scene scene8 = new Scene(addBandPane, 1024, 640);
-       addBandBox.setAlignment(Pos.CENTER);
-       addBandPane.setPadding(new Insets(15, 15, 15, 15));
-       addBandPane.setCenter(addBandBox);
-       Button backButto7 = new Button("Back");
-       addBandBox.getChildren().addAll(addBandText,bandIDfield1,bandNamefield1,bandAddButton,massage3);
-       backButto7.setOnAction(e -> {
-           massage3.setText("");
-            bandNamefield1.clear();
-            bandIDfield1.clear();
-           primaryStage.setScene(scene3);});
-       addBandPane.setTop(backButto7);
-       
-       addBandButton.setOnAction(e -> {primaryStage.setScene(scene8);});
-       bandAddButton.setOnAction(ActionEvent -> {
-           try{
-            Boolean testAdd =false;
-            for (int i = 0; i < bandsList.size(); i++) {
-                if((bandsList.get(i).getBandName()).equals(bandNamefield1.getText())||(String.valueOf(bandsList.get(i).getBandID())).equals(bandIDfield1.getText())){
-                massage3.setText("You can not add duplicated name or ID");
-                testAdd=true;
-                }
-            }
-            if(!testAdd){
-                bandsList.add(new jobBands(bandNamefield1.getText(),Integer.valueOf(bandIDfield1.getText()), new ArrayList<Job>()));
-                bandsNamesList.add(bandNamefield1.getText());
-                massage3.setText("Bnad added secssfuly");
-            }
-       }
-       catch(Exception e){
-           massage3.setText("Adding Bnad has been filed pleese enter an integer number only for ID ");}});
-       //delete band
-       BorderPane deleteBandPane = new BorderPane();
-       VBox deleteBandBox = new VBox(20);
-       Text deleteBandText = new Text("Delete Band");
-       deleteBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-       ComboBox<String> bandsComboBox = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
-       Button bandDeleteButton = new Button("Delete");
-       bandDeleteButton.setMaxSize(409, 64);
-       bandsComboBox.setMaxSize(409, 64);
-       Scene scene6 = new Scene(deleteBandPane, 1024, 640);
-       deleteBandButton.setOnAction(ActionEvent ->{
-           bandsComboBox.getItems().clear();
-           bandsComboBox.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-           primaryStage.setScene(scene6);
-       });
-       Text massage1 = new Text("");
-       deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton,massage1);
-       deleteBandBox.setAlignment(Pos.CENTER);
-       deleteBandPane.setPadding(new Insets(15, 15, 15, 15));
-       deleteBandPane.setCenter(deleteBandBox);
-
-       Button backButto5 = new Button("Back");
-       
-       backButto5.setOnAction(e -> {
-           primaryStage.setScene(scene3);
-           massage1.setText("");
-           bandsNamesList.clear();
-           for (int i = 0; i < bandsList.size(); i++) {
+        //
+        ArrayList<String> bandsNamesList = new ArrayList<>();
+        for (int i = 0; i < bandsList.size(); i++) {
             bandsNamesList.add(bandsList.get(i).getBandName());
         }
 
-    });
-       deleteBandPane.setTop(backButto5);
-       bandDeleteButton.setOnAction((ActionEvent ->{
-           bandsNamesList.remove(bandsComboBox.getSelectionModel().getSelectedItem());
-           for (int i = 0; i < bandsList.size(); i++) {
-            if(bandsList.get(i).getBandName().equals(bandsComboBox.getSelectionModel().getSelectedItem()))
-            bandsList.remove(i);
-            massage1.setText("Band has been Deleted");
-           }
-           bandsComboBox.getItems().clear();
-           bandsComboBox.getItems().addAll(bandsNamesList);
-       }));
-       //modify band
-       BorderPane modifyBandPane = new BorderPane();
-       VBox modifyBandBox = new VBox(20);
-       Text modifyBandText = new Text("Modify Band");
-       modifyBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-       Button bandModifyButton = new Button("confirm");
-       bandDeleteButton.setMaxSize(409, 64);
-       TextField bandNamefield = new TextField();
-       bandNamefield.setMaxSize(409, 64);
-       ComboBox<String> bandsComboBox2 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
-       bandsComboBox2.setMaxSize(409, 64);
-       TextField bandIDfield = new TextField();
-       bandIDfield.setMaxSize(409, 64);
-       Scene scene7 = new Scene(modifyBandPane, 1024, 640);
-       modifyBandBox.setAlignment(Pos.CENTER);
-       modifyBandPane.setPadding(new Insets(15, 15, 15, 15));
-       modifyBandPane.setCenter(modifyBandBox);
-       Button backButto6 = new Button("Back");
-       Text namebandText = new Text("Band Name:");
-       Text massage4 = new Text("");
-       Text idBandText = new Text("Band ID:");
-       modifyBandBox.getChildren().addAll(modifyBandText,bandsComboBox2,namebandText,bandNamefield,idBandText,bandIDfield,bandModifyButton,massage4);
-       backButto6.setOnAction(e -> {
-           bandNamefield.clear();
-           bandIDfield.clear();
-           massage4.setText("");
-           primaryStage.setScene(scene3);
-       });
-       modifyBandPane.setTop(backButto6);
-       bandsComboBox2.setOnAction(e ->{
-           for (int i = 0; i < bandsList.size(); i++) {
-               if(bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())){
-                   bandNamefield.setText(bandsList.get(i).getBandName());
-                   bandIDfield.setText(String.valueOf(bandsList.get(i).getBandID()));
-               }
-           }
-       });
-       bandModifyButton.setOnAction(e ->{
-           for (int i = 0; i < bandsList.size(); i++) {
-               if(bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())){
-                   try{
-                       bandsList.get(i).modifyBand(bandNamefield.getText(), Integer.valueOf(bandIDfield.getText()));
-                       massage4.setText("Bnad has been modified secssfuly");
-                   }
-                   catch(Exception e1){
-                       massage4.setText("modifying the Bnad has filed pleese enter an integer number only for ID ");
-                   }
-               }
-               }
-               bandsNamesList.clear();
-               for (int i = 0; i < bandsList.size(); i++) {
-                   bandsNamesList.add(bandsList.get(i).getBandName());
-               }
-               bandsComboBox2.getItems().clear();
-               bandsComboBox2.getItems().addAll(bandsNamesList);
-           });
-       modifyBandButton.setOnAction(e -> {
-           bandsComboBox2.getItems().clear();
-           bandsComboBox2.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-            primaryStage.setScene(scene7);
-       });
-       //
-       ArrayList<String> jobNamesList = new ArrayList<>();
-       for (int i = 0; i < jobList.size(); i++) {
-        jobNamesList.add(jobList.get(i).getName());
-       }
+        // bands page
+        BorderPane bandsPane = new BorderPane();
+        VBox bandsBox = new VBox(20);
+        Text bandsText = new Text("Bands");
+        bandsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button addBandButton = new Button("Add band");
+        addBandButton.setMaxSize(409, 64);
+        Button AssignBandButton = new Button("Assign band");
+        AssignBandButton.setMaxSize(409, 64);
+        Button deleteBandButton = new Button("Delete band");
+        deleteBandButton.setMaxSize(409, 64);
+        Button modifyBandButton = new Button("modify band");
+        modifyBandButton.setMaxSize(409, 64);
+        Scene scene3 = new Scene(bandsPane, 1024, 640);
+        bandsBox.getChildren().addAll(bandsText, addBandButton, AssignBandButton, deleteBandButton, modifyBandButton);
+        bandsBox.setAlignment(Pos.CENTER);
+        bandsPane.setPadding(new Insets(15, 15, 15, 15));
+        bandsPane.setCenter(bandsBox);
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> {
+            primaryStage.setScene(scene2);
+        });
+        bandsPane.setTop(backButton);
+        bandsButton.setOnAction(e -> primaryStage.setScene(scene3));
 
-       //assign band
-       BorderPane assignBandPane = new BorderPane();
-       VBox assignBandBox = new VBox(20);
-       Text assignBandText = new Text("Assign Band");
-       assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
-       ComboBox<String> bandsComboBox3 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
-       ComboBox<String>jobComboBox = new ComboBox<>(FXCollections.observableArrayList(jobNamesList));
-       Button bandAssignButton = new Button("Assign");
-       Text massage2 = new Text("");
-       bandAssignButton.setMaxSize(409, 64);
-       bandsComboBox3.setMaxSize(409, 64);
-       jobComboBox.setMaxSize(409, 64);
-       assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton,massage2);
-       Scene scene9 = new Scene(assignBandPane, 1024, 640);
-       assignBandBox.setAlignment(Pos.CENTER);
-       assignBandPane.setPadding(new Insets(15, 15, 15, 15));
-       assignBandPane.setCenter(assignBandBox);
-       Button backButto8 = new Button("Back");
-       backButto8.setOnAction(e -> {
-           primaryStage.setScene(scene3);
-           massage2.setText("");});
-       assignBandPane.setTop(backButto8);
-       AssignBandButton.setOnAction(e -> {
-           bandsComboBox3.getItems().clear();
-           bandsComboBox3.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-           primaryStage.setScene(scene9);
-       });
-       bandAssignButton.setOnAction(e ->{
-           for(int i = 0; i < bandsList.size(); i++){
-            if(bandsList.get(i).getBandName().equals(bandsComboBox3.getSelectionModel().getSelectedItem())){
-                for (int j = 0; j < jobList.size(); j++) {
-                    if(jobList.get(i).getName().equals(jobComboBox.getSelectionModel().getSelectedItem())){
-                        bandsList.get(i).assignBand(jobList.get(i));
-                        massage2.setText("Band assigned Secssfuly");
+        // Add band
+        BorderPane addBandPane = new BorderPane();
+        VBox addBandBox = new VBox(20);
+        Text addBandText = new Text("Add Band");
+        addBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button bandAddButton = new Button("confirm");
+        bandAddButton.setMaxSize(409, 64);
+        TextField bandNamefield1 = new TextField();
+        bandNamefield1.setMaxSize(409, 64);
+        bandNamefield1.setPromptText("Enter Band Name");
+        TextField bandIDfield1 = new TextField();
+        Text massage3 = new Text("");
+        bandIDfield1.setMaxSize(409, 64);
+        bandIDfield1.setPromptText("Enter Band ID");
+        Scene scene8 = new Scene(addBandPane, 1024, 640);
+        addBandBox.setAlignment(Pos.CENTER);
+        addBandPane.setPadding(new Insets(15, 15, 15, 15));
+        addBandPane.setCenter(addBandBox);
+        Button backButto7 = new Button("Back");
+        addBandBox.getChildren().addAll(addBandText, bandIDfield1, bandNamefield1, bandAddButton, massage3);
+        backButto7.setOnAction(e -> {
+            massage3.setText("");
+            bandNamefield1.clear();
+            bandIDfield1.clear();
+            primaryStage.setScene(scene3);
+        });
+        addBandPane.setTop(backButto7);
+
+        addBandButton.setOnAction(e -> {
+            primaryStage.setScene(scene8);
+        });
+        bandAddButton.setOnAction(ActionEvent -> {
+            try {
+                Boolean testAdd = false;
+                for (int i = 0; i < bandsList.size(); i++) {
+                    if ((bandsList.get(i).getBandName()).equals(bandNamefield1.getText())
+                            || (String.valueOf(bandsList.get(i).getBandID())).equals(bandIDfield1.getText())) {
+                        massage3.setText("You can not add duplicated name or ID");
+                        testAdd = true;
                     }
-                   }
+                }
+                if (!testAdd) {
+                    bandsList.add(new jobBands(bandNamefield1.getText(), Integer.valueOf(bandIDfield1.getText()),
+                            new ArrayList<Job>()));
+                    bandsNamesList.add(bandNamefield1.getText());
+                    massage3.setText("Bnad added secssfuly");
+                }
+            } catch (Exception e) {
+                massage3.setText("Adding Bnad has been filed pleese enter an integer number only for ID ");
+            }
+        });
+        // delete band
+        BorderPane deleteBandPane = new BorderPane();
+        VBox deleteBandBox = new VBox(20);
+        Text deleteBandText = new Text("Delete Band");
+        deleteBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        ComboBox<String> bandsComboBox = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
+        Button bandDeleteButton = new Button("Delete");
+        bandDeleteButton.setMaxSize(409, 64);
+        bandsComboBox.setMaxSize(409, 64);
+        Scene scene6 = new Scene(deleteBandPane, 1024, 640);
+        deleteBandButton.setOnAction(ActionEvent -> {
+            bandsComboBox.getItems().clear();
+            bandsComboBox.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
+            primaryStage.setScene(scene6);
+        });
+        Text massage1 = new Text("");
+        deleteBandBox.getChildren().addAll(deleteBandText, bandsComboBox, bandDeleteButton, massage1);
+        deleteBandBox.setAlignment(Pos.CENTER);
+        deleteBandPane.setPadding(new Insets(15, 15, 15, 15));
+        deleteBandPane.setCenter(deleteBandBox);
+
+        Button backButto5 = new Button("Back");
+
+        backButto5.setOnAction(e -> {
+            primaryStage.setScene(scene3);
+            massage1.setText("");
+            bandsNamesList.clear();
+            for (int i = 0; i < bandsList.size(); i++) {
+                bandsNamesList.add(bandsList.get(i).getBandName());
             }
 
-           }
-       });
+        });
+        deleteBandPane.setTop(backButto5);
+        bandDeleteButton.setOnAction((ActionEvent -> {
+            bandsNamesList.remove(bandsComboBox.getSelectionModel().getSelectedItem());
+            for (int i = 0; i < bandsList.size(); i++) {
+                if (bandsList.get(i).getBandName().equals(bandsComboBox.getSelectionModel().getSelectedItem()))
+                    bandsList.remove(i);
+                massage1.setText("Band has been Deleted");
+            }
+            bandsComboBox.getItems().clear();
+            bandsComboBox.getItems().addAll(bandsNamesList);
+        }));
+        // modify band
+        BorderPane modifyBandPane = new BorderPane();
+        VBox modifyBandBox = new VBox(20);
+        Text modifyBandText = new Text("Modify Band");
+        modifyBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        Button bandModifyButton = new Button("confirm");
+        bandDeleteButton.setMaxSize(409, 64);
+        TextField bandNamefield = new TextField();
+        bandNamefield.setMaxSize(409, 64);
+        ComboBox<String> bandsComboBox2 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
+        bandsComboBox2.setMaxSize(409, 64);
+        TextField bandIDfield = new TextField();
+        bandIDfield.setMaxSize(409, 64);
+        Scene scene7 = new Scene(modifyBandPane, 1024, 640);
+        modifyBandBox.setAlignment(Pos.CENTER);
+        modifyBandPane.setPadding(new Insets(15, 15, 15, 15));
+        modifyBandPane.setCenter(modifyBandBox);
+        Button backButto6 = new Button("Back");
+        Text namebandText = new Text("Band Name:");
+        Text massage4 = new Text("");
+        Text idBandText = new Text("Band ID:");
+        modifyBandBox.getChildren().addAll(modifyBandText, bandsComboBox2, namebandText, bandNamefield, idBandText,
+                bandIDfield, bandModifyButton, massage4);
+        backButto6.setOnAction(e -> {
+            bandNamefield.clear();
+            bandIDfield.clear();
+            massage4.setText("");
+            primaryStage.setScene(scene3);
+        });
+        modifyBandPane.setTop(backButto6);
+        bandsComboBox2.setOnAction(e -> {
+            for (int i = 0; i < bandsList.size(); i++) {
+                if (bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())) {
+                    bandNamefield.setText(bandsList.get(i).getBandName());
+                    bandIDfield.setText(String.valueOf(bandsList.get(i).getBandID()));
+                }
+            }
+        });
+        bandModifyButton.setOnAction(e -> {
+            for (int i = 0; i < bandsList.size(); i++) {
+                if (bandsList.get(i).getBandName().equals(bandsComboBox2.getSelectionModel().getSelectedItem())) {
+                    try {
+                        bandsList.get(i).modifyBand(bandNamefield.getText(), Integer.valueOf(bandIDfield.getText()));
+                        massage4.setText("Bnad has been modified secssfuly");
+                    } catch (Exception e1) {
+                        massage4.setText("modifying the Bnad has filed pleese enter an integer number only for ID ");
+                    }
+                }
+            }
+            bandsNamesList.clear();
+            for (int i = 0; i < bandsList.size(); i++) {
+                bandsNamesList.add(bandsList.get(i).getBandName());
+            }
+            bandsComboBox2.getItems().clear();
+            bandsComboBox2.getItems().addAll(bandsNamesList);
+        });
+        modifyBandButton.setOnAction(e -> {
+            bandsComboBox2.getItems().clear();
+            bandsComboBox2.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
+            primaryStage.setScene(scene7);
+        });
+        //
+        ArrayList<String> jobNamesList = new ArrayList<>();
+        for (int i = 0; i < jobList.size(); i++) {
+            jobNamesList.add(jobList.get(i).getName());
+        }
 
+        // assign band
+        BorderPane assignBandPane = new BorderPane();
+        VBox assignBandBox = new VBox(20);
+        Text assignBandText = new Text("Assign Band");
+        assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        ComboBox<String> bandsComboBox3 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
+        ComboBox<String> jobComboBox = new ComboBox<>(FXCollections.observableArrayList(jobNamesList));
+        Button bandAssignButton = new Button("Assign");
+        Text massage2 = new Text("");
+        bandAssignButton.setMaxSize(409, 64);
+        bandsComboBox3.setMaxSize(409, 64);
+        jobComboBox.setMaxSize(409, 64);
+        assignBandBox.getChildren().addAll(assignBandText, bandsComboBox3, jobComboBox, bandAssignButton, massage2);
+        Scene scene9 = new Scene(assignBandPane, 1024, 640);
+        assignBandBox.setAlignment(Pos.CENTER);
+        assignBandPane.setPadding(new Insets(15, 15, 15, 15));
+        assignBandPane.setCenter(assignBandBox);
+        Button backButto8 = new Button("Back");
+        backButto8.setOnAction(e -> {
+            primaryStage.setScene(scene3);
+            massage2.setText("");
+        });
+        assignBandPane.setTop(backButto8);
+        AssignBandButton.setOnAction(e -> {
+            bandsComboBox3.getItems().clear();
+            bandsComboBox3.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
+            primaryStage.setScene(scene9);
+        });
+        bandAssignButton.setOnAction(e -> {
+            for (int i = 0; i < bandsList.size(); i++) {
+                if (bandsList.get(i).getBandName().equals(bandsComboBox3.getSelectionModel().getSelectedItem())) {
+                    for (int j = 0; j < jobList.size(); j++) {
+                        if (jobList.get(i).getName().equals(jobComboBox.getSelectionModel().getSelectedItem())) {
+                            bandsList.get(i).assignBand(jobList.get(i));
+                            massage2.setText("Band assigned Secssfuly");
+                        }
+                    }
+                }
 
-        
+            }
+        });
+
         // used for unit
 
         /*
@@ -389,7 +393,6 @@ public class App extends Application {
          * ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
          * ArrayList<Department> departmentsList = new ArrayList<Department>();
          */
-        
         // units page
         BorderPane DepartmentsPane = new BorderPane();
         VBox DepartmentsBox = new VBox(20);
@@ -412,8 +415,8 @@ public class App extends Application {
 
         Scene unitScene = new Scene(DepartmentsPane, 1024, 640);
         DepartmentsBox.getChildren().addAll(DepartmentsText, divsButton, direcButton,
-        addDivision, modifyDivision,
-        deleteDivision, listOfDivisions);
+                addDivision, modifyDivision,
+                deleteDivision, listOfDivisions);
         DepartmentsBox.setAlignment(Pos.CENTER);
         DepartmentsPane.setPadding(new Insets(15, 15, 15, 15));
         DepartmentsPane.setCenter(DepartmentsBox);
@@ -441,8 +444,8 @@ public class App extends Application {
 
         Scene divisionScene = new Scene(DivisionPane, 1024, 640);
         DivisionBox.getChildren().addAll(divisionText, addDirectorate,
-        modifyDirectorate, deleteDirectorate,
-        viewListOfDirectorate);
+                modifyDirectorate, deleteDirectorate,
+                viewListOfDirectorate);
         DivisionBox.setAlignment(Pos.CENTER);
         DivisionPane.setPadding(new Insets(15, 15, 15, 15));
         DivisionPane.setCenter(DivisionBox);
@@ -469,8 +472,8 @@ public class App extends Application {
 
         Scene directorateScene = new Scene(DirectoratePane, 1024, 640);
         DirectorateBox.getChildren().addAll(directorateText, addDepartment,
-        modifyDepartment, deleteDepartment,
-        viewListOfDepartment);
+                modifyDepartment, deleteDepartment,
+                viewListOfDepartment);
         DirectorateBox.setAlignment(Pos.CENTER);
         DirectoratePane.setPadding(new Insets(15, 15, 15, 15));
         DirectoratePane.setCenter(DirectorateBox);
@@ -499,7 +502,7 @@ public class App extends Application {
 
         Scene diVAddScene = new Scene(AddDivPane, 1024, 640);
         AddDivBox.getChildren().addAll(divName, divNameField, divIDField, addDivSave,
-        addDivChecking);
+                addDivChecking);
         AddDivBox.setAlignment(Pos.CENTER);
         AddDivPane.setPadding(new Insets(15, 15, 15, 15));
         AddDivPane.setCenter(AddDivBox);
@@ -533,8 +536,8 @@ public class App extends Application {
 
         Scene modifydivScene = new Scene(modifyDivPane, 1024, 640);
         modifyDivBox.getChildren().addAll(modifyDivText, modifyDivNameSer,
-        modifySerButton, modifyDivFi, modifyDivIDFi,
-        modifyDivButton, modifyDivCheck);
+                modifySerButton, modifyDivFi, modifyDivIDFi,
+                modifyDivButton, modifyDivCheck);
         modifyDivBox.setAlignment(Pos.CENTER);
         modifyDivPane.setPadding(new Insets(15, 15, 15, 15));
         modifyDivPane.setCenter(modifyDivBox);
@@ -544,38 +547,38 @@ public class App extends Application {
         modifyDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
         modifySerButton.setOnAction(e -> {
-        for (int i = 0; i < divisionsList.size(); i++) {
-        if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
-        modifyDivFi.setVisible(true);
-        modifyDivFi.setText(divisionsList.get(i).getName());
-        modifyDivIDFi.setVisible(true);
-        modifyDivIDFi.setText(divisionsList.get(i).getID());
-        modifyDivButton.setVisible(true);
-        }
-        }
+            for (int i = 0; i < divisionsList.size(); i++) {
+                if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                    modifyDivFi.setVisible(true);
+                    modifyDivFi.setText(divisionsList.get(i).getName());
+                    modifyDivIDFi.setVisible(true);
+                    modifyDivIDFi.setText(divisionsList.get(i).getID());
+                    modifyDivButton.setVisible(true);
+                }
+            }
         });
         modifyDivButton.setOnAction(e -> {
-        if (modifyDivFi.getText().equals("")) {
-        modifyDivCheck.setText("Division name missing, please enter a name");
+            if (modifyDivFi.getText().equals("")) {
+                modifyDivCheck.setText("Division name missing, please enter a name");
 
-        } else if (modifyDivIDFi.getText().equals("")) {
-        modifyDivCheck.setText("Division ID missing, Please enter an ID");
+            } else if (modifyDivIDFi.getText().equals("")) {
+                modifyDivCheck.setText("Division ID missing, Please enter an ID");
 
-        } else {
-        for (int i = 0; i < divisionsList.size(); i++) {
-        if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
-        divisionsList.get(i).setName(modifyDivFi.getText());
-        divisionsList.get(i).setID(modifyDivIDFi.getText());
+            } else {
+                for (int i = 0; i < divisionsList.size(); i++) {
+                    if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        divisionsList.get(i).setName(modifyDivFi.getText());
+                        divisionsList.get(i).setID(modifyDivIDFi.getText());
 
-        }
-        modifyDivIDFi.clear();
-        modifyDivFi.clear();
-        modifyDivIDFi.setVisible(false);
-        modifyDivFi.setVisible(false);
-        modifyDivButton.setVisible(false);
-        primaryStage.setScene(unitScene);
-        }
-        }
+                    }
+                    modifyDivIDFi.clear();
+                    modifyDivFi.clear();
+                    modifyDivIDFi.setVisible(false);
+                    modifyDivFi.setVisible(false);
+                    modifyDivButton.setVisible(false);
+                    primaryStage.setScene(unitScene);
+                }
+            }
         });
 
         // Delete Division scene
@@ -597,7 +600,7 @@ public class App extends Application {
 
         Scene deldivScene = new Scene(delDivPane, 1024, 640);
         delDivBox.getChildren().addAll(delDivText, delDivNameSer, delSerButton,
-        delDivResult, delDivButton);
+                delDivResult, delDivButton);
         delDivBox.setAlignment(Pos.CENTER);
         delDivPane.setPadding(new Insets(15, 15, 15, 15));
         delDivPane.setCenter(delDivBox);
@@ -607,27 +610,27 @@ public class App extends Application {
         delDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
         delSerButton.setOnAction(e -> {
-        for (int i = 0; i < divisionsList.size(); i++) {
-        if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
-        delDivResult.setVisible(true);
-        delDivResult.setText(
-        "Name: " + divisionsList.get(i).getName() + " ID: " +
-        divisionsList.get(i).getID());
-        delDivButton.setVisible(true);
-        }
-        }
+            for (int i = 0; i < divisionsList.size(); i++) {
+                if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                    delDivResult.setVisible(true);
+                    delDivResult.setText(
+                            "Name: " + divisionsList.get(i).getName() + " ID: " +
+                                    divisionsList.get(i).getID());
+                    delDivButton.setVisible(true);
+                }
+            }
         });
         delDivButton.setOnAction(e -> {
-        for (int i = 0; i < divisionsList.size(); i++) {
-        if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
-        divisionsList.remove(i);
-        delDivResult.setText("");
-        delDivResult.setVisible(false);
-        delDivButton.setVisible(false);
-        primaryStage.setScene(unitScene);
+            for (int i = 0; i < divisionsList.size(); i++) {
+                if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                    divisionsList.remove(i);
+                    delDivResult.setText("");
+                    delDivResult.setVisible(false);
+                    delDivButton.setVisible(false);
+                    primaryStage.setScene(unitScene);
 
-        }
-        }
+                }
+            }
         });
 
         // List of divisions scene
@@ -646,16 +649,16 @@ public class App extends Application {
         listDivPane.setBottom(listDivReturn);
 
         listOfDivisions.setOnAction(e -> {
-        primaryStage.setScene(listdivScene);
+            primaryStage.setScene(listdivScene);
 
-        for (int i = 0; i < divisionsList.size(); i++) {
-        String list = "\nName:" + divisionsList.get(i).getName() + " ID: "
-        + divisionsList.get(i).getID();
-        // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+            for (int i = 0; i < divisionsList.size(); i++) {
+                String list = "\nName:" + divisionsList.get(i).getName() + " ID: "
+                        + divisionsList.get(i).getID();
+                // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
-        listDivBox.getChildren().add(new Text(list));
+                listDivBox.getChildren().add(new Text(list));
 
-        }
+            }
 
         });
 
@@ -664,20 +667,20 @@ public class App extends Application {
 
         addDivSave.setOnAction(e -> {
 
-        if (divNameField.getText().equals("")) {
-        addDivChecking.setText("Division name missing, please enter a name");
+            if (divNameField.getText().equals("")) {
+                addDivChecking.setText("Division name missing, please enter a name");
 
-        } else if (divIDField.getText().equals("")) {
-        addDivChecking.setText("Division ID missing, Please enter an ID");
+            } else if (divIDField.getText().equals("")) {
+                addDivChecking.setText("Division ID missing, Please enter an ID");
 
-        } else {
-        division addDivdision = new division(divNameField.getText(),
-        divIDField.getText());
-        divisionsList.add(addDivdision);
-        divNameField.clear();
-        divIDField.clear();
-        primaryStage.setScene(unitScene);
-        }
+            } else {
+                division addDivdision = new division(divNameField.getText(),
+                        divIDField.getText());
+                divisionsList.add(addDivdision);
+                divNameField.clear();
+                divIDField.clear();
+                primaryStage.setScene(unitScene);
+            }
         });
         // Add Directorate scene
 
@@ -698,7 +701,7 @@ public class App extends Application {
 
         Scene dirAddScene = new Scene(AddDirPane, 1024, 640);
         AddDirBox.getChildren().addAll(dirName, dirNameField, dirIDField, addDirSave,
-        addDirChecking);
+                addDirChecking);
         AddDirBox.setAlignment(Pos.CENTER);
         AddDirPane.setPadding(new Insets(15, 15, 15, 15));
         AddDirPane.setCenter(AddDirBox);
@@ -732,9 +735,9 @@ public class App extends Application {
 
         Scene modifydirScene = new Scene(modifyDirPane, 1024, 640);
         modifyDirBox.getChildren().addAll(modifyDirText, modifyDirNameSer,
-        modifyDirSerButton, modifyDirFi,
-        modifyDirIDFi,
-        modifyDirButton, modifyDirCheck);
+                modifyDirSerButton, modifyDirFi,
+                modifyDirIDFi,
+                modifyDirButton, modifyDirCheck);
         modifyDirBox.setAlignment(Pos.CENTER);
         modifyDirPane.setPadding(new Insets(15, 15, 15, 15));
         modifyDirPane.setCenter(modifyDivBox);
@@ -744,38 +747,38 @@ public class App extends Application {
         modifyDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         modifyDirSerButton.setOnAction(e -> {
-        for (int i = 0; i < directoratesList.size(); i++) {
-        if (modifyDirNameSer.getText().equals(directoratesList.get(i).getID())) {
-        modifyDirFi.setVisible(true);
-        modifyDirFi.setText(directoratesList.get(i).getName());
-        modifyDirIDFi.setVisible(true);
-        modifyDirIDFi.setText(directoratesList.get(i).getID());
-        modifyDirButton.setVisible(true);
-        }
-        }
+            for (int i = 0; i < directoratesList.size(); i++) {
+                if (modifyDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+                    modifyDirFi.setVisible(true);
+                    modifyDirFi.setText(directoratesList.get(i).getName());
+                    modifyDirIDFi.setVisible(true);
+                    modifyDirIDFi.setText(directoratesList.get(i).getID());
+                    modifyDirButton.setVisible(true);
+                }
+            }
         });
         modifyDirButton.setOnAction(e -> {
-        if (modifyDirFi.getText().equals("")) {
-        modifyDirCheck.setText("Directorate name missing, please enter a name");
+            if (modifyDirFi.getText().equals("")) {
+                modifyDirCheck.setText("Directorate name missing, please enter a name");
 
-        } else if (modifyDirIDFi.getText().equals("")) {
-        modifyDirCheck.setText("Directorte ID missing, Please enter an ID");
+            } else if (modifyDirIDFi.getText().equals("")) {
+                modifyDirCheck.setText("Directorte ID missing, Please enter an ID");
 
-        } else {
-        for (int i = 0; i < directoratesList.size(); i++) {
-        if (modifyDirNameSer.getText().equals(divisionsList.get(i).getID())) {
-        directoratesList.get(i).setName(modifyDirFi.getText());
-        directoratesList.get(i).setID(modifyDirIDFi.getText());
+            } else {
+                for (int i = 0; i < directoratesList.size(); i++) {
+                    if (modifyDirNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        directoratesList.get(i).setName(modifyDirFi.getText());
+                        directoratesList.get(i).setID(modifyDirIDFi.getText());
 
-        }
-        modifyDirIDFi.clear();
-        modifyDirFi.clear();
-        modifyDirIDFi.setVisible(false);
-        modifyDirFi.setVisible(false);
-        modifyDirButton.setVisible(false);
-        primaryStage.setScene(divisionScene);
-        }
-        }
+                    }
+                    modifyDirIDFi.clear();
+                    modifyDirFi.clear();
+                    modifyDirIDFi.setVisible(false);
+                    modifyDirFi.setVisible(false);
+                    modifyDirButton.setVisible(false);
+                    primaryStage.setScene(divisionScene);
+                }
+            }
         });
 
         // Delete Directorate scene
@@ -797,7 +800,7 @@ public class App extends Application {
 
         Scene deldi4Scene = new Scene(delDirPane, 1024, 640);
         delDirBox.getChildren().addAll(delDirText, delDirNameSer, delDirSerButton,
-        delDirResult, delDirButton);
+                delDirResult, delDirButton);
         delDirBox.setAlignment(Pos.CENTER);
         delDirPane.setPadding(new Insets(15, 15, 15, 15));
         delDirPane.setCenter(delDirBox);
@@ -808,31 +811,27 @@ public class App extends Application {
         delDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         delDirSerButton.setOnAction(e -> {
-        for (int i = 0; i < directoratesList.size(); i++) {
-        if
-        (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID())))
-        {
-        delDirResult.setVisible(true);
-        delDirResult.setText(
-        "Name: " + directoratesList.get(i).getName() + " ID: "
-        + directoratesList.get(i).getID());
-        delDirButton.setVisible(true);
-        }
-        }
+            for (int i = 0; i < directoratesList.size(); i++) {
+                if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
+                    delDirResult.setVisible(true);
+                    delDirResult.setText(
+                            "Name: " + directoratesList.get(i).getName() + " ID: "
+                                    + directoratesList.get(i).getID());
+                    delDirButton.setVisible(true);
+                }
+            }
         });
         delDirButton.setOnAction(e -> {
-        for (int i = 0; i < directoratesList.size(); i++) {
-        if
-        (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID())))
-        {
-        directoratesList.remove(i);
-        delDirResult.setText("");
-        delDirResult.setVisible(false);
-        delDirButton.setVisible(false);
-        primaryStage.setScene(divisionScene);
+            for (int i = 0; i < directoratesList.size(); i++) {
+                if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
+                    directoratesList.remove(i);
+                    delDirResult.setText("");
+                    delDirResult.setVisible(false);
+                    delDirButton.setVisible(false);
+                    primaryStage.setScene(divisionScene);
 
-        }
-        }
+                }
+            }
         });
 
         // List of Directorate scene
@@ -851,16 +850,16 @@ public class App extends Application {
         listDirPane.setBottom(listDirReturn);
 
         viewListOfDirectorate.setOnAction(e -> {
-        primaryStage.setScene(listdirScene);
+            primaryStage.setScene(listdirScene);
 
-        for (int i = 0; i < divisionsList.size(); i++) {
-        String list = "\nName:" + directoratesList.get(i).getName() + " ID: "
-        + directoratesList.get(i).getID();
-        // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+            for (int i = 0; i < divisionsList.size(); i++) {
+                String list = "\nName:" + directoratesList.get(i).getName() + " ID: "
+                        + directoratesList.get(i).getID();
+                // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
-        listDirBox.getChildren().add(new Text(list));
+                listDirBox.getChildren().add(new Text(list));
 
-        }
+            }
 
         });
 
@@ -869,20 +868,20 @@ public class App extends Application {
 
         addDirSave.setOnAction(e -> {
 
-        if (dirNameField.getText().equals("")) {
-        addDirChecking.setText("Directorate name missing, please enter a name");
+            if (dirNameField.getText().equals("")) {
+                addDirChecking.setText("Directorate name missing, please enter a name");
 
-        } else if (dirIDField.getText().equals("")) {
-        addDirChecking.setText("Directorate ID missing, Please enter an ID");
+            } else if (dirIDField.getText().equals("")) {
+                addDirChecking.setText("Directorate ID missing, Please enter an ID");
 
-        } else {
-        Directorate addDirision = new Directorate(dirNameField.getText(),
-        dirIDField.getText());
-        directoratesList.add(addDirision);
-        dirNameField.clear();
-        dirIDField.clear();
-        primaryStage.setScene(divisionScene);
-        }
+            } else {
+                Directorate addDirision = new Directorate(dirNameField.getText(),
+                        dirIDField.getText());
+                directoratesList.add(addDirision);
+                dirNameField.clear();
+                dirIDField.clear();
+                primaryStage.setScene(divisionScene);
+            }
         });
         // Add Department scene
 
@@ -903,7 +902,7 @@ public class App extends Application {
 
         Scene dipAddScene = new Scene(AddDipPane, 1024, 640);
         AddDipBox.getChildren().addAll(dipName, dipNameField, dipIDField, addDipSave,
-        addDipChecking);
+                addDipChecking);
         AddDipBox.setAlignment(Pos.CENTER);
         AddDipPane.setPadding(new Insets(15, 15, 15, 15));
         AddDipPane.setCenter(AddDirBox);
@@ -937,9 +936,9 @@ public class App extends Application {
 
         Scene modifydipScene = new Scene(modifyDipPane, 1024, 640);
         modifyDipBox.getChildren().addAll(modifyDipText, modifyDipNameSer,
-        modifyDipSerButton, modifyDipFi,
-        modifyDipIDFi,
-        modifyDipButton, modifyDipCheck);
+                modifyDipSerButton, modifyDipFi,
+                modifyDipIDFi,
+                modifyDipButton, modifyDipCheck);
         modifyDipBox.setAlignment(Pos.CENTER);
         modifyDipPane.setPadding(new Insets(15, 15, 15, 15));
         modifyDipPane.setCenter(modifyDivBox);
@@ -949,38 +948,38 @@ public class App extends Application {
         modifyDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
 
         modifyDipSerButton.setOnAction(e -> {
-        for (int i = 0; i < departmentsList.size(); i++) {
-        if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
-        modifyDipFi.setVisible(true);
-        modifyDipFi.setText(departmentsList.get(i).getName());
-        modifyDipIDFi.setVisible(true);
-        modifyDipIDFi.setText(departmentsList.get(i).getID());
-        modifyDipButton.setVisible(true);
-        }
-        }
+            for (int i = 0; i < departmentsList.size(); i++) {
+                if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+                    modifyDipFi.setVisible(true);
+                    modifyDipFi.setText(departmentsList.get(i).getName());
+                    modifyDipIDFi.setVisible(true);
+                    modifyDipIDFi.setText(departmentsList.get(i).getID());
+                    modifyDipButton.setVisible(true);
+                }
+            }
         });
         modifyDipButton.setOnAction(e -> {
-        if (modifyDipFi.getText().equals("")) {
-        modifyDipCheck.setText("Department name missing, please enter a name");
+            if (modifyDipFi.getText().equals("")) {
+                modifyDipCheck.setText("Department name missing, please enter a name");
 
-        } else if (modifyDipIDFi.getText().equals("")) {
-        modifyDipCheck.setText("Department ID missing, Please enter an ID");
+            } else if (modifyDipIDFi.getText().equals("")) {
+                modifyDipCheck.setText("Department ID missing, Please enter an ID");
 
-        } else {
-        for (int i = 0; i < departmentsList.size(); i++) {
-        if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
-        departmentsList.get(i).setName(modifyDipFi.getText());
-        departmentsList.get(i).setID(modifyDipIDFi.getText());
+            } else {
+                for (int i = 0; i < departmentsList.size(); i++) {
+                    if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+                        departmentsList.get(i).setName(modifyDipFi.getText());
+                        departmentsList.get(i).setID(modifyDipIDFi.getText());
 
-        }
-        modifyDipIDFi.clear();
-        modifyDipFi.clear();
-        modifyDipIDFi.setVisible(false);
-        modifyDipFi.setVisible(false);
-        modifyDipButton.setVisible(false);
-        primaryStage.setScene(directorateScene);
-        }
-        }
+                    }
+                    modifyDipIDFi.clear();
+                    modifyDipFi.clear();
+                    modifyDipIDFi.setVisible(false);
+                    modifyDipFi.setVisible(false);
+                    modifyDipButton.setVisible(false);
+                    primaryStage.setScene(directorateScene);
+                }
+            }
         });
 
         // Delete Directorate scene
@@ -1002,7 +1001,7 @@ public class App extends Application {
 
         Scene deldipScene = new Scene(delDipPane, 1024, 640);
         delDipBox.getChildren().addAll(delDipText, delDipNameSer, delDipSerButton,
-        delDipResult, delDipButton);
+                delDipResult, delDipButton);
         delDipBox.setAlignment(Pos.CENTER);
         delDipPane.setPadding(new Insets(15, 15, 15, 15));
         delDipPane.setCenter(delDipBox);
@@ -1013,27 +1012,27 @@ public class App extends Application {
         delDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
 
         delDipSerButton.setOnAction(e -> {
-        for (int i = 0; i < departmentsList.size(); i++) {
-        if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
-        delDipResult.setVisible(true);
-        delDipResult.setText(
-        "Name: " + departmentsList.get(i).getName() + " ID: " +
-        departmentsList.get(i).getID());
-        delDipButton.setVisible(true);
-        }
-        }
+            for (int i = 0; i < departmentsList.size(); i++) {
+                if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+                    delDipResult.setVisible(true);
+                    delDipResult.setText(
+                            "Name: " + departmentsList.get(i).getName() + " ID: " +
+                                    departmentsList.get(i).getID());
+                    delDipButton.setVisible(true);
+                }
+            }
         });
         delDipButton.setOnAction(e -> {
-        for (int i = 0; i < departmentsList.size(); i++) {
-        if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
-        departmentsList.remove(i);
-        delDipResult.setText("");
-        delDipResult.setVisible(false);
-        delDipButton.setVisible(false);
-        primaryStage.setScene(directorateScene);
+            for (int i = 0; i < departmentsList.size(); i++) {
+                if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+                    departmentsList.remove(i);
+                    delDipResult.setText("");
+                    delDipResult.setVisible(false);
+                    delDipButton.setVisible(false);
+                    primaryStage.setScene(directorateScene);
 
-        }
-        }
+                }
+            }
         });
 
         // List of Directorate scene
@@ -1052,16 +1051,16 @@ public class App extends Application {
         listDipPane.setBottom(listDipReturn);
 
         viewListOfDepartment.setOnAction(e -> {
-        primaryStage.setScene(listdipScene);
+            primaryStage.setScene(listdipScene);
 
-        for (int i = 0; i < departmentsList.size(); i++) {
-        String list = "\nName:" + departmentsList.get(i).getName() + " ID: "
-        + departmentsList.get(i).getID();
-        // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+            for (int i = 0; i < departmentsList.size(); i++) {
+                String list = "\nName:" + departmentsList.get(i).getName() + " ID: "
+                        + departmentsList.get(i).getID();
+                // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
-        listDipBox.getChildren().add(new Text(list));
+                listDipBox.getChildren().add(new Text(list));
 
-        }
+            }
 
         });
 
@@ -1070,20 +1069,20 @@ public class App extends Application {
 
         addDipSave.setOnAction(e -> {
 
-        if (dipNameField.getText().equals("")) {
-        addDipChecking.setText("Department name missing, please enter a name");
+            if (dipNameField.getText().equals("")) {
+                addDipChecking.setText("Department name missing, please enter a name");
 
-        } else if (dirIDField.getText().equals("")) {
-        addDirChecking.setText("Department ID missing, Please enter an ID");
+            } else if (dirIDField.getText().equals("")) {
+                addDirChecking.setText("Department ID missing, Please enter an ID");
 
-        } else {
-        Department addDipision = new Department(dipNameField.getText(),
-        dipIDField.getText());
-        departmentsList.add(addDipision);
-        dipNameField.clear();
-        dipIDField.clear();
-        primaryStage.setScene(directorateScene);
-        }
+            } else {
+                Department addDipision = new Department(dipNameField.getText(),
+                        dipIDField.getText());
+                departmentsList.add(addDipision);
+                dipNameField.clear();
+                dipIDField.clear();
+                primaryStage.setScene(directorateScene);
+            }
         });
 
         // Applicants
