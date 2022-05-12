@@ -393,7 +393,6 @@ public class App extends Application {
          * ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
          * ArrayList<Department> departmentsList = new ArrayList<Department>();
          */
-
         // units page
         BorderPane DepartmentsPane = new BorderPane();
         VBox DepartmentsBox = new VBox(20);
@@ -1458,6 +1457,40 @@ public class App extends Application {
         Button backButton7 = new Button("Back");
         backButton7.setOnAction(e -> primaryStage.setScene(scene5));
         viewWhoPassPane.setTop(backButton7);
+
+        //Applicant: review interview results
+        BorderPane reviewResultPane = new BorderPane();
+        VBox reviewResultBox = new VBox(20);
+        reviewResultPane.setPadding(new Insets(15, 15 , 15 , 15));
+        Text reviewResultsText = new Text("Review Interview Results");
+        reviewResultsText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+        ComboBox<Integer> applicantComboBox7 = new ComboBox<>(FXCollections.observableArrayList(IDList));
+        applicantComboBox7.setMaxSize(409, 64);
+        Button reviewResultsButton = new Button("Review interview results");
+        reviewResultsButton.setMaxSize(409, 64);
+        ListView<String> interviewResultsListView = new ListView();
+        Button backReview = new Button("back");
+        interviewResultsListView.setMaxSize(409, 64);
+        interviewResultsListView.setMinWidth(64);
+        interviewResultsListView.setMinHeight(300);
+        reviewResultBox.getChildren().addAll(reviewResultsText, applicantComboBox7, reviewResultsButton, interviewResultsListView);
+        reviewResultPane.setCenter(reviewResultBox);
+        reviewResultBox.setAlignment(Pos.CENTER);
+        reviewResultPane.setTop(backReview);
+        
+        Scene reviewResultsScene = new Scene(reviewResultPane,1024, 640);
+
+        reviewResultsButton.setOnAction(ActionEvent -> {
+            interviewResultsListView.getItems().clear();
+            for (int i = 0; i<interviewList.size(); i++){
+                if(interviewList.get(i).getApplicant().getID() == applicantComboBox7.getSelectionModel().getSelectedItem()){
+                    interviewResultsListView.getItems().add("Interview ID: " + interviewList.get(i).getID() + " at date: " + interviewList.get(i).getDate() + " results: " + interviewList.get(i).getResult());
+                }
+            }
+        });
+
+        ReviewInterviewResultsButton.setOnAction(e -> primaryStage.setScene(reviewResultsScene));
+        backReview.setOnAction(e -> primaryStage.setScene(scene5));
 
         // View Interview Results
         Interviewer example = new Interviewer("example");
