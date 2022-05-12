@@ -488,6 +488,7 @@ public class App extends Application {
 
         BorderPane AddDivPane = new BorderPane();
         VBox AddDivBox = new VBox(20);
+        // AddDivBox.setVisible(true);
         Text divName = new Text("Enter Name and ID to add new division");
         divName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
         TextField divNameField = new TextField();
@@ -500,6 +501,7 @@ public class App extends Application {
         addDivSave.setMaxSize(409, 64);
         Label addDivChecking = new Label("");
         addDivChecking.setFont(Font.font("Inter", FontWeight.BOLD, 36));
+        Button addDivBack = new Button("Back");
 
         Scene diVAddScene = new Scene(AddDivPane, 1024, 640);
         AddDivBox.getChildren().addAll(divName, divNameField, divIDField, addDivSave,
@@ -507,21 +509,22 @@ public class App extends Application {
         AddDivBox.setAlignment(Pos.CENTER);
         AddDivPane.setPadding(new Insets(15, 15, 15, 15));
         AddDivPane.setCenter(AddDivBox);
-        addDivision.setOnAction(e -> primaryStage.setScene(diVAddScene));
-        Button addDivBack = new Button("Back");
+
         AddDivPane.setBottom(addDivBack);
+        addDivision.setOnAction(e -> primaryStage.setScene(diVAddScene));
+
         addDivBack.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        // modify division scene
+        // modify Departement scene
         BorderPane modifyDivPane = new BorderPane();
         VBox modifyDivBox = new VBox(20);
-        Text modifyDivText = new Text("Modify Division");
+        Text modifyDivText = new Text("Modify Directorate");
         modifyDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
         NumberTextField modifyDivNameSer = new NumberTextField();
         modifyDivNameSer.setMaxSize(409, 64);
         modifyDivNameSer.setPromptText("Enter ID");
-        Button modifySerButton = new Button("Search");
-        modifySerButton.setMaxSize(409, 64);
+        Button modifyDivSerButton = new Button("Search");
+        modifyDivSerButton.setMaxSize(409, 64);
         TextField modifyDivFi = new TextField();
         modifyDivFi.setMaxSize(409, 64);
         modifyDivFi.setVisible(false);
@@ -537,7 +540,8 @@ public class App extends Application {
 
         Scene modifydivScene = new Scene(modifyDivPane, 1024, 640);
         modifyDivBox.getChildren().addAll(modifyDivText, modifyDivNameSer,
-                modifySerButton, modifyDivFi, modifyDivIDFi,
+                modifyDivSerButton, modifyDivFi,
+                modifyDivIDFi,
                 modifyDivButton, modifyDivCheck);
         modifyDivBox.setAlignment(Pos.CENTER);
         modifyDivPane.setPadding(new Insets(15, 15, 15, 15));
@@ -547,7 +551,7 @@ public class App extends Application {
         modifyDivPane.setBottom(modifyDivReturn);
         modifyDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        modifySerButton.setOnAction(e -> {
+        modifyDivSerButton.setOnAction(e -> {
             for (int i = 0; i < divisionsList.size(); i++) {
                 if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
                     modifyDivFi.setVisible(true);
@@ -560,10 +564,10 @@ public class App extends Application {
         });
         modifyDivButton.setOnAction(e -> {
             if (modifyDivFi.getText().equals("")) {
-                modifyDivCheck.setText("Division name missing, please enter a name");
+                modifyDivCheck.setText("Department name missing, please enter a name");
 
             } else if (modifyDivIDFi.getText().equals("")) {
-                modifyDivCheck.setText("Division ID missing, Please enter an ID");
+                modifyDivCheck.setText("Department ID missing, Please enter an ID");
 
             } else {
                 for (int i = 0; i < divisionsList.size(); i++) {
@@ -586,7 +590,7 @@ public class App extends Application {
         BorderPane delDivPane = new BorderPane();
         VBox delDivBox = new VBox(20);
         Text delDivText = new Text("Delete Division");
-        modifyDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        delDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
         NumberTextField delDivNameSer = new NumberTextField();
         delDivNameSer.setMaxSize(409, 64);
         delDivNameSer.setPromptText("Enter ID");
@@ -605,9 +609,9 @@ public class App extends Application {
         delDivBox.setAlignment(Pos.CENTER);
         delDivPane.setPadding(new Insets(15, 15, 15, 15));
         delDivPane.setCenter(delDivBox);
+        delDivPane.setBottom(delDivReturn);
         deleteDivision.setOnAction(e -> primaryStage.setScene(deldivScene));
 
-        delDivPane.setBottom(delDivReturn);
         delDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
         delSerButton.setOnAction(e -> {
@@ -915,8 +919,8 @@ public class App extends Application {
         // modify Departement scene
         BorderPane modifyDipPane = new BorderPane();
         VBox modifyDipBox = new VBox(20);
-        Text modifyDipText = new Text("Modify Directorate");
-        modifyDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        Text modifyDipText = new Text("Modify Department");
+        modifyDipText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
         NumberTextField modifyDipNameSer = new NumberTextField();
         modifyDipNameSer.setMaxSize(409, 64);
         modifyDipNameSer.setPromptText("Enter ID");
