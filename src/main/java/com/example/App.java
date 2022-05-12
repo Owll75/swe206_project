@@ -516,7 +516,7 @@ public class App extends Application {
 
         // modify Departement scene
         BorderPane modifyDivPane = new BorderPane();
-        VBox modifyDivBox = new VBox(20);
+        VBox modifyDivtBox = new VBox(20);
         Text modifyDivText = new Text("Modify Directorate");
         modifyDivText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
         NumberTextField modifyDivNameSer = new NumberTextField();
@@ -538,13 +538,13 @@ public class App extends Application {
         modifyDivCheck.setFont(Font.font("Inter", FontWeight.BOLD, 38));
 
         Scene modifydivScene = new Scene(modifyDivPane, 1024, 640);
-        modifyDivBox.getChildren().addAll(modifyDivText, modifyDivNameSer,
+        modifyDivtBox.getChildren().addAll(modifyDivText, modifyDivNameSer,
                 modifyDivSerButton, modifyDivFi,
                 modifyDivIDFi,
                 modifyDivButton, modifyDivCheck);
-        modifyDivBox.setAlignment(Pos.CENTER);
+        modifyDivtBox.setAlignment(Pos.CENTER);
         modifyDivPane.setPadding(new Insets(15, 15, 15, 15));
-        modifyDivPane.setCenter(modifyDivBox);
+        modifyDivPane.setCenter(modifyDivtBox);
         modifyDivision.setOnAction(e -> primaryStage.setScene(modifydivScene));
 
         modifyDivPane.setBottom(modifyDivReturn);
@@ -666,7 +666,6 @@ public class App extends Application {
 
         });
 
-        listDivPane.setBottom(delDivReturn);
         listDivReturn.setOnAction(e -> primaryStage.setScene(unitScene));
 
         addDivSave.setOnAction(e -> {
@@ -744,10 +743,11 @@ public class App extends Application {
                 modifyDirButton, modifyDirCheck);
         modifyDirBox.setAlignment(Pos.CENTER);
         modifyDirPane.setPadding(new Insets(15, 15, 15, 15));
-        modifyDirPane.setCenter(modifyDivBox);
+        modifyDirPane.setCenter(modifyDirBox);
         modifyDirectorate.setOnAction(e -> primaryStage.setScene(modifydirScene));
 
         modifyDirPane.setBottom(modifyDirReturn);
+
         modifyDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         modifyDirSerButton.setOnAction(e -> {
@@ -867,7 +867,6 @@ public class App extends Application {
 
         });
 
-        listDirPane.setBottom(delDirReturn);
         listDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         addDirSave.setOnAction(e -> {
@@ -895,7 +894,7 @@ public class App extends Application {
         dipName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
         TextField dipNameField = new TextField();
         dipNameField.setMaxSize(409, 64);
-        dipNameField.setPromptText("Enter Directorate Name");
+        dipNameField.setPromptText("Enter Department Name");
         NumberTextField dipIDField = new NumberTextField();
         dipIDField.setPromptText("Enter ID");
         dipIDField.setMaxSize(409, 64);
@@ -945,7 +944,7 @@ public class App extends Application {
                 modifyDipButton, modifyDipCheck);
         modifyDipBox.setAlignment(Pos.CENTER);
         modifyDipPane.setPadding(new Insets(15, 15, 15, 15));
-        modifyDipPane.setCenter(modifyDivBox);
+        modifyDipPane.setCenter(modifyDipBox);
         modifyDepartment.setOnAction(e -> primaryStage.setScene(modifydipScene));
 
         modifyDipPane.setBottom(modifyDipReturn);
@@ -986,7 +985,7 @@ public class App extends Application {
             }
         });
 
-        // Delete Directorate scene
+        // Delete Department scene
         BorderPane delDipPane = new BorderPane();
         VBox delDipBox = new VBox(20);
         Text delDipText = new Text("Delete Department");
@@ -1010,9 +1009,9 @@ public class App extends Application {
         delDipPane.setPadding(new Insets(15, 15, 15, 15));
         delDipPane.setCenter(delDipBox);
         delDipPane.setBottom(delDipReturn);
+        // delDipPane.setBottom(delDipReturn);
         deleteDepartment.setOnAction(e -> primaryStage.setScene(deldipScene));
 
-        delDipPane.setBottom(delDipReturn);
         delDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
 
         delDipSerButton.setOnAction(e -> {
@@ -1043,12 +1042,12 @@ public class App extends Application {
         BorderPane listDipPane = new BorderPane();
         VBox listDipBox = new VBox(20);
         Text listDipText = new Text("List of Departments:");
-        listDipText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        listDipText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
         Button listDipReturn = new Button("Return");
 
         Scene listdipScene = new Scene(listDipPane, 1024, 640);
-        listDipBox.getChildren().addAll(listDirText);
+        listDipBox.getChildren().addAll(listDipText);
         listDipBox.setAlignment(Pos.CENTER);
         listDipPane.setPadding(new Insets(15, 15, 15, 15));
         listDipPane.setCenter(listDipBox);
@@ -1068,7 +1067,6 @@ public class App extends Application {
 
         });
 
-        listDipPane.setBottom(delDipReturn);
         listDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
 
         addDipSave.setOnAction(e -> {
