@@ -60,9 +60,8 @@ public class App extends Application {
         ArrayList<division> divisionsList = new ArrayList<division>();
         ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
         ArrayList<Department> departmentsList = new ArrayList<>();
-        // jobList.add(new Job("Program Manager", 1));
-        // jobList.add(new Job("Product Manager", 1));
-        
+        jobList.add(new Job("Program Manager", 1));
+        jobList.add(new Job("Product Manager", 1));
         //ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
         //ArrayList<division> divisionsList = new ArrayList<division>();
         //ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
@@ -157,8 +156,6 @@ public class App extends Application {
 
 
        //
-    //    ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
-       bandsList.add(new jobBands("dd", 3444, new ArrayList<>()));
        ArrayList<String> bandsNamesList = new ArrayList<>();
        for (int i = 0; i < bandsList.size(); i++) {
            bandsNamesList.add(bandsList.get(i).getBandName());
@@ -258,13 +255,17 @@ public class App extends Application {
        backButto5.setOnAction(e -> {
            primaryStage.setScene(scene3);
            massage1.setText("");
+           bandsNamesList.clear();
+           for (int i = 0; i < bandsList.size(); i++) {
+            bandsNamesList.add(bandsList.get(i).getBandName());
+        }
+
     });
        deleteBandPane.setTop(backButto5);
        bandDeleteButton.setOnAction((ActionEvent ->{
            bandsNamesList.remove(bandsComboBox.getSelectionModel().getSelectedItem());
            for (int i = 0; i < bandsList.size(); i++) {
             if(bandsList.get(i).getBandName().equals(bandsComboBox.getSelectionModel().getSelectedItem()))
-            bandsList.get(i).deleteBand();
             bandsList.remove(i);
             massage1.setText("Band has been Deleted");
            }
@@ -337,6 +338,7 @@ public class App extends Application {
        for (int i = 0; i < jobList.size(); i++) {
         jobNamesList.add(jobList.get(i).getName());
        }
+
        //assign band
        BorderPane assignBandPane = new BorderPane();
        VBox assignBandBox = new VBox(20);
@@ -355,13 +357,13 @@ public class App extends Application {
        assignBandPane.setPadding(new Insets(15, 15, 15, 15));
        assignBandPane.setCenter(assignBandBox);
        Button backButto8 = new Button("Back");
-       backButto8.setOnAction(e -> {primaryStage.setScene(scene3);});
+       backButto8.setOnAction(e -> {
+           primaryStage.setScene(scene3);
+           massage2.setText("");});
        assignBandPane.setTop(backButto8);
        AssignBandButton.setOnAction(e -> {
            bandsComboBox3.getItems().clear();
            bandsComboBox3.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-           jobComboBox.getItems().clear();
-           massage2.setText("");
            primaryStage.setScene(scene9);
        });
        bandAssignButton.setOnAction(e ->{
