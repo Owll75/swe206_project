@@ -856,10 +856,10 @@ public class App extends Application {
         addDirSave.setOnAction(e -> {
 
             if (dirNameField.getText().equals("")) {
-                addDirChecking.setText("Division name missing, please enter a name");
+                addDirChecking.setText("Directorate name missing, please enter a name");
 
             } else if (dirIDField.getText().equals("")) {
-                addDirChecking.setText("Division ID missing, Please enter an ID");
+                addDirChecking.setText("Directorate ID missing, Please enter an ID");
 
             } else {
                 Directorate addDirision = new Directorate(dirNameField.getText(), dirIDField.getText());
