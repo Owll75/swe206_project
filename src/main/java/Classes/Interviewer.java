@@ -1,8 +1,9 @@
 package Classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Interviewer {
+public class Interviewer implements Serializable {
 	ArrayList<Interview>listOfJobs;
 	String name;
 

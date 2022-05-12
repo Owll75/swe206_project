@@ -42,17 +42,36 @@ public class App extends Application {
 
         // Used for test purposes
         ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"));
-        ArrayList<Applicant> applicantList = (ArrayList<Applicant>) input.readObject();
+        ArrayList<ArrayList> dataList = (ArrayList<ArrayList>) input.readObject();
+        ArrayList<Applicant> applicantList = dataList.get(0);
+        ArrayList<Job> jobList = dataList.get(1);
+        ArrayList<jobBands> bandsList = dataList.get(2);
+        ArrayList<Interviewer> interviewerList = dataList.get(3);
+        ArrayList<Interview> interviewList = dataList.get(4);
+        // ArrayList<division> divisionsList = dataList.get(5);
+        // ArrayList<Directorate> directoratesList = dataList.get(6);
+        // ArrayList<Department> departmentsList = dataList.get(7);
+        input.close();
+        // ArrayList<Job> jobList = new ArrayList<Job>();
+        // ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
         // ArrayList<Applicant> applicantList = new ArrayList<>();
-        ArrayList<Job> jobList = new ArrayList<Job>();
-        ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
-        ArrayList<Interview> interviewList = new ArrayList<Interview>();
-        jobList.add(new Job("Program Manager", 1));
-        jobList.add(new Job("Product Manager", 1));
+        // ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
+        // ArrayList<Interview> interviewList = new ArrayList<Interview>();
+        ArrayList<division> divisionsList = new ArrayList<division>();
+        ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
+        ArrayList<Department> departmentsList = new ArrayList<>();
+        // jobList.add(new Job("Program Manager", 1));
+        // jobList.add(new Job("Product Manager", 1));
+        
+        //ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
+        //ArrayList<division> divisionsList = new ArrayList<division>();
+        //ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
+        //ArrayList<Department> departmentsList = new ArrayList<Department>();
 
         interviewerList.add(new Interviewer("Jonathan"));
         interviewerList.add(new Interviewer("Joseph"));
         interviewerList.add(new Interviewer("Jotaro"));
+
 
         ArrayList<String> interviewerNameList = new ArrayList<String>();
         for (int i = 0; i < interviewerList.size(); i++) {
@@ -107,13 +126,26 @@ public class App extends Application {
         employerPane.setTop(logOutButton);
         logOutButton.setOnAction(ActionEvent -> {
             primaryStage.setScene(scene1);
-            // Save feature test
+        //Save featurer test
             FileOutputStream fileOut = null;
+            ArrayList<ArrayList> dataLists = new ArrayList<>();
+            dataLists.add(applicantList);
+            dataLists.add(jobList);
+            dataLists.add(bandsList);
+            dataLists.add(interviewerList);
+            dataLists.add(interviewList);
+            dataLists.add(divisionsList);
+            dataLists.add(directoratesList);
+            dataLists.add(departmentsList);
+
+
             try {
                 fileOut = new FileOutputStream("data.dat");
                 ObjectOutputStream output = new ObjectOutputStream(fileOut);
-                output.writeObject(applicantList);
+                output.writeObject(dataLists);
+
                 output.close();
+
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -123,8 +155,9 @@ public class App extends Application {
 
         });
 
+
        //
-       ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
+    //    ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
        bandsList.add(new jobBands("dd", 3444, new ArrayList<>()));
        ArrayList<String> bandsNamesList = new ArrayList<>();
        for (int i = 0; i < bandsList.size(); i++) {
@@ -214,15 +247,27 @@ public class App extends Application {
            bandsComboBox.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
            primaryStage.setScene(scene6);
        });
-       deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton);
+       Text massage1 = new Text("");
+       deleteBandBox.getChildren().addAll(deleteBandText,bandsComboBox,bandDeleteButton,massage1);
        deleteBandBox.setAlignment(Pos.CENTER);
        deleteBandPane.setPadding(new Insets(15, 15, 15, 15));
        deleteBandPane.setCenter(deleteBandBox);
+
        Button backButto5 = new Button("Back");
-       backButto5.setOnAction(e -> primaryStage.setScene(scene3));
+       
+       backButto5.setOnAction(e -> {
+           primaryStage.setScene(scene3);
+           massage1.setText("");
+    });
        deleteBandPane.setTop(backButto5);
        bandDeleteButton.setOnAction((ActionEvent ->{
            bandsNamesList.remove(bandsComboBox.getSelectionModel().getSelectedItem());
+           for (int i = 0; i < bandsList.size(); i++) {
+            if(bandsList.get(i).getBandName().equals(bandsComboBox.getSelectionModel().getSelectedItem()))
+            bandsList.get(i).deleteBand();
+            bandsList.remove(i);
+            massage1.setText("Band has been Deleted");
+           }
            bandsComboBox.getItems().clear();
            bandsComboBox.getItems().addAll(bandsNamesList);
        }));
