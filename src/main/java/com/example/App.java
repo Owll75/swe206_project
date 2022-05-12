@@ -799,7 +799,7 @@ public class App extends Application {
 
             } else {
                 for (int i = 0; i < directoratesList.size(); i++) {
-                    if (modifyDirNameSer.getText().equals(divisionsList.get(i).getID())) {
+                    if (modifyDirNameSer.getText().equals(directoratesList.get(i).getID())) {
                         directoratesList.get(i).setName(modifyDirFi.getText());
                         directoratesList.get(i).setID(modifyDirIDFi.getText());
 
