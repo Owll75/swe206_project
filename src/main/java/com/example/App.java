@@ -556,6 +556,7 @@ public class App extends Application {
             } else {
                 for (int i = 0; i < divisionsList.size(); i++) {
                     if (modifyDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        modifyDivCheck.setText("");
                         modifyDivFi.setVisible(true);
                         modifyDivFi.setText(divisionsList.get(i).getName());
                         modifyDivIDFi.setVisible(true);
@@ -579,6 +580,7 @@ public class App extends Application {
                         divisionsList.get(i).setID(modifyDivIDFi.getText());
 
                     }
+                    modifyDivCheck.setText("");
                     modifyDivNameSer.clear();
                     modifyDivIDFi.clear();
                     modifyDivFi.clear();
@@ -611,7 +613,7 @@ public class App extends Application {
 
         Scene deldivScene = new Scene(delDivPane, 1024, 640);
         delDivBox.getChildren().addAll(delDivText, delDivNameSer, delSerButton,
-                delDivResult, delDivButton);
+                delDivResult, delDivButton, delDivCheck);
         delDivBox.setAlignment(Pos.CENTER);
         delDivPane.setPadding(new Insets(15, 15, 15, 15));
         delDivPane.setCenter(delDivBox);
@@ -627,6 +629,7 @@ public class App extends Application {
             } else {
                 for (int i = 0; i < divisionsList.size(); i++) {
                     if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
+                        delDivCheck.setText("");
                         delDivResult.setVisible(true);
                         delDivResult.setText(
                                 "Name: " + divisionsList.get(i).getName() + " ID: " +
@@ -640,6 +643,7 @@ public class App extends Application {
             for (int i = 0; i < divisionsList.size(); i++) {
                 if (delDivNameSer.getText().equals(divisionsList.get(i).getID())) {
                     divisionsList.remove(i);
+                    delDivCheck.setText("");
                     delDivResult.setText("");
                     delDivResult.setVisible(false);
                     delDivButton.setVisible(false);
@@ -698,6 +702,7 @@ public class App extends Application {
                 division addDivdision = new division(divNameField.getText(),
                         divIDField.getText());
                 divisionsList.add(addDivdision);
+                addDivChecking.setText("");
                 divNameField.clear();
                 divIDField.clear();
                 primaryStage.setScene(unitScene);
@@ -769,13 +774,19 @@ public class App extends Application {
         modifyDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         modifyDirSerButton.setOnAction(e -> {
-            for (int i = 0; i < directoratesList.size(); i++) {
-                if (modifyDirNameSer.getText().equals(directoratesList.get(i).getID())) {
-                    modifyDirFi.setVisible(true);
-                    modifyDirFi.setText(directoratesList.get(i).getName());
-                    modifyDirIDFi.setVisible(true);
-                    modifyDirIDFi.setText(directoratesList.get(i).getID());
-                    modifyDirButton.setVisible(true);
+            if (modifyDirNameSer.equals("")) {
+                modifyDirCheck.setText("ID not vaild, or doesn't exist. Try again");
+            } else {
+
+                for (int i = 0; i < directoratesList.size(); i++) {
+                    if (modifyDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+                        modifyDirCheck.setText("");
+                        modifyDirFi.setVisible(true);
+                        modifyDirFi.setText(directoratesList.get(i).getName());
+                        modifyDirIDFi.setVisible(true);
+                        modifyDirIDFi.setText(directoratesList.get(i).getID());
+                        modifyDirButton.setVisible(true);
+                    }
                 }
             }
         });
@@ -793,6 +804,7 @@ public class App extends Application {
                         directoratesList.get(i).setID(modifyDirIDFi.getText());
 
                     }
+                    modifyDirCheck.setText("");
                     modifyDirNameSer.clear();
                     modifyDirIDFi.clear();
                     modifyDirFi.clear();
@@ -820,10 +832,12 @@ public class App extends Application {
         delDirButton.setVisible(false);
         delDirButton.setMaxSize(409, 64);
         Button delDirReturn = new Button("Return");
+        Text delDirCheck = new Text();
+        delDirCheck.setFont(Font.font("Inter", FontWeight.BOLD, 36));
 
         Scene deldi4Scene = new Scene(delDirPane, 1024, 640);
         delDirBox.getChildren().addAll(delDirText, delDirNameSer, delDirSerButton,
-                delDirResult, delDirButton);
+                delDirResult, delDirButton, delDirCheck);
         delDirBox.setAlignment(Pos.CENTER);
         delDirPane.setPadding(new Insets(15, 15, 15, 15));
         delDirPane.setCenter(delDirBox);
@@ -834,13 +848,18 @@ public class App extends Application {
         delDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         delDirSerButton.setOnAction(e -> {
-            for (int i = 0; i < directoratesList.size(); i++) {
-                if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
-                    delDirResult.setVisible(true);
-                    delDirResult.setText(
-                            "Name: " + directoratesList.get(i).getName() + " ID: "
-                                    + directoratesList.get(i).getID());
-                    delDirButton.setVisible(true);
+            if (delDirNameSer.getText().equals("")) {
+                delDirCheck.setText("ID not vaild, or doesn't exist. Try again");
+            } else {
+                for (int i = 0; i < directoratesList.size(); i++) {
+                    if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
+                        delDirCheck.setText("");
+                        delDirResult.setVisible(true);
+                        delDirResult.setText(
+                                "Name: " + directoratesList.get(i).getName() + " ID: "
+                                        + directoratesList.get(i).getID());
+                        delDirButton.setVisible(true);
+                    }
                 }
             }
         });
@@ -848,6 +867,7 @@ public class App extends Application {
             for (int i = 0; i < directoratesList.size(); i++) {
                 if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
                     directoratesList.remove(i);
+                    delDirCheck.setText("");
                     delDirResult.setText("");
                     delDirNameSer.clear();
                     delDirResult.setVisible(false);
@@ -887,7 +907,12 @@ public class App extends Application {
 
         });
 
-        listDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+        listDirReturn.setOnAction(e -> {
+            listDirBox.getChildren().clear();
+            listDirBox.getChildren().addAll(listDirText);
+
+            primaryStage.setScene(divisionScene);
+        });
 
         addDirSave.setOnAction(e -> {
 
