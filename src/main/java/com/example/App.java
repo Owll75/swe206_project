@@ -41,22 +41,22 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
 
         // Used for test purposes
-        ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"));
-        ArrayList<ArrayList> dataList = (ArrayList<ArrayList>) input.readObject();
-        ArrayList<Applicant> applicantList = dataList.get(0);
-        ArrayList<Job> jobList = dataList.get(1);
-        ArrayList<jobBands> bandsList = dataList.get(2);
-        ArrayList<Interviewer> interviewerList = dataList.get(3);
-        ArrayList<Interview> interviewList = dataList.get(4);
+        // ObjectInputStream input = new ObjectInputStream(new FileInputStream("data.dat"));
+        // ArrayList<ArrayList> dataList = (ArrayList<ArrayList>) input.readObject();
+        // ArrayList<Applicant> applicantList = dataList.get(0);
+        // ArrayList<Job> jobList = dataList.get(1);
+        // ArrayList<jobBands> bandsList = dataList.get(2);
+        // ArrayList<Interviewer> interviewerList = dataList.get(3);
+        // ArrayList<Interview> interviewList = dataList.get(4);
         // ArrayList<division> divisionsList = dataList.get(5);
         // ArrayList<Directorate> directoratesList = dataList.get(6);
         // ArrayList<Department> departmentsList = dataList.get(7);
-        input.close();
-        // ArrayList<Job> jobList = new ArrayList<Job>();
-        // ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
-        // ArrayList<Applicant> applicantList = new ArrayList<>();
-        // ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
-        // ArrayList<Interview> interviewList = new ArrayList<Interview>();
+        // input.close();
+        ArrayList<Job> jobList = new ArrayList<Job>();
+        ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
+        ArrayList<Applicant> applicantList = new ArrayList<>();
+        ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
+        ArrayList<Interview> interviewList = new ArrayList<Interview>();
         ArrayList<division> divisionsList = new ArrayList<division>();
         ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
         ArrayList<Department> departmentsList = new ArrayList<>();
@@ -381,11 +381,14 @@ public class App extends Application {
        });
 
 
-        // // used for unit
+        
+        // used for unit
 
-        // ArrayList<division> divisionsList = new ArrayList<division>();
-        // ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
-        // ArrayList<Department> departmentsList = new ArrayList<Department>();
+        /*
+         * ArrayList<division> divisionsList = new ArrayList<division>();
+         * ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
+         * ArrayList<Department> departmentsList = new ArrayList<Department>();
+         */
 
         // // units page
         // BorderPane DepartmentsPane = new BorderPane();
@@ -673,7 +676,7 @@ public class App extends Application {
         // BorderPane AddDirPane = new BorderPane();
         // VBox AddDirBox = new VBox(20);
         // Text dirName = new Text("Enter Name and ID to add new Directorate");
-        // divName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // dirName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
         // TextField dirNameField = new TextField();
         // dirNameField.setMaxSize(409, 64);
         // dirNameField.setPromptText("Enter Directorate Name");
@@ -727,8 +730,8 @@ public class App extends Application {
         // modifyDirPane.setCenter(modifyDivBox);
         // modifyDirectorate.setOnAction(e -> primaryStage.setScene(modifydirScene));
 
-        // modifyDivPane.setBottom(modifyDivReturn);
-        // modifyDivReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
+        // modifyDirPane.setBottom(modifyDirReturn);
+        // modifyDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
         // modifyDirSerButton.setOnAction(e -> {
         //     for (int i = 0; i < directoratesList.size(); i++) {
@@ -776,7 +779,7 @@ public class App extends Application {
         // Button delDirSerButton = new Button("Search");
         // delDirSerButton.setMaxSize(409, 64);
         // Text delDirResult = new Text();
-        // delDivResult.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+        // delDirResult.setFont(Font.font("Inter", FontWeight.BOLD, 38));
         // Button delDirButton = new Button("Delete and Save");
         // delDirButton.setVisible(false);
         // delDirButton.setMaxSize(409, 64);
@@ -786,16 +789,16 @@ public class App extends Application {
         // delDirBox.getChildren().addAll(delDirText, delDirNameSer, delDirSerButton, delDirResult, delDirButton);
         // delDirBox.setAlignment(Pos.CENTER);
         // delDirPane.setPadding(new Insets(15, 15, 15, 15));
-        // delDirPane.setCenter(delDivBox);
+        // delDirPane.setCenter(delDirBox);
         // delDirPane.setBottom(delDirReturn);
         // deleteDirectorate.setOnAction(e -> primaryStage.setScene(deldi4Scene));
 
         // delDirPane.setBottom(delDirReturn);
         // delDirReturn.setOnAction(e -> primaryStage.setScene(divisionScene));
 
-        // delSerButton.setOnAction(e -> {
+        // delDirSerButton.setOnAction(e -> {
         //     for (int i = 0; i < directoratesList.size(); i++) {
-        //         if (delDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+        //         if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
         //             delDirResult.setVisible(true);
         //             delDirResult.setText(
         //                     "Name: " + directoratesList.get(i).getName() + "     ID: "
@@ -806,7 +809,7 @@ public class App extends Application {
         // });
         // delDirButton.setOnAction(e -> {
         //     for (int i = 0; i < directoratesList.size(); i++) {
-        //         if (delDirNameSer.getText().equals(directoratesList.get(i).getID())) {
+        //         if (delDirNameSer.getText().equals(String.valueOf(directoratesList.get(i).getID()))) {
         //             directoratesList.remove(i);
         //             delDirResult.setText("");
         //             delDirResult.setVisible(false);
@@ -852,10 +855,10 @@ public class App extends Application {
         // addDirSave.setOnAction(e -> {
 
         //     if (dirNameField.getText().equals("")) {
-        //         addDirChecking.setText("Division name missing, please enter a name");
+        //         addDirChecking.setText("Directorate name missing, please enter a name");
 
         //     } else if (dirIDField.getText().equals("")) {
-        //         addDirChecking.setText("Division ID missing, Please enter an ID");
+        //         addDirChecking.setText("Directorate ID missing, Please enter an ID");
 
         //     } else {
         //         Directorate addDirision = new Directorate(dirNameField.getText(), dirIDField.getText());
@@ -863,6 +866,202 @@ public class App extends Application {
         //         dirNameField.clear();
         //         dirIDField.clear();
         //         primaryStage.setScene(divisionScene);
+        //     }
+        // });
+        // // Add Department scene
+
+        // BorderPane AddDipPane = new BorderPane();
+        // VBox AddDipBox = new VBox(20);
+        // Text dipName = new Text("Enter Name and ID to add new Department");
+        // dipName.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // TextField dipNameField = new TextField();
+        // dipNameField.setMaxSize(409, 64);
+        // dipNameField.setPromptText("Enter Directorate Name");
+        // NumberTextField dipIDField = new NumberTextField();
+        // dipIDField.setPromptText("Enter ID");
+        // dipIDField.setMaxSize(409, 64);
+        // Button addDipSave = new Button("Save");
+        // addDipSave.setMaxSize(409, 64);
+        // Label addDipChecking = new Label("");
+        // addDipChecking.setFont(Font.font("Inter", FontWeight.BOLD, 36));
+
+        // Scene dipAddScene = new Scene(AddDipPane, 1024, 640);
+        // AddDipBox.getChildren().addAll(dipName, dipNameField, dipIDField, addDipSave, addDipChecking);
+        // AddDipBox.setAlignment(Pos.CENTER);
+        // AddDipPane.setPadding(new Insets(15, 15, 15, 15));
+        // AddDipPane.setCenter(AddDirBox);
+        // addDepartment.setOnAction(e -> primaryStage.setScene(dipAddScene));
+        // Button addDipBack = new Button("Back");
+        // AddDipPane.setBottom(addDipBack);
+        // addDipBack.setOnAction(e -> primaryStage.setScene(directorateScene));
+
+        // // modify Departement scene
+        // BorderPane modifyDipPane = new BorderPane();
+        // VBox modifyDipBox = new VBox(20);
+        // Text modifyDipText = new Text("Modify Directorate");
+        // modifyDirText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // NumberTextField modifyDipNameSer = new NumberTextField();
+        // modifyDipNameSer.setMaxSize(409, 64);
+        // modifyDipNameSer.setPromptText("Enter ID");
+        // Button modifyDipSerButton = new Button("Search");
+        // modifyDipSerButton.setMaxSize(409, 64);
+        // TextField modifyDipFi = new TextField();
+        // modifyDipFi.setMaxSize(409, 64);
+        // modifyDipFi.setVisible(false);
+        // NumberTextField modifyDipIDFi = new NumberTextField();
+        // modifyDipIDFi.setMaxSize(409, 64);
+        // modifyDipIDFi.setVisible(false);
+        // Button modifyDipButton = new Button("Save");
+        // modifyDipButton.setMaxSize(409, 64);
+        // modifyDipButton.setVisible(false);
+        // Button modifyDipReturn = new Button("Return");
+        // Text modifyDipCheck = new Text();
+        // modifyDipCheck.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+
+        // Scene modifydipScene = new Scene(modifyDipPane, 1024, 640);
+        // modifyDipBox.getChildren().addAll(modifyDipText, modifyDipNameSer, modifyDipSerButton, modifyDipFi,
+        //         modifyDipIDFi,
+        //         modifyDipButton, modifyDipCheck);
+        // modifyDipBox.setAlignment(Pos.CENTER);
+        // modifyDipPane.setPadding(new Insets(15, 15, 15, 15));
+        // modifyDipPane.setCenter(modifyDivBox);
+        // modifyDepartment.setOnAction(e -> primaryStage.setScene(modifydipScene));
+
+        // modifyDipPane.setBottom(modifyDipReturn);
+        // modifyDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
+
+        // modifyDipSerButton.setOnAction(e -> {
+        //     for (int i = 0; i < departmentsList.size(); i++) {
+        //         if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+        //             modifyDipFi.setVisible(true);
+        //             modifyDipFi.setText(departmentsList.get(i).getName());
+        //             modifyDipIDFi.setVisible(true);
+        //             modifyDipIDFi.setText(departmentsList.get(i).getID());
+        //             modifyDipButton.setVisible(true);
+        //         }
+        //     }
+        // });
+        // modifyDipButton.setOnAction(e -> {
+        //     if (modifyDipFi.getText().equals("")) {
+        //         modifyDipCheck.setText("Department name missing, please enter a name");
+
+        //     } else if (modifyDipIDFi.getText().equals("")) {
+        //         modifyDipCheck.setText("Department ID missing, Please enter an ID");
+
+        //     } else {
+        //         for (int i = 0; i < departmentsList.size(); i++) {
+        //             if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+        //                 departmentsList.get(i).setName(modifyDipFi.getText());
+        //                 departmentsList.get(i).setID(modifyDipIDFi.getText());
+
+        //             }
+        //             modifyDipIDFi.clear();
+        //             modifyDipFi.clear();
+        //             modifyDipIDFi.setVisible(false);
+        //             modifyDipFi.setVisible(false);
+        //             modifyDipButton.setVisible(false);
+        //             primaryStage.setScene(directorateScene);
+        //         }
+        //     }
+        // });
+
+        // // Delete Directorate scene
+        // BorderPane delDipPane = new BorderPane();
+        // VBox delDipBox = new VBox(20);
+        // Text delDipText = new Text("Delete Department");
+        // modifyDipText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+        // NumberTextField delDipNameSer = new NumberTextField();
+        // delDipNameSer.setMaxSize(409, 64);
+        // delDipNameSer.setPromptText("Enter ID");
+        // Button delDipSerButton = new Button("Search");
+        // delDipSerButton.setMaxSize(409, 64);
+        // Text delDipResult = new Text();
+        // delDipResult.setFont(Font.font("Inter", FontWeight.BOLD, 38));
+        // Button delDipButton = new Button("Delete and Save");
+        // delDipButton.setVisible(false);
+        // delDipButton.setMaxSize(409, 64);
+        // Button delDipReturn = new Button("Return");
+
+        // Scene deldipScene = new Scene(delDipPane, 1024, 640);
+        // delDipBox.getChildren().addAll(delDipText, delDipNameSer, delDipSerButton, delDipResult, delDipButton);
+        // delDipBox.setAlignment(Pos.CENTER);
+        // delDipPane.setPadding(new Insets(15, 15, 15, 15));
+        // delDipPane.setCenter(delDipBox);
+        // delDipPane.setBottom(delDipReturn);
+        // deleteDepartment.setOnAction(e -> primaryStage.setScene(deldipScene));
+
+        // delDipPane.setBottom(delDipReturn);
+        // delDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
+
+        // delDipSerButton.setOnAction(e -> {
+        //     for (int i = 0; i < departmentsList.size(); i++) {
+        //         if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+        //             delDipResult.setVisible(true);
+        //             delDipResult.setText(
+        //                     "Name: " + departmentsList.get(i).getName() + "     ID: " + departmentsList.get(i).getID());
+        //             delDipButton.setVisible(true);
+        //         }
+        //     }
+        // });
+        // delDipButton.setOnAction(e -> {
+        //     for (int i = 0; i < departmentsList.size(); i++) {
+        //         if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+        //             departmentsList.remove(i);
+        //             delDipResult.setText("");
+        //             delDipResult.setVisible(false);
+        //             delDipButton.setVisible(false);
+        //             primaryStage.setScene(directorateScene);
+
+        //         }
+        //     }
+        // });
+
+        // // List of Directorate scene
+        // BorderPane listDipPane = new BorderPane();
+        // VBox listDipBox = new VBox(20);
+        // Text listDipText = new Text("List of Departments:");
+        // listDipText.setFont(Font.font("Inter", FontWeight.BOLD, 48));
+
+        // Button listDipReturn = new Button("Return");
+
+        // Scene listdipScene = new Scene(listDipPane, 1024, 640);
+        // listDipBox.getChildren().addAll(listDirText);
+        // listDipBox.setAlignment(Pos.CENTER);
+        // listDipPane.setPadding(new Insets(15, 15, 15, 15));
+        // listDipPane.setCenter(listDipBox);
+        // listDipPane.setBottom(listDipReturn);
+
+        // viewListOfDepartment.setOnAction(e -> {
+        //     primaryStage.setScene(listdipScene);
+
+        //     for (int i = 0; i < departmentsList.size(); i++) {
+        //         String list = "\nName:" + departmentsList.get(i).getName() + "                  ID:   "
+        //                 + departmentsList.get(i).getID();
+        //         // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
+
+        //         listDipBox.getChildren().add(new Text(list));
+
+        //     }
+
+        // });
+
+        // listDipPane.setBottom(delDipReturn);
+        // listDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
+
+        // addDipSave.setOnAction(e -> {
+
+        //     if (dipNameField.getText().equals("")) {
+        //         addDipChecking.setText("Department name missing, please enter a name");
+
+        //     } else if (dirIDField.getText().equals("")) {
+        //         addDirChecking.setText("Department ID missing, Please enter an ID");
+
+        //     } else {
+        //         Department addDipision = new Department(dipNameField.getText(), dipIDField.getText());
+        //         departmentsList.add(addDipision);
+        //         dipNameField.clear();
+        //         dipIDField.clear();
+        //         primaryStage.setScene(directorateScene);
         //     }
         // });
 
