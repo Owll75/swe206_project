@@ -174,17 +174,31 @@ public class App extends Application {
        addBandPane.setCenter(addBandBox);
        Button backButto7 = new Button("Back");
        addBandBox.getChildren().addAll(addBandText,bandIDfield1,bandNamefield1,bandAddButton,massage3);
-       backButto7.setOnAction(e -> primaryStage.setScene(scene3));
+       backButto7.setOnAction(e -> {
+           massage3.setText("");
+            bandNamefield1.clear();
+            bandIDfield1.clear();
+           primaryStage.setScene(scene3);});
        addBandPane.setTop(backButto7);
+       
        addBandButton.setOnAction(e -> {primaryStage.setScene(scene8);});
        bandAddButton.setOnAction(ActionEvent -> {
            try{
-           bandsList.add(new jobBands(bandNamefield1.getText(),Integer.valueOf(bandIDfield1.getText()), new ArrayList<Job>()));
-           bandsNamesList.add(bandNamefield1.getText());
-           massage3.setText("Bnad added secssfuly");
+            Boolean testAdd =false;
+            for (int i = 0; i < bandsList.size(); i++) {
+                if((bandsList.get(i).getBandName()).equals(bandNamefield1.getText())||(String.valueOf(bandsList.get(i).getBandID())).equals(bandIDfield1.getText())){
+                massage3.setText("You can not add duplicated name or ID");
+                testAdd=true;
+                }
+            }
+            if(!testAdd){
+                bandsList.add(new jobBands(bandNamefield1.getText(),Integer.valueOf(bandIDfield1.getText()), new ArrayList<Job>()));
+                bandsNamesList.add(bandNamefield1.getText());
+                massage3.setText("Bnad added secssfuly");
+            }
        }
        catch(Exception e){
-           massage3.setText("Bnad addign filed pleese enter an integer number only for ID ");}});
+           massage3.setText("Adding Bnad has been filed pleese enter an integer number only for ID ");}});
        //delete band
        BorderPane deleteBandPane = new BorderPane();
        VBox deleteBandBox = new VBox(20);
@@ -271,32 +285,52 @@ public class App extends Application {
        modifyBandButton.setOnAction(e -> {
            bandsComboBox2.getItems().clear();
            bandsComboBox2.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
-           primaryStage.setScene(scene7);
+            primaryStage.setScene(scene7);
        });
        //
+       ArrayList<String> jobNamesList = new ArrayList<>();
+       for (int i = 0; i < jobList.size(); i++) {
+        jobNamesList.add(jobList.get(i).getName());
+       }
        //assign band
        BorderPane assignBandPane = new BorderPane();
        VBox assignBandBox = new VBox(20);
        Text assignBandText = new Text("Assign Band");
        assignBandText.setFont(Font.font("Inter", FontWeight.BOLD, 42));
        ComboBox<String> bandsComboBox3 = new ComboBox<>(FXCollections.observableArrayList(bandsNamesList));
-       ComboBox<String>jobComboBox = new ComboBox<>();
+       ComboBox<String>jobComboBox = new ComboBox<>(FXCollections.observableArrayList(jobNamesList));
        Button bandAssignButton = new Button("Assign");
+       Text massage2 = new Text("");
        bandAssignButton.setMaxSize(409, 64);
        bandsComboBox3.setMaxSize(409, 64);
        jobComboBox.setMaxSize(409, 64);
-       assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton);
+       assignBandBox.getChildren().addAll(assignBandText,bandsComboBox3,jobComboBox,bandAssignButton,massage2);
        Scene scene9 = new Scene(assignBandPane, 1024, 640);
        assignBandBox.setAlignment(Pos.CENTER);
        assignBandPane.setPadding(new Insets(15, 15, 15, 15));
        assignBandPane.setCenter(assignBandBox);
        Button backButto8 = new Button("Back");
-       backButto8.setOnAction(e -> primaryStage.setScene(scene3));
+       backButto8.setOnAction(e -> {primaryStage.setScene(scene3);});
        assignBandPane.setTop(backButto8);
        AssignBandButton.setOnAction(e -> {
            bandsComboBox3.getItems().clear();
            bandsComboBox3.getItems().addAll(FXCollections.observableArrayList(bandsNamesList));
+           jobComboBox.getItems().clear();
+           massage2.setText("");
            primaryStage.setScene(scene9);
+       });
+       bandAssignButton.setOnAction(e ->{
+           for(int i = 0; i < bandsList.size(); i++){
+            if(bandsList.get(i).getBandName().equals(bandsComboBox3.getSelectionModel().getSelectedItem())){
+                for (int j = 0; j < jobList.size(); j++) {
+                    if(jobList.get(i).getName().equals(jobComboBox.getSelectionModel().getSelectedItem())){
+                        bandsList.get(i).assignBand(jobList.get(i));
+                        massage2.setText("Band assigned Secssfuly");
+                    }
+                   }
+            }
+
+           }
        });
 
 

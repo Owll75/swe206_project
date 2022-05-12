@@ -10,6 +10,9 @@ public class Job implements Serializable {
       this.jobName = jobName;
       this.baseSalary = baseSalary;
    }
+   public String getName(){
+      return jobName;
+   }
 
    public double calculateExpectedSalary(Applicant applicant) {
       double salary = 0;

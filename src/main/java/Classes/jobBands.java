@@ -39,8 +39,8 @@ public class jobBands implements Serializable {
 
    }
 
-   public void assignBand(ArrayList<Job> listOfJobs) {
-      this.listOfJobs = listOfJobs;
+   public void assignBand(Job Job) {
+      this.listOfJobs.add(Job);
    }
 
    public double totalSalary() {
