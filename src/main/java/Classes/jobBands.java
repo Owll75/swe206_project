@@ -17,8 +17,8 @@ public class jobBands implements Serializable {
       return bandName;
    }
 
-   public String getBandID(){
-      return String.valueOf(bandName);
+   public int getBandID(){
+      return bandID;
    }
 
    public void addBand(String bandName, int bandID, ArrayList<Job> listOfJobs) {
