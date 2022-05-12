@@ -514,7 +514,7 @@ public class App extends Application {
 
         addDivBack.setOnAction(e -> primaryStage.setScene(unitScene));
 
-        // modify Departement scene
+        // modify Division scene
         BorderPane modifyDivPane = new BorderPane();
         VBox modifyDivtBox = new VBox(20);
         Text modifyDivText = new Text("Modify Directorate");
@@ -1570,10 +1570,40 @@ public class App extends Application {
         interviewerPane.setPadding(new Insets(15, 15, 15, 15));
         interviewerPane.setCenter(interviewerBox);
         Button logOutButton10 = new Button("Log out");
-        logOutButton10.setOnAction(e -> primaryStage.setScene(scene1));
+
         interviewerPane.setTop(logOutButton10);
         backInterview.setOnAction(e -> primaryStage.setScene(scene10));
         backInterview2.setOnAction(e -> primaryStage.setScene(scene10));
+
+        logOutButton10.setOnAction(ActionEvent -> {
+
+            primaryStage.setScene(scene1);
+
+            // Save featurer test
+            FileOutputStream fileOut = null;
+            ArrayList<ArrayList> dataLists = new ArrayList<>();
+            dataLists.add(applicantList);
+            dataLists.add(jobList);
+            dataLists.add(bandsList);
+            dataLists.add(interviewerList);
+            dataLists.add(interviewList);
+            dataLists.add(divisionsList);
+            dataLists.add(directoratesList);
+            dataLists.add(departmentsList);
+
+            try {
+                fileOut = new FileOutputStream("data.dat");
+                ObjectOutputStream output = new ObjectOutputStream(fileOut);
+                output.writeObject(dataLists);
+
+                output.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         // sign in button
         singinButton.setOnAction(new EventHandler<ActionEvent>() {
