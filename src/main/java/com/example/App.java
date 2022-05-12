@@ -672,7 +672,7 @@ public class App extends Application {
             primaryStage.setScene(listdivScene);
 
             for (int i = 0; i < divisionsList.size(); i++) {
-                String list = "\nName:" + divisionsList.get(i).getName() + " ID: "
+                String list = "\nName:    " + divisionsList.get(i).getName() + "     ID:    "
                         + divisionsList.get(i).getID();
 
                 // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
@@ -897,7 +897,7 @@ public class App extends Application {
             primaryStage.setScene(listdirScene);
 
             for (int i = 0; i < directoratesList.size(); i++) {
-                String list = "\nName:" + directoratesList.get(i).getName() + " ID: "
+                String list = "\nName:    " + directoratesList.get(i).getName() + "   ID:    "
                         + directoratesList.get(i).getID();
                 // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
@@ -996,15 +996,18 @@ public class App extends Application {
         modifyDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
 
         modifyDipSerButton.setOnAction(e -> {
-            for (int i = 0; i < departmentsList.size(); i++) {
-                if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
-                    modifyDipFi.setVisible(true);
-                    modifyDipFi.setText(departmentsList.get(i).getName());
-                    modifyDipIDFi.setVisible(true);
-                    modifyDipIDFi.setText(departmentsList.get(i).getID());
-                    modifyDipButton.setVisible(true);
-                } else {
-                    modifyDipCheck.setText("ID not found, try again");
+            if (modifyDipNameSer.getText().equals("")) {
+
+            } else {
+                for (int i = 0; i < departmentsList.size(); i++) {
+                    if (modifyDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+                        modifyDipCheck.setText("");
+                        modifyDipFi.setVisible(true);
+                        modifyDipFi.setText(departmentsList.get(i).getName());
+                        modifyDipIDFi.setVisible(true);
+                        modifyDipIDFi.setText(departmentsList.get(i).getID());
+                        modifyDipButton.setVisible(true);
+                    }
                 }
             }
         });
@@ -1022,6 +1025,7 @@ public class App extends Application {
                         departmentsList.get(i).setID(modifyDipIDFi.getText());
 
                     }
+                    modifyDipCheck.setText("");
                     modifyDipNameSer.clear();
                     modifyDipIDFi.clear();
                     modifyDipFi.clear();
@@ -1049,6 +1053,8 @@ public class App extends Application {
         delDipButton.setVisible(false);
         delDipButton.setMaxSize(409, 64);
         Button delDipReturn = new Button("Return");
+        Text delDipCheck = new Text();
+        delDipCheck.setFont(Font.font("Inter", FontWeight.BOLD, 38));
 
         Scene deldipScene = new Scene(delDipPane, 1024, 640);
         delDipBox.getChildren().addAll(delDipText, delDipNameSer, delDipSerButton,
@@ -1063,8 +1069,12 @@ public class App extends Application {
         delDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
 
         delDipSerButton.setOnAction(e -> {
+            if (delDipNameSer.getText().equals("")) {
+                delDipCheck.setText("ID not vaild, or doesn't exist. Try again");
+            }
             for (int i = 0; i < departmentsList.size(); i++) {
                 if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
+                    delDipCheck.setText("");
                     delDipResult.setVisible(true);
                     delDipResult.setText(
                             "Name: " + departmentsList.get(i).getName() + " ID: " +
@@ -1077,6 +1087,7 @@ public class App extends Application {
             for (int i = 0; i < departmentsList.size(); i++) {
                 if (delDipNameSer.getText().equals(departmentsList.get(i).getID())) {
                     departmentsList.remove(i);
+                    delDipCheck.setText("");
                     delDipNameSer.clear();
                     delDipResult.setText("");
                     delDipResult.setVisible(false);
@@ -1106,7 +1117,7 @@ public class App extends Application {
             primaryStage.setScene(listdipScene);
 
             for (int i = 0; i < departmentsList.size(); i++) {
-                String list = "\nName:" + departmentsList.get(i).getName() + " ID: "
+                String list = "\nName:   " + departmentsList.get(i).getName() + "     ID:      "
                         + departmentsList.get(i).getID();
                 // list.setFont(Font.font("Inter", FontWeight.BOLD, 42));
 
@@ -1116,7 +1127,12 @@ public class App extends Application {
 
         });
 
-        listDipReturn.setOnAction(e -> primaryStage.setScene(directorateScene));
+        listDipReturn.setOnAction(e -> {
+            listDipBox.getChildren().clear();
+            listDipBox.getChildren().addAll(listDipText);
+
+            primaryStage.setScene(directorateScene);
+        });
 
         addDipSave.setOnAction(e -> {
 
@@ -1130,6 +1146,7 @@ public class App extends Application {
                 Department addDipision = new Department(dipNameField.getText(),
                         dipIDField.getText());
                 departmentsList.add(addDipision);
+                addDipChecking.setText("");
                 dipNameField.clear();
                 dipIDField.clear();
                 primaryStage.setScene(directorateScene);
