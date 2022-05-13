@@ -41,36 +41,36 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
 
         // Used for test purposes
-        // ObjectInputStream input = new ObjectInputStream(new
-        // FileInputStream("data.dat"));
-        // ArrayList<ArrayList> dataList = (ArrayList<ArrayList>) input.readObject();
-        // ArrayList<Applicant> applicantList = dataList.get(0);
-        // ArrayList<Job> jobList = dataList.get(1);
-        // ArrayList<jobBands> bandsList = dataList.get(2);
-        // ArrayList<Interviewer> interviewerList = dataList.get(3);
-        // ArrayList<Interview> interviewList = dataList.get(4);
-        // ArrayList<division> divisionsList = dataList.get(5);
-        // ArrayList<Directorate> directoratesList = dataList.get(6);
-        // ArrayList<Department> departmentsList = dataList.get(7);
-        // input.close();
-        ArrayList<Job> jobList = new ArrayList<Job>();
-        ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
-        ArrayList<Applicant> applicantList = new ArrayList<>();
-        ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
-        ArrayList<Interview> interviewList = new ArrayList<Interview>();
-        ArrayList<division> divisionsList = new ArrayList<division>();
-        ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
-        ArrayList<Department> departmentsList = new ArrayList<>();
-        jobList.add(new Job("Program Manager", 1));
-        jobList.add(new Job("Product Manager", 1));
+        ObjectInputStream input = new ObjectInputStream(new
+        FileInputStream("data.dat"));
+        ArrayList<ArrayList> dataList = (ArrayList<ArrayList>) input.readObject();
+        ArrayList<Applicant> applicantList = dataList.get(0);
+        ArrayList<Job> jobList = dataList.get(1);
+        ArrayList<jobBands> bandsList = dataList.get(2);
+        ArrayList<Interviewer> interviewerList = dataList.get(3);
+        ArrayList<Interview> interviewList = dataList.get(4);
+        ArrayList<division> divisionsList = dataList.get(5);
+        ArrayList<Directorate> directoratesList = dataList.get(6);
+        ArrayList<Department> departmentsList = dataList.get(7);
+        input.close();
+        // ArrayList<Job> jobList = new ArrayList<Job>();
+        // ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
+        // ArrayList<Applicant> applicantList = new ArrayList<>();
+        // ArrayList<Interviewer> interviewerList = new ArrayList<Interviewer>();
+        // ArrayList<Interview> interviewList = new ArrayList<Interview>();
+        // ArrayList<division> divisionsList = new ArrayList<division>();
+        // ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
+        // ArrayList<Department> departmentsList = new ArrayList<>();
+        // jobList.add(new Job("Program Manager", 1));
+        // jobList.add(new Job("Product Manager", 1));
         // ArrayList<jobBands> bandsList = new ArrayList<jobBands>();
         // ArrayList<division> divisionsList = new ArrayList<division>();
         // ArrayList<Directorate> directoratesList = new ArrayList<Directorate>();
         // ArrayList<Department> departmentsList = new ArrayList<Department>();
 
-        interviewerList.add(new Interviewer("Jonathan"));
-        interviewerList.add(new Interviewer("Joseph"));
-        interviewerList.add(new Interviewer("Jotaro"));
+        // interviewerList.add(new Interviewer("Jonathan"));
+        // interviewerList.add(new Interviewer("Joseph"));
+        // interviewerList.add(new Interviewer("Jotaro"));
 
         ArrayList<String> interviewerNameList = new ArrayList<String>();
         for (int i = 0; i < interviewerList.size(); i++) {
